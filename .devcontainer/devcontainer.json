@@ -1,0 +1,27 @@
+{
+  "name": "MonsterQuest C++",
+  "image": "mcr.microsoft.com/devcontainers/cpp:1-ubuntu-22.04",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-themes",
+        "ms-vscode.makefile-tools",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 4,
+        "C_Cpp.default.cppStandard": "c++17",
+        "C_Cpp.default.includePath": [
+          "${workspaceFolder}/lib",
+          "${workspaceFolder}/app"
+        ],
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "postCreateCommand": "echo '✅ MonsterQuest dev environment ready! Run: make run'"
+}
