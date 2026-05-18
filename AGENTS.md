@@ -1,76 +1,79 @@
 # AGENTS.md — MonsterQuest
 
-> File hiến pháp. Đọc file này trước khi làm bất kỳ việc gì.
+> Read this file before doing anything. Rules here apply to all AI tools.
 
 ---
 
-## Tổng quan
+## Project
 
-**Tên:** MonsterQuest  
-**Loại:** Console RPG — Pokémon-inspired, 3 gen (Kanto / Johto / Hoenn)  
-**Môn:** CSC10004 DSA — HCMUS  
-**Mục tiêu:** Dùng ≥5/7 thư viện template tự cài có ý nghĩa trong gameplay
-
-Đọc thêm: `docs/brief.md`, `docs/BRD.md`
-
----
-
-## Môi trường
-
-|               | Chi tiết                                |
-| ------------- | --------------------------------------- |
-| Dev           | GitHub Codespaces (Ubuntu)              |
-| Chấm bài      | Windows (MinGW g++)                     |
-| Compiler flag | `-std=c++17 -Wall -Wextra -I./lib`      |
-| Clear screen  | `#ifdef _WIN32` → `cls`, else → `clear` |
+|            |                                                                     |
+| ---------- | ------------------------------------------------------------------- |
+| **Name**   | Pocket Quest                                                        |
+| **Type**   | Console RPG — Pokémon-inspired, Gen 1 Kanto (expandable to Gen 2–3) |
+| **Course** | CSC10004 DSA — HCMUS                                                |
+| **Goal**   | Use ≥5/7 custom template lib components meaningfully in gameplay    |
 
 ---
 
-## Ánh xạ thư viện → game
+## Environment
 
-| Thư viện                 | Dùng ở đâu                           |
-| ------------------------ | ------------------------------------ |
-| `LinkedList<City>`       | Chuỗi thành phố mỗi Region           |
-| `Queue<Monster>`         | Party battle — mon đầu tiên ra đánh  |
-| `Stack<BattleLog>`       | Log 5 dòng gần nhất trong battle     |
-| `HashTable<string,Item>` | Inventory — tra cứu item theo tên    |
-| `Algorithms`             | Sort party theo HP/SPD, sort Pokédex |
-| `PriorityQueue<Move>`    | Trainer AI — chọn move mạnh nhất     |
-| `BST<int,Monster>`       | Pokédex — index theo ID              |
+|                  |                                                          |
+| ---------------- | -------------------------------------------------------- |
+| **Dev**          | Antigravity (Windows)                                    |
+| **Graded on**    | Windows (MinGW g++)                                      |
+| **Compile**      | `g++ -std=c++17 -Wall -Wextra -I./lib`                   |
+| **Clear screen** | `#ifdef _WIN32` → `system("cls")` else `system("clear")` |
+| **UI**           | Terminal only — no GUI                                   |
 
 ---
 
-## Coding style
+## Library → Game Mapping
 
-- Không magic numbers → dùng `const` hoặc `enum`
-- Mỗi hàm một trách nhiệm
-- Comment trên mỗi hàm quan trọng, đặc biệt chỗ dùng lib
-- Không `using namespace std` trong `.hpp`
-- Tách `.hpp` / `.cpp`
-- Validate mọi `cin` input — không để crash
-
----
-
-## Giới hạn cứng
-
-- ❌ KHÔNG sửa `lib/`
-- ❌ KHÔNG dùng STL containers thay lib tự cài
-- ❌ KHÔNG GUI
-- ❌ KHÔNG crash khi nhập sai
+| Library                  | Used for                               |
+| ------------------------ | -------------------------------------- |
+| `LinkedList<City>`       | Chain of cities in each Region         |
+| `Queue<Monster>`         | Battle party — front mon fights first  |
+| `Stack<BattleLog>`       | Last 5 battle log lines                |
+| `HashTable<string,Item>` | Inventory — O(1) lookup by item name   |
+| `Algorithms`             | Sort party by HP/SPD, sort Pokédex     |
+| `PriorityQueue<Move>`    | Trainer AI — highest damage move first |
+| `BST<int,Monster>`       | Pokédex — indexed by monster ID        |
 
 ---
 
-## Quy trình mỗi phase
+## Coding Style
 
-1. Đọc file phase trong `docs/plans/`
-2. Implement theo checklist
-3. Báo cáo files thêm/sửa/xóa
-4. Hướng dẫn manual test
-5. Nhắc update `CHANGELOG.md` + tick `master-plan.md`
+- No magic numbers — use `const` or `enum`
+- One responsibility per function
+- Short comment above every important function, especially lib usage
+- No `using namespace std` in `.hpp` files
+- Separate `.hpp` (declaration) and `.cpp` (definition) in `app/`
+- Validate all `cin` input — never crash on bad input
 
 ---
 
-## Trạng thái hiện tại
+## Hard Rules
 
-Xem `docs/plans/master-plan.md` — tiến độ phases
-Xem `docs/CHANGELOG.md` — những gì đã xong
+- NO STL containers (`std::vector`, `std::map`, `std::queue`, `std::stack`...) as lib replacements
+- NO GUI libraries
+- NO crashing on invalid input — always validate before use
+
+---
+
+## Per-Phase Workflow
+
+1. Read the phase file: `@docs/plans/phase-XX.md`
+2. Implement following the checklist
+3. Report: files added / modified / deleted
+4. Provide manual test steps
+5. Remind to update `docs/CHANGELOG.md` and tick `docs/plans/master-plan.md`
+
+---
+
+## Key Docs
+
+| File                        | Purpose                                  |
+| --------------------------- | ---------------------------------------- |
+| `docs/plans/master-plan.md` | Phase tracker — check before starting    |
+| `docs/CHANGELOG.md`         | Update after every completed phase       |
+| `docs/BRD.md`               | Full requirements — @mention when needed |
