@@ -1,0 +1,61 @@
+---
+BasedOnStyle: Google
+
+# ================== CĂN BẢN ==================
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+
+# ================== CẤU TRÚC ==================
+AccessModifierOffset: -4
+NamespaceIndentation: Inner
+IndentCaseLabels: false
+IndentGotoLabels: false
+IndentRequiresClause: true
+
+# ================== ALIGNMENT ==================
+AlignAfterOpenBracket: Align
+AlignOperands: Align
+AlignTrailingComments: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+
+# ================== BRACES ==================
+BreakBeforeBraces: Attach
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeWhile: false
+  IndentBraces: false
+
+# ================== LINE BREAK ==================
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: InlineOnly
+AlwaysBreakTemplateDeclarations: true
+BinPackArguments: true
+BinPackParameters: true
+
+# ================== POINTER/REFERENCE ==================
+PointerAlignment: Left
+ReferenceAlignment: Left
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInAngles: Never
+SpacesInSquareBrackets: false
+
+# ================== COMMENTS & OTHERS ==================
+ReflowComments: true
+MaxEmptyLinesToKeep: 1
+Standard: Latest
+Cpp11BracedListStyle: true

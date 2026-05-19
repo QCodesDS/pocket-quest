@@ -1,0 +1,33 @@
+CompileFlags:
+  Compiler: C:/msys64/mingw64/bin/g++.exe
+  Add:
+    - "-std=c++17"
+    - "--target=x86_64-w64-mingw32"
+    - "-fparse-all-comments" # Rất quan trọng cho Doxygen
+    - "-fexceptions"
+  Remove:
+    - "-Wconversion"
+
+  QueryDriver:
+    - "C:/msys64/mingw64/bin/g++.exe"
+
+Index:
+  Background: Build
+
+Diagnostics:
+  UnusedIncludes: Strict
+
+# ================== Hỗ trợ Doxygen & Hover ==================
+InlayHints:
+  Enabled: true
+
+Hover:
+  ShowAKA: true
+
+Completion:
+  InsertIncludes: false
+
+# Tăng hiệu suất và độ chính xác
+MiscellaneousFlags:
+  - "--all-scopes-completion"
+  - "--header-insertion-decorators=false"
