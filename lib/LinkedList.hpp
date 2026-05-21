@@ -17,27 +17,29 @@
  * @tparam T Kiểu dữ liệu của các phần tử được lưu trữ trong danh sách.
  */
 template <typename T>
-class LinkedList {
+class LinkedList
+{
 private:
     /**
      * @struct LLNode
      * @brief  Cấu trúc một phần tử Node nội bộ (Nested Struct) phục vụ việc liên kết dữ liệu.
      */
-    struct LLNode {
-        T data;        ///< Dữ liệu của phần tử
-        LLNode* next;  ///< Con trỏ quản lý liên kết đến Node kế tiếp
+    struct LLNode
+    {
+        T data;       ///< Dữ liệu của phần tử
+        LLNode *next; ///< Con trỏ quản lý liên kết đến Node kế tiếp
 
         /**
          * @brief Khởi tạo một Node mới với dữ liệu cho trước.
          * @param val Giá trị dữ liệu cần lưu trữ
          */
-        LLNode(const T& val) : data(val), next(nullptr) {}
+        LLNode(const T &val) : data(val), next(nullptr) {}
     };
 
-    LLNode* _head;    ///< Con trỏ quản lý Node đầu danh sách
-    LLNode* _tail;    ///< Con trỏ quản lý Node cuối danh sách
-    LLNode* _cursor;  ///< Con trỏ nội bộ phục vụ tác vụ duyệt tuần tự
-    int _size;        ///< Số lượng phần tử hiện có trong danh sách
+    LLNode *_head;   ///< Con trỏ quản lý Node đầu danh sách
+    LLNode *_tail;   ///< Con trỏ quản lý Node cuối danh sách
+    LLNode *_cursor; ///< Con trỏ nội bộ phục vụ tác vụ duyệt tuần tự
+    int _size;       ///< Số lượng phần tử hiện có trong danh sách
 
 public:
     // ================================================================================
@@ -63,12 +65,15 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @param  val Giá trị phần tử cần chèn
      */
-    void insertFront(const T& val) {
-        LLNode* node = new LLNode(val);
+    void insertFront(const T &val)
+    {
+        LLNode *node = new LLNode(val);
         node->next = _head;
         _head = node;
-        if (!_tail) _tail = _head;
-        if (!_cursor) _cursor = _head;
+        if (!_tail)
+            _tail = _head;
+        if (!_cursor)
+            _cursor = _head;
         _size++;
     }
 
@@ -77,15 +82,20 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @param  val Giá trị phần tử cần chèn
      */
-    void insertBack(const T& val) {
-        LLNode* node = new LLNode(val);
-        if (!_tail) {
+    void insertBack(const T &val)
+    {
+        LLNode *node = new LLNode(val);
+        if (!_tail)
+        {
             _head = _tail = node;
-        } else {
+        }
+        else
+        {
             _tail->next = node;
             _tail = node;
         }
-        if (!_cursor) _cursor = _head;
+        if (!_cursor)
+            _cursor = _head;
         _size++;
     }
 
@@ -96,18 +106,22 @@ public:
      * @param  index Vị trí cần chèn trong danh sách
      * @param  val Giá trị phần tử cần chèn
      */
-    void insertAt(int index, const T& val) {
-        if (index <= 0) {
+    void insertAt(int index, const T &val)
+    {
+        if (index <= 0)
+        {
             insertFront(val);
             return;
         }
-        if (index >= _size) {
+        if (index >= _size)
+        {
             insertBack(val);
             return;
         }
-        LLNode* prev = _head;
-        for (int i = 0; i < index - 1; i++) prev = prev->next;
-        LLNode* node = new LLNode(val);
+        LLNode *prev = _head;
+        for (int i = 0; i < index - 1; i++)
+            prev = prev->next;
+        LLNode *node = new LLNode(val);
         node->next = prev->next;
         prev->next = node;
         _size++;
@@ -119,19 +133,26 @@ public:
      * @param  val Giá trị dữ liệu của phần tử cần xóa
      * @return true nếu tìm thấy và xóa thành công, ngược lại trả về false
      */
-    bool remove(const T& val) {
-        LLNode* prev = nullptr;
-        LLNode* cur = _head;
-        while (cur) {
-            if (cur->data == val) {
-                if (cur == _cursor) _cursor = cur->next ? cur->next : _head;
+    bool remove(const T &val)
+    {
+        LLNode *prev = nullptr;
+        LLNode *cur = _head;
+        while (cur)
+        {
+            if (cur->data == val)
+            {
+                if (cur == _cursor)
+                    _cursor = cur->next ? cur->next : _head;
                 if (prev)
                     prev->next = cur->next;
                 else
                     _head = cur->next;
-                if (cur == _tail) _tail = prev;
+                if (cur == _tail)
+                    _tail = prev;
                 delete cur;
                 _size--;
+                if (_size == 0)
+                    _cursor = nullptr;
                 return true;
             }
             prev = cur;
@@ -146,22 +167,29 @@ public:
      * @param  index Vị trí phần tử cần xóa
      * @return true nếu vị trí hợp lệ và xóa thành công, ngược lại trả về false
      */
-    bool removeAt(int index) {
-        if (index < 0 || index >= _size) return false;
-        LLNode* prev = nullptr;
-        LLNode* cur = _head;
-        for (int i = 0; i < index; i++) {
+    bool removeAt(int index)
+    {
+        if (index < 0 || index >= _size)
+            return false;
+        LLNode *prev = nullptr;
+        LLNode *cur = _head;
+        for (int i = 0; i < index; i++)
+        {
             prev = cur;
             cur = cur->next;
         }
-        if (cur == _cursor) _cursor = cur->next ? cur->next : _head;
+        if (cur == _cursor)
+            _cursor = cur->next ? cur->next : _head;
         if (prev)
             prev->next = cur->next;
         else
             _head = cur->next;
-        if (cur == _tail) _tail = prev;
+        if (cur == _tail)
+            _tail = prev;
         delete cur;
         _size--;
+        if (_size == 0)
+            _cursor = nullptr;
         return true;
     }
 
@@ -175,10 +203,13 @@ public:
      * @param  val Giá trị cần tìm kiếm
      * @return Con trỏ LLNode chứa dữ liệu nếu tìm thấy, ngược lại trả về nullptr
      */
-    LLNode* find(const T& val) const {
-        LLNode* cur = _head;
-        while (cur) {
-            if (cur->data == val) return cur;
+    LLNode *find(const T &val) const
+    {
+        LLNode *cur = _head;
+        while (cur)
+        {
+            if (cur->data == val)
+                return cur;
             cur = cur->next;
         }
         return nullptr;
@@ -190,9 +221,11 @@ public:
      * @param  index Vị trí phần tử cần lấy (0-based)
      * @return Tham chiếu (Reference) tới dữ liệu phần tử bên trong node
      */
-    T& at(int index) {
-        LLNode* cur = _head;
-        for (int i = 0; i < index; i++) cur = cur->next;
+    T &at(int index)
+    {
+        LLNode *cur = _head;
+        for (int i = 0; i < index; i++)
+            cur = cur->next;
         return cur->data;
     }
 
@@ -202,9 +235,11 @@ public:
      * @param  index Vị trí phần tử cần lấy (0-based)
      * @return Tham chiếu hằng (Const Reference) tới dữ liệu phần tử
      */
-    const T& at(int index) const {
-        LLNode* cur = _head;
-        for (int i = 0; i < index; i++) cur = cur->next;
+    const T &at(int index) const
+    {
+        LLNode *cur = _head;
+        for (int i = 0; i < index; i++)
+            cur = cur->next;
         return cur->data;
     }
 
@@ -221,8 +256,10 @@ public:
      * @brief  Dịch chuyển con trỏ trượt nội bộ (Cursor) sang Node kế tiếp.
      * @return true nếu dịch chuyển thành công, false nếu Cursor đang ở cuối danh sách
      */
-    bool moveNext() {
-        if (_cursor && _cursor->next) {
+    bool moveNext()
+    {
+        if (_cursor && _cursor->next)
+        {
             _cursor = _cursor->next;
             return true;
         }
@@ -245,7 +282,7 @@ public:
      * @brief  Lấy tham chiếu dữ liệu tại vị trí con trỏ Cursor đang đứng.
      * @return Tham chiếu tới dữ liệu phần tử hiện tại
      */
-    T& getCurrent() { return _cursor->data; }
+    T &getCurrent() { return _cursor->data; }
 
     // ================================================================================
     //  Callback-driven Traversal (Duyệt cấu trúc dữ liệu qua Callback Lambda)
@@ -257,9 +294,11 @@ public:
      * @param  fn Hàm chức năng có chữ ký dạng `void(const T&)` hoặc `void(T&)`
      */
     template <typename Fn>
-    void traverseForward(Fn fn) const {
-        LLNode* cur = _head;
-        while (cur) {
+    void traverseForward(Fn fn) const
+    {
+        LLNode *cur = _head;
+        while (cur)
+        {
             fn(cur->data);
             cur = cur->next;
         }
@@ -273,15 +312,19 @@ public:
      * @param  fn Hàm chức năng có chữ ký thực thi trên từng dữ liệu phần tử
      */
     template <typename Fn>
-    void traverseReverse(Fn fn) const {
-        if (!_head) return;
-        T* arr = new T[_size];
-        LLNode* cur = _head;
-        for (int i = 0; i < _size; i++) {
+    void traverseReverse(Fn fn) const
+    {
+        if (!_head)
+            return;
+        T *arr = new T[_size];
+        LLNode *cur = _head;
+        for (int i = 0; i < _size; i++)
+        {
             arr[i] = cur->data;
             cur = cur->next;
         }
-        for (int i = _size - 1; i >= 0; i--) fn(arr[i]);
+        for (int i = _size - 1; i >= 0; i--)
+            fn(arr[i]);
         delete[] arr;
     }
 
@@ -304,10 +347,12 @@ public:
     /**
      * @brief Xóa toàn bộ nội dung của danh sách, giải phóng mọi phân vùng bộ nhớ động đã cấp phát.
      */
-    void clear() {
-        LLNode* cur = _head;
-        while (cur) {
-            LLNode* tmp = cur->next;
+    void clear()
+    {
+        LLNode *cur = _head;
+        while (cur)
+        {
+            LLNode *tmp = cur->next;
             delete cur;
             cur = tmp;
         }
@@ -316,4 +361,4 @@ public:
     }
 };
 
-#endif  // LINKEDLIST_HPP
+#endif // LINKEDLIST_HPP

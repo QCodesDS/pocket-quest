@@ -16,7 +16,7 @@
 
 After every task, report in this format:
 
-```
+```bash
 ## Changes
 - Added: <files>
 - Modified: <files>

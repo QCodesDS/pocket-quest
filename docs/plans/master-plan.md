@@ -4,7 +4,7 @@
 
 | Phase | Tên                      | Thư viện                             | Mốc           | Trạng thái |
 | ----- | ------------------------ | ------------------------------------ | ------------- | ---------- |
-| 01    | Project Setup & Skeleton | —                                    |               | ⬜         |
+| 01    | Project Setup & Skeleton | —                                    |               | ✅         |
 | 02    | World System             | `LinkedList<City>`                   |               | ⬜         |
 | 03    | Battle System            | `Queue<Monster>`, `Stack<BattleLog>` | **V1 ✅**     | ⬜         |
 | 04    | Inventory System         | `HashTable<string,Item>`             |               | ⬜         |

@@ -26,9 +26,10 @@
  * @tparam V Kiểu dữ liệu của Giá trị (Value).
  */
 template <typename K, typename V>
-struct Pair {
-    K key;    ///< Khóa định danh duy nhất của phần tử
-    V value;  ///< Giá trị dữ liệu gắn liền với khóa
+struct Pair
+{
+    K key;   ///< Khóa định danh duy nhất của phần tử
+    V value; ///< Giá trị dữ liệu gắn liền với khóa
 
     /**
      * @brief Khởi tạo mặc định cho cấu trúc Pair.
@@ -40,31 +41,31 @@ struct Pair {
      * @param k Khóa đầu vào
      * @param v Giá trị dữ liệu đầu vào
      */
-    Pair(const K& k, const V& v) : key(k), value(v) {}
+    Pair(const K &k, const V &v) : key(k), value(v) {}
 
     /**
      * @brief Khởi tạo Pair chỉ với thông tin khóa, giá trị được khởi tạo mặc định.
      * @param k Khóa đầu vào
      */
-    Pair(const K& k) : key(k), value(V{}) {}
+    Pair(const K &k) : key(k), value(V{}) {}
 
     /**
      * @brief  Toán tử so sánh nhỏ hơn dựa trên Khóa (Key).
      * @return true nếu khóa của đối tượng này nhỏ hơn đối tượng o, ngược lại trả về false
      */
-    bool operator<(const Pair& o) const { return key < o.key; }
+    bool operator<(const Pair &o) const { return key < o.key; }
 
     /**
      * @brief  Toán tử so sánh lớn hơn dựa trên Khóa (Key).
      * @return true nếu khóa của đối tượng này lớn hơn đối tượng o, ngược lại trả về false
      */
-    bool operator>(const Pair& o) const { return key > o.key; }
+    bool operator>(const Pair &o) const { return key > o.key; }
 
     /**
      * @brief  Toán tử so sánh bằng nhau dựa trên Khóa (Key).
      * @return true nếu hai khóa hoàn toàn trùng nhau, ngược lại trả về false
      */
-    bool operator==(const Pair& o) const { return key == o.key; }
+    bool operator==(const Pair &o) const { return key == o.key; }
 };
 
 // ================================================================================
@@ -78,14 +79,15 @@ struct Pair {
  * @tparam V Kiểu dữ liệu của Giá trị (Value).
  */
 template <typename K, typename V>
-class HashTable {
+class HashTable
+{
 private:
-    static const int DEFAULT_CAP = 64;  ///< Sức chứa mặc định ban đầu của mảng Buckets
-    using Bucket = AVL<Pair<K, V>>;     ///< Định nghĩa kiểu dữ liệu Bucket là một Cây AVL chứa các cặp Pair
+    static const int DEFAULT_CAP = 64; ///< Sức chứa mặc định ban đầu của mảng Buckets
+    using Bucket = AVL<Pair<K, V>>;    ///< Định nghĩa kiểu dữ liệu Bucket là một Cây AVL chứa các cặp Pair
 
-    Bucket* _buckets;  ///< Mảng động lưu trữ các Buckets (Cây AVL)
-    int _cap;          ///< Tổng số lượng Buckets (Kích thước mảng băm)
-    int _size;         ///< Tổng số lượng phần tử thực tế hiện có trong bảng băm
+    Bucket *_buckets; ///< Mảng động lưu trữ các Buckets (Cây AVL)
+    int _cap;         ///< Tổng số lượng Buckets (Kích thước mảng băm)
+    int _size;        ///< Tổng số lượng phần tử thực tế hiện có trong bảng băm
 
     // ================================================================================
     //  Private Internal Utilities (Hàm băm quá tải nội bộ cho các kiểu dữ liệu)
@@ -97,9 +99,11 @@ private:
      * @param  key Khóa dạng chuỗi ký tự cần băm
      * @return Chỉ số Bucket mục tiêu trong mảng băm (Giá trị nằm trong khoảng [0, _cap - 1])
      */
-    int _hash(const std::string& key) const {
+    int _hash(const std::string &key) const
+    {
         unsigned long h = 5381;
-        for (char c : key) h = h * 33 + (unsigned char)c;
+        for (char c : key)
+            h = h * 33 + (unsigned char)c;
         return (int)(h % (unsigned long)_cap);
     }
 
@@ -150,12 +154,16 @@ public:
      * @param  key   Khóa định danh của phần tử cần chèn
      * @param  value Giá trị dữ liệu tương ứng của phần tử
      */
-    void insert(const K& key, const V& value) {
+    void insert(const K &key, const V &value)
+    {
         int idx = _hash(key);
         Pair<K, V> p(key, value);
-        if (_buckets[idx].contains(p)) {
+        if (_buckets[idx].contains(p))
+        {
             _buckets[idx].remove(p);
-        } else {
+        }
+        else
+        {
             _size++;
         }
         _buckets[idx].insert(p);
@@ -167,10 +175,12 @@ public:
      * @param  key Khóa định danh của phần tử cần xóa bỏ
      * @return true nếu xóa thành công, false nếu khóa không tồn tại trong hệ thống
      */
-    bool remove(const K& key) {
+    bool remove(const K &key)
+    {
         int idx = _hash(key);
         Pair<K, V> p(key);
-        if (!_buckets[idx].contains(p)) return false;
+        if (!_buckets[idx].contains(p))
+            return false;
         _buckets[idx].remove(p);
         _size--;
         return true;
@@ -181,11 +191,12 @@ public:
      * @param  key Khóa định danh cần tra cứu dữ liệu
      * @return Con trỏ trỏ tới vùng dữ liệu Value nếu tìm thấy, ngược lại trả về nullptr
      */
-    V* find(const K& key) {
+    V *find(const K &key)
+    {
         int idx = _hash(key);
         Pair<K, V> p(key);
-        auto* node = _buckets[idx].search(p);
-        return node ? &node->data.value : nullptr;
+        auto *pairPtr = _buckets[idx].search(p);
+        return pairPtr ? &pairPtr->value : nullptr;
     }
 
     /**
@@ -193,10 +204,11 @@ public:
      * @param  key Khóa định danh cần tra cứu dữ liệu
      * @return Con trỏ hằng trỏ tới vùng dữ liệu Value nếu tìm thấy, ngược lại trả về nullptr
      */
-    const V* find(const K& key) const {
+    const V *find(const K &key) const
+    {
         int idx = _hash(key);
         Pair<K, V> p(key);
-        auto* node = _buckets[idx].search(p);
+        auto *node = _buckets[idx].search(p);
         return node ? &node->data.value : nullptr;
     }
 
@@ -205,7 +217,8 @@ public:
      * @param  key Khóa định danh cần kiểm tra sự hiện diện
      * @return true nếu khóa tồn tại trong bảng băm, ngược lại trả về false
      */
-    bool contains(const K& key) const {
+    bool contains(const K &key) const
+    {
         int idx = _hash(key);
         Pair<K, V> p(key);
         return _buckets[idx].contains(p);
@@ -222,9 +235,12 @@ public:
      * @param  fn Hàm chức năng callback có chữ ký dạng `void(const K&, V&)` thực thi trên từng cặp phần tử
      */
     template <typename Fn>
-    void forEach(Fn fn) {
-        for (int i = 0; i < _cap; i++) {
-            _buckets[i].inorder([&fn](const Pair<K, V>& p) { fn(p.key, const_cast<V&>(p.value)); });
+    void forEach(Fn fn)
+    {
+        for (int i = 0; i < _cap; i++)
+        {
+            _buckets[i].inorder([&fn](const Pair<K, V> &p)
+                                { fn(p.key, const_cast<V &>(p.value)); });
         }
     }
 
@@ -249,10 +265,12 @@ public:
      * @note  Hàm này gọi lệnh `clear()` trên từng cây AVL để giải phóng bộ nhớ của các Node,
      *        nhưng giữ nguyên mảng lưu trữ gốc `_buckets` và kích thước `_cap`.
      */
-    void clear() {
-        for (int i = 0; i < _cap; i++) _buckets[i].clear();
+    void clear()
+    {
+        for (int i = 0; i < _cap; i++)
+            _buckets[i].clear();
         _size = 0;
     }
 };
 
-#endif  // HASHTABLE_HPP
+#endif // HASHTABLE_HPP

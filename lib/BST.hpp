@@ -17,26 +17,28 @@
  * @tparam T Kiểu dữ liệu của các phần tử được lưu trữ trong cây.
  */
 template <typename T>
-class BST {
+class BST
+{
 private:
     /**
      * @struct BSTNode
      * @brief  Cấu trúc một phần tử Node nội bộ (Nested Struct) phục vụ việc liên kết dữ liệu cây.
      */
-    struct BSTNode {
-        T data;          ///< Dữ liệu của phần tử
-        BSTNode* left;   ///< Con trỏ quản lý nhánh cây con bên trái (Left child)
-        BSTNode* right;  ///< Con trỏ quản lý nhánh cây con bên phải (Right child)
+    struct BSTNode
+    {
+        T data;         ///< Dữ liệu của phần tử
+        BSTNode *left;  ///< Con trỏ quản lý nhánh cây con bên trái (Left child)
+        BSTNode *right; ///< Con trỏ quản lý nhánh cây con bên phải (Right child)
 
         /**
          * @brief Khởi tạo một Node cây nhị phân mới với dữ liệu cho trước.
          * @param val Giá trị dữ liệu cần lưu trữ
          */
-        BSTNode(const T& val) : data(val), left(nullptr), right(nullptr) {}
+        BSTNode(const T &val) : data(val), left(nullptr), right(nullptr) {}
     };
 
-    BSTNode* _root;  ///< Con trỏ gốc quản lý toàn bộ cấu trúc cây (Root node)
-    int _size;       ///< Số lượng phần tử hiện có trong cây
+    BSTNode *_root; ///< Con trỏ gốc quản lý toàn bộ cấu trúc cây (Root node)
+    int _size;      ///< Số lượng phần tử hiện có trong cây
 
     // ================================================================================
     //  Private Internal Utilities (Các hàm đệ quy hỗ trợ kỹ thuật nội bộ)
@@ -49,8 +51,10 @@ private:
      * @param  inserted Biến cờ đánh dấu trạng thái chèn thành công (true nếu chèn mới)
      * @return Con trỏ cập nhật lại liên kết cấu trúc cây sau khi xử lý chèn
      */
-    BSTNode* _insert(BSTNode* node, const T& val, bool& inserted) {
-        if (!node) {
+    BSTNode *_insert(BSTNode *node, const T &val, bool &inserted)
+    {
+        if (!node)
+        {
             inserted = true;
             return new BSTNode(val);
         }
@@ -67,8 +71,10 @@ private:
      * @param  node Con trỏ gốc của nhánh cây con đang xét
      * @return Con trỏ trỏ tới Node có giá trị nhỏ nhất (Node tận cùng bên trái)
      */
-    BSTNode* _minNode(BSTNode* node) const {
-        while (node->left) node = node->left;
+    BSTNode *_minNode(BSTNode *node) const
+    {
+        while (node->left)
+            node = node->left;
         return node;
     }
 
@@ -79,26 +85,31 @@ private:
      * @param  found Biến cờ đánh dấu trạng thái tìm thấy phần tử để xóa
      * @return Con trỏ cập nhật lại liên kết cấu trúc cây sau khi giải phóng bộ nhớ
      */
-    BSTNode* _remove(BSTNode* node, const T& val, bool& found) {
-        if (!node) return nullptr;
+    BSTNode *_remove(BSTNode *node, const T &val, bool &found)
+    {
+        if (!node)
+            return nullptr;
         if (val < node->data)
             node->left = _remove(node->left, val, found);
         else if (node->data < val)
             node->right = _remove(node->right, val, found);
-        else {
+        else
+        {
             found = true;
-            if (!node->left) {
-                BSTNode* r = node->right;
+            if (!node->left)
+            {
+                BSTNode *r = node->right;
                 delete node;
                 return r;
             }
-            if (!node->right) {
-                BSTNode* l = node->left;
+            if (!node->right)
+            {
+                BSTNode *l = node->left;
                 delete node;
                 return l;
             }
             // Trường hợp Node cần xóa có đầy đủ 2 con: Thay thế bằng Inorder Successor
-            BSTNode* succ = _minNode(node->right);
+            BSTNode *succ = _minNode(node->right);
             node->data = succ->data;
             bool dummy = false;
             node->right = _remove(node->right, succ->data, dummy);
@@ -112,10 +123,14 @@ private:
      * @param  val  Giá trị dữ liệu mục tiêu cần tra cứu
      * @return Con trỏ trỏ tới BSTNode nếu tìm thấy, ngược lại trả về nullptr
      */
-    BSTNode* _search(BSTNode* node, const T& val) const {
-        if (!node) return nullptr;
-        if (val == node->data) return node;
-        if (val < node->data) return _search(node->left, val);
+    BSTNode *_search(BSTNode *node, const T &val) const
+    {
+        if (!node)
+            return nullptr;
+        if (val == node->data)
+            return node;
+        if (val < node->data)
+            return _search(node->left, val);
         return _search(node->right, val);
     }
 
@@ -126,8 +141,10 @@ private:
      * @param  fn   Hàm chức năng callback thực thi trên từng dữ liệu phần tử
      */
     template <typename Fn>
-    void _inorder(BSTNode* node, Fn fn) const {
-        if (!node) return;
+    void _inorder(BSTNode *node, Fn fn) const
+    {
+        if (!node)
+            return;
         _inorder(node->left, fn);
         fn(node->data);
         _inorder(node->right, fn);
@@ -140,8 +157,10 @@ private:
      * @param  fn   Hàm chức năng callback thực thi trên từng dữ liệu phần tử
      */
     template <typename Fn>
-    void _preorder(BSTNode* node, Fn fn) const {
-        if (!node) return;
+    void _preorder(BSTNode *node, Fn fn) const
+    {
+        if (!node)
+            return;
         fn(node->data);
         _preorder(node->left, fn);
         _preorder(node->right, fn);
@@ -154,8 +173,10 @@ private:
      * @param  fn   Hàm chức năng callback thực thi trên từng dữ liệu phần tử
      */
     template <typename Fn>
-    void _postorder(BSTNode* node, Fn fn) const {
-        if (!node) return;
+    void _postorder(BSTNode *node, Fn fn) const
+    {
+        if (!node)
+            return;
         _postorder(node->left, fn);
         _postorder(node->right, fn);
         fn(node->data);
@@ -165,8 +186,10 @@ private:
      * @brief Hàm đệ quy hỗ trợ giải phóng toàn bộ các Node bộ nhớ động trong nhánh cây.
      * @param node Con trỏ quản lý Node gốc của nhánh cây cần xóa bỏ
      */
-    void _clear(BSTNode* node) {
-        if (!node) return;
+    void _clear(BSTNode *node)
+    {
+        if (!node)
+            return;
         _clear(node->left);
         _clear(node->right);
         delete node;
@@ -197,10 +220,12 @@ public:
      *         Nếu giá trị `val` đã tồn tại sẵn trong hệ thống, hàm sẽ bỏ qua và không tăng kích thước.
      * @param  val Giá trị phần tử cần chèn vào cây
      */
-    void insert(const T& val) {
+    void insert(const T &val)
+    {
         bool inserted = false;
         _root = _insert(_root, val, inserted);
-        if (inserted) _size++;
+        if (inserted)
+            _size++;
     }
 
     /**
@@ -208,35 +233,43 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: Trung bình O(log n), Xấu nhất O(n).
      * @param  val Giá trị dữ liệu của phần tử cần xóa bỏ
      */
-    void remove(const T& val) {
+    void remove(const T &val)
+    {
         bool found = false;
         _root = _remove(_root, val, found);
-        if (found) _size--;
+        if (found)
+            _size--;
     }
 
     /**
      * @brief  Tra cứu thực thể Node lưu trữ giá trị cụ thể trong cây.
      * @note   Độ phức tạp thời gian thuật toán: Trung bình O(log n). Phương thức hằng (const).
      * @param  val Giá trị dữ liệu mục tiêu cần tra cứu vị trí
-     * @return Con trỏ BSTNode chứa dữ liệu nếu tìm thấy, ngược lại trả về nullptr
+     * @return Con trỏ tới kiểu dữ liệu T nếu tìm thấy, ngược lại trả về nullptr
      */
-    BSTNode* search(const T& val) const { return _search(_root, val); }
+    T *search(const T &val) const
+    {
+        BSTNode *node = _search(_root, val);
+        return node ? &node->data : nullptr;
+    }
 
     /**
      * @brief  Kiểm tra xem một giá trị cụ thể có tồn tại trong cấu trúc cây hay không.
      * @param  val Giá trị dữ liệu cần kiểm tra sự hiện diện
      * @return true nếu tìm thấy phần tử trong cây, ngược lại trả về false
      */
-    bool contains(const T& val) const { return _search(_root, val) != nullptr; }
+    bool contains(const T &val) const { return _search(_root, val) != nullptr; }
 
     /**
      * @brief  Tìm kiếm phần tử có giá trị nhỏ nhất hiện có trên cây.
      * @warning Cần đảm bảo phương thức `empty()` trả về `false` trước khi gọi hàm này.
      * @return Tham chiếu hằng (Const Reference) tới dữ liệu nhỏ nhất trên cây
      */
-    const T& findMin() const {
-        BSTNode* cur = _root;
-        while (cur->left) cur = cur->left;
+    const T &findMin() const
+    {
+        BSTNode *cur = _root;
+        while (cur->left)
+            cur = cur->left;
         return cur->data;
     }
 
@@ -245,9 +278,11 @@ public:
      * @warning Cần đảm bảo phương thức `empty()` trả về `false` trước khi gọi hàm này.
      * @return Tham chiếu hằng (Const Reference) tới dữ liệu lớn nhất trên cây
      */
-    const T& findMax() const {
-        BSTNode* cur = _root;
-        while (cur->right) cur = cur->right;
+    const T &findMax() const
+    {
+        BSTNode *cur = _root;
+        while (cur->right)
+            cur = cur->right;
         return cur->data;
     }
 
@@ -261,7 +296,8 @@ public:
      * @param  fn Hàm chức năng có chữ ký dạng `void(const T&)` xử lý trên từng phần tử
      */
     template <typename Fn>
-    void inorder(Fn fn) const {
+    void inorder(Fn fn) const
+    {
         _inorder(_root, fn);
     }
 
@@ -271,7 +307,8 @@ public:
      * @param  fn Hàm chức năng có chữ ký dạng `void(const T&)` xử lý trên từng phần tử
      */
     template <typename Fn>
-    void preorder(Fn fn) const {
+    void preorder(Fn fn) const
+    {
         _preorder(_root, fn);
     }
 
@@ -281,7 +318,8 @@ public:
      * @param  fn Hàm chức năng có chữ ký dạng `void(const T&)` xử lý trên từng phần tử
      */
     template <typename Fn>
-    void postorder(Fn fn) const {
+    void postorder(Fn fn) const
+    {
         _postorder(_root, fn);
     }
 
@@ -304,11 +342,12 @@ public:
     /**
      * @brief Xóa toàn bộ nội dung của cây dữ liệu, giải phóng mọi phân vùng bộ nhớ động đã cấp phát.
      */
-    void clear() {
+    void clear()
+    {
         _clear(_root);
         _root = nullptr;
         _size = 0;
     }
 };
 
-#endif  // BST_HPP
+#endif // BST_HPP

@@ -74,7 +74,7 @@
 - [ ] `Queue<Monster>` — mon đầu hàng ra đánh, faint → dequeue → con tiếp theo
 - [ ] `PriorityQueue<Move>` — trainer AI chọn move damage cao nhất
 - [ ] `Stack<BattleLog>` — lưu log, hiển thị 5 dòng gần nhất
-- [ ] Damage formula: `dmg = (move.power * atk) / def`
+- [ ] Damage formula: `int dmg = (move.power * atk) / (def > 0 ? def : 1);`
 - [ ] Run: chỉ được với wild encounter, không được với trainer/gym
 
 ### 4.5 Gym & Elite Four

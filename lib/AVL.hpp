@@ -17,27 +17,29 @@
  * @tparam T Kiểu dữ liệu của các phần tử được lưu trữ trong cây.
  */
 template <typename T>
-class AVL {
+class AVL
+{
 private:
     /**
      * @struct AVLNode
      * @brief  Cấu trúc một phần tử Node nội bộ (Nested Struct) chứa dữ liệu và chiều cao của nút cây.
      */
-    struct AVLNode {
-        T data;          ///< Dữ liệu của phần tử
-        AVLNode* left;   ///< Con trỏ quản lý nhánh cây con bên trái (Left child)
-        AVLNode* right;  ///< Con trỏ quản lý nhánh cây con bên phải (Right child)
-        int height;      ///< Chiều cao của Node tính từ đáy phục vụ việc tính toán độ cân bằng
+    struct AVLNode
+    {
+        T data;         ///< Dữ liệu của phần tử
+        AVLNode *left;  ///< Con trỏ quản lý nhánh cây con bên trái (Left child)
+        AVLNode *right; ///< Con trỏ quản lý nhánh cây con bên phải (Right child)
+        int height;     ///< Chiều cao của Node tính từ đáy phục vụ việc tính toán độ cân bằng
 
         /**
          * @brief Khởi tạo một Node AVL mới với dữ liệu cho trước.
          * @param val Giá trị dữ liệu cần lưu trữ
          */
-        AVLNode(const T& val) : data(val), left(nullptr), right(nullptr), height(1) {}
+        AVLNode(const T &val) : data(val), left(nullptr), right(nullptr), height(1) {}
     };
 
-    AVLNode* _root;  ///< Con trỏ gốc quản lý toàn bộ cấu trúc cây (Root node)
-    int _size;       ///< Số lượng phần tử hiện có trong cây
+    AVLNode *_root; ///< Con trỏ gốc quản lý toàn bộ cấu trúc cây (Root node)
+    int _size;      ///< Số lượng phần tử hiện có trong cây
 
     // ================================================================================
     //  Private Internal Utilities (Các hàm hỗ trợ kỹ thuật và quay cây nội bộ)
@@ -56,21 +58,23 @@ private:
      * @param  n Con trỏ quản lý Node cần kiểm tra
      * @return Chiều cao của Node (trả về 0 nếu con trỏ là nullptr)
      */
-    int _height(AVLNode* n) const { return n ? n->height : 0; }
+    int _height(AVLNode *n) const { return n ? n->height : 0; }
 
     /**
      * @brief  Tính toán hệ số cân bằng (Balance Factor) của một Node.
      * @param  n Con trỏ quản lý Node cần tính toán
      * @return Hiệu số chiều cao giữa cây con trái và cây con phải (Left Height - Right Height)
      */
-    int _bf(AVLNode* n) const { return n ? _height(n->left) - _height(n->right) : 0; }
+    int _bf(AVLNode *n) const { return n ? _height(n->left) - _height(n->right) : 0; }
 
     /**
      * @brief Cập nhật lại chiều cao của Node dựa trên chiều cao tối đa của các Node con trực thuộc.
      * @param n Con trỏ quản lý Node cần cập nhật
      */
-    void _updateHeight(AVLNode* n) {
-        if (n) n->height = 1 + _max(_height(n->left), _height(n->right));
+    void _updateHeight(AVLNode *n)
+    {
+        if (n)
+            n->height = 1 + _max(_height(n->left), _height(n->right));
     }
 
     /**
@@ -78,9 +82,10 @@ private:
      * @param  y Con trỏ quản lý nút mất cân bằng (gốc của cụm xoay)
      * @return Con trỏ quản lý Node gốc mới của nhánh cây sau khi quay
      */
-    AVLNode* _rotateRight(AVLNode* y) {
-        AVLNode* x = y->left;
-        AVLNode* B = x->right;
+    AVLNode *_rotateRight(AVLNode *y)
+    {
+        AVLNode *x = y->left;
+        AVLNode *B = x->right;
         x->right = y;
         y->left = B;
         _updateHeight(y);
@@ -93,9 +98,10 @@ private:
      * @param  x Con trỏ quản lý nút mất cân bằng (gốc của cụm xoay)
      * @return Con trỏ quản lý Node gốc mới của nhánh cây sau khi quay
      */
-    AVLNode* _rotateLeft(AVLNode* x) {
-        AVLNode* y = x->right;
-        AVLNode* B = y->left;
+    AVLNode *_rotateLeft(AVLNode *x)
+    {
+        AVLNode *y = x->right;
+        AVLNode *B = y->left;
         y->left = x;
         x->right = B;
         _updateHeight(x);
@@ -108,24 +114,29 @@ private:
      * @param  n Con trỏ quản lý nút gốc của nhánh cây cần kiểm tra cân bằng
      * @return Con trỏ quản lý nút gốc mới của nhánh cây sau khi đã xử lý cân bằng
      */
-    AVLNode* _balance(AVLNode* n) {
+    AVLNode *_balance(AVLNode *n)
+    {
         _updateHeight(n);
         int bf = _bf(n);
 
         // Trường hợp mất cân bằng Trái - Trái (Left-Left Case)
-        if (bf > 1 && _bf(n->left) >= 0) return _rotateRight(n);
+        if (bf > 1 && _bf(n->left) >= 0)
+            return _rotateRight(n);
 
         // Trường hợp mất cân bằng Trái - Phải (Left-Right Case)
-        if (bf > 1 && _bf(n->left) < 0) {
+        if (bf > 1 && _bf(n->left) < 0)
+        {
             n->left = _rotateLeft(n->left);
             return _rotateRight(n);
         }
 
         // Trường hợp mất cân bằng Phải - Phải (Right-Right Case)
-        if (bf < -1 && _bf(n->right) <= 0) return _rotateLeft(n);
+        if (bf < -1 && _bf(n->right) <= 0)
+            return _rotateLeft(n);
 
         // Trường hợp mất cân bằng Phải - Trái (Right-Left Case)
-        if (bf < -1 && _bf(n->right) > 0) {
+        if (bf < -1 && _bf(n->right) > 0)
+        {
             n->right = _rotateRight(n->right);
             return _rotateLeft(n);
         }
@@ -140,8 +151,10 @@ private:
      * @param  inserted Biến cờ đánh dấu trạng thái chèn thành công (true nếu chèn mới)
      * @return Con trỏ cập nhật liên kết cấu trúc nhánh cây sau khi xử lý chèn và cân bằng
      */
-    AVLNode* _insert(AVLNode* n, const T& val, bool& inserted) {
-        if (!n) {
+    AVLNode *_insert(AVLNode *n, const T &val, bool &inserted)
+    {
+        if (!n)
+        {
             inserted = true;
             return new AVLNode(val);
         }
@@ -157,8 +170,10 @@ private:
      * @param  n Con trỏ gốc của nhánh cây con đang xét
      * @return Con trỏ trỏ tới Node có giá trị nhỏ nhất (Node tận cùng bên trái)
      */
-    AVLNode* _minNode(AVLNode* n) const {
-        while (n->left) n = n->left;
+    AVLNode *_minNode(AVLNode *n) const
+    {
+        while (n->left)
+            n = n->left;
         return n;
     }
 
@@ -169,21 +184,25 @@ private:
      * @param  found Biến cờ đánh dấu trạng thái tìm thấy phần tử để xóa
      * @return Con trỏ cập nhật liên kết cấu trúc nhánh cây sau khi xóa và cân bằng
      */
-    AVLNode* _remove(AVLNode* n, const T& val, bool& found) {
-        if (!n) return nullptr;
+    AVLNode *_remove(AVLNode *n, const T &val, bool &found)
+    {
+        if (!n)
+            return nullptr;
         if (val < n->data)
             n->left = _remove(n->left, val, found);
         else if (n->data < val)
             n->right = _remove(n->right, val, found);
-        else {
+        else
+        {
             found = true;
-            if (!n->left || !n->right) {
-                AVLNode* child = n->left ? n->left : n->right;
+            if (!n->left || !n->right)
+            {
+                AVLNode *child = n->left ? n->left : n->right;
                 delete n;
                 return child;
             }
             // Trường hợp Node có cả 2 con: Thay bằng Inorder Successor ở nhánh phải
-            AVLNode* succ = _minNode(n->right);
+            AVLNode *succ = _minNode(n->right);
             n->data = succ->data;
             bool dummy = false;
             n->right = _remove(n->right, succ->data, dummy);
@@ -197,10 +216,14 @@ private:
      * @param  val Giá trị dữ liệu mục tiêu cần tìm kiếm
      * @return Con trỏ trỏ tới AVLNode nếu tìm thấy, ngược lại trả về nullptr
      */
-    AVLNode* _search(AVLNode* n, const T& val) const {
-        if (!n) return nullptr;
-        if (val == n->data) return n;
-        if (val < n->data) return _search(n->left, val);
+    AVLNode *_search(AVLNode *n, const T &val) const
+    {
+        if (!n)
+            return nullptr;
+        if (val == n->data)
+            return n;
+        if (val < n->data)
+            return _search(n->left, val);
         return _search(n->right, val);
     }
 
@@ -211,8 +234,10 @@ private:
      * @param  fn Hàm chức năng callback thực thi trên từng dữ liệu phần tử
      */
     template <typename Fn>
-    void _inorder(AVLNode* n, Fn fn) const {
-        if (!n) return;
+    void _inorder(AVLNode *n, Fn fn) const
+    {
+        if (!n)
+            return;
         _inorder(n->left, fn);
         fn(n->data);
         _inorder(n->right, fn);
@@ -225,8 +250,10 @@ private:
      * @param  fn Hàm chức năng callback thực thi trên từng dữ liệu phần tử
      */
     template <typename Fn>
-    void _preorder(AVLNode* n, Fn fn) const {
-        if (!n) return;
+    void _preorder(AVLNode *n, Fn fn) const
+    {
+        if (!n)
+            return;
         fn(n->data);
         _preorder(n->left, fn);
         _preorder(n->right, fn);
@@ -239,8 +266,10 @@ private:
      * @param  fn Hàm chức năng callback thực thi trên từng dữ liệu phần tử
      */
     template <typename Fn>
-    void _postorder(AVLNode* n, Fn fn) const {
-        if (!n) return;
+    void _postorder(AVLNode *n, Fn fn) const
+    {
+        if (!n)
+            return;
         _postorder(n->left, fn);
         _postorder(n->right, fn);
         fn(n->data);
@@ -250,8 +279,10 @@ private:
      * @brief Hàm đệ quy hỗ trợ giải phóng toàn bộ các Node bộ nhớ động của cấu trúc cây.
      * @param n Con trỏ quản lý Node gốc của nhánh cây cần xóa bỏ
      */
-    void _clear(AVLNode* n) {
-        if (!n) return;
+    void _clear(AVLNode *n)
+    {
+        if (!n)
+            return;
         _clear(n->left);
         _clear(n->right);
         delete n;
@@ -282,10 +313,12 @@ public:
      *         Nếu giá trị `val` đã tồn tại sẵn, hàm sẽ tự động bỏ qua (không chèn trùng lặp).
      * @param  val Giá trị phần tử cần chèn vào cây
      */
-    void insert(const T& val) {
+    void insert(const T &val)
+    {
         bool inserted = false;
         _root = _insert(_root, val, inserted);
-        if (inserted) _size++;
+        if (inserted)
+            _size++;
     }
 
     /**
@@ -293,35 +326,43 @@ public:
      * @note   Độ phức tạp thời gian thuật toán đảm bảo ổn định ở mức O(log n).
      * @param  val Giá trị dữ liệu của phần tử cần xóa bỏ
      */
-    void remove(const T& val) {
+    void remove(const T &val)
+    {
         bool found = false;
         _root = _remove(_root, val, found);
-        if (found) _size--;
+        if (found)
+            _size--;
     }
 
     /**
      * @brief  Tra cứu thực thể Node chứa giá trị cụ thể trên cây.
      * @note   Độ phức tạp thời gian thuật toán: O(log n). Phương thức hằng (const).
      * @param  val Giá trị dữ liệu mục tiêu cần tra cứu vị trí
-     * @return Con trỏ AVLNode chứa dữ liệu nếu tìm thấy, ngược lại trả về nullptr
+     * @return Con trỏ tới dữ liệu kiểu T nếu tìm thấy, ngược lại trả về nullptr
      */
-    AVLNode* search(const T& val) const { return _search(_root, val); }
+    T *search(const T &val) const
+    {
+        AVLNode *node = _search(_root, val);
+        return node ? &node->data : nullptr;
+    }
 
     /**
      * @brief  Kiểm tra xem một giá trị cụ thể có tồn tại trong cây AVL hay không.
      * @param  val Giá trị dữ liệu cần kiểm tra sự hiện diện
      * @return true nếu tìm thấy phần tử, ngược lại trả về false
      */
-    bool contains(const T& val) const { return _search(_root, val) != nullptr; }
+    bool contains(const T &val) const { return _search(_root, val) != nullptr; }
 
     /**
      * @brief  Tìm kiếm phần tử có giá trị nhỏ nhất hiện có trên cây AVL.
      * @warning Cần đảm bảo phương thức `empty()` trả về `false` trước khi gọi hàm này.
      * @return Tham chiếu hằng (Const Reference) tới dữ liệu nhỏ nhất trên cây
      */
-    const T& findMin() const {
-        AVLNode* cur = _root;
-        while (cur->left) cur = cur->left;
+    const T &findMin() const
+    {
+        AVLNode *cur = _root;
+        while (cur->left)
+            cur = cur->left;
         return cur->data;
     }
 
@@ -330,9 +371,11 @@ public:
      * @warning Cần đảm bảo phương thức `empty()` trả về `false` trước khi gọi hàm này.
      * @return Tham chiếu hằng (Const Reference) tới dữ liệu lớn nhất trên cây
      */
-    const T& findMax() const {
-        AVLNode* cur = _root;
-        while (cur->right) cur = cur->right;
+    const T &findMax() const
+    {
+        AVLNode *cur = _root;
+        while (cur->right)
+            cur = cur->right;
         return cur->data;
     }
 
@@ -346,7 +389,8 @@ public:
      * @param  fn Hàm chức năng có chữ ký dạng `void(const T&)` xử lý trên từng phần tử
      */
     template <typename Fn>
-    void inorder(Fn fn) const {
+    void inorder(Fn fn) const
+    {
         _inorder(_root, fn);
     }
 
@@ -356,7 +400,8 @@ public:
      * @param  fn Hàm chức năng có chữ ký dạng `void(const T&)` xử lý trên từng phần tử
      */
     template <typename Fn>
-    void preorder(Fn fn) const {
+    void preorder(Fn fn) const
+    {
         _preorder(_root, fn);
     }
 
@@ -366,7 +411,8 @@ public:
      * @param  fn Hàm chức năng có chữ ký dạng `void(const T&)` xử lý trên từng phần tử
      */
     template <typename Fn>
-    void postorder(Fn fn) const {
+    void postorder(Fn fn) const
+    {
         _postorder(_root, fn);
     }
 
@@ -389,11 +435,12 @@ public:
     /**
      * @brief Xóa toàn bộ nội dung của cây, giải phóng mọi phân vùng bộ nhớ động đã cấp phát.
      */
-    void clear() {
+    void clear()
+    {
         _clear(_root);
         _root = nullptr;
         _size = 0;
     }
 };
 
-#endif  // AVL_HPP
+#endif // AVL_HPP
