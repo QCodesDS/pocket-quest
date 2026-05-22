@@ -18,9 +18,8 @@ Console RPG game inspired by Pokémon Gen 1–3, written in C++17.
 ## Build & Run
 
 ```bash
-make        # build
-make run    # build + chạy
-make clean  # xóa binary
+rm -rf deps obj monsterquest && make
+./monsterquest
 ```
 
 ---

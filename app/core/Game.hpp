@@ -3,15 +3,18 @@
 
 #include "GameState.hpp"
 #include "../entities/Player.hpp"
+#include "../world/WorldMap.hpp"
 
 /**
  * @class Game
  * @brief Lớp điều phối vòng lặp game chính (Main Game Loop) và quản lý chuyển đổi trạng thái.
  */
-class Game {
+class Game
+{
 private:
-    GameState _state;       ///< Trạng thái hiện tại của game
-    Player _player;         ///< Thông tin và trạng thái người chơi
+    GameState _state; ///< Trạng thái hiện tại của game
+    Player _player;   ///< Thông tin và trạng thái người chơi
+    WorldMap _world;  ///< Bản đồ thế giới (Kanto) sử dụng LinkedList<City> từ lib/
 
     /**
      * @brief Xử lý nhập liệu từ bàn phím tương ứng với trạng thái hiện tại.

@@ -10,17 +10,21 @@
 #include <string>
 #include "../../lib/LinkedList.hpp"
 
+// Forward declaration
+struct CityData;
+
 /**
  * @struct City
  * @brief  Một địa điểm trong thế giới game với tên, tag, dialog NPC và thông tin Gym.
  *         Trường npcDialog dùng LinkedList<std::string> từ lib/ để lưu các dòng hội thoại.
  */
-struct City {
-    std::string name;                     ///< Tên địa điểm (vd: "Cerulean City")
-    std::string tag;                      ///< Nhãn hiển thị (vd: "GYM 2", "NO GYM", "HOMETOWN")
-    LinkedList<std::string> npcDialog;    ///< Dòng hội thoại NPC — lib/LinkedList, không dùng std::vector
-    bool hasGym;                          ///< True nếu địa điểm có Gym Leader
-    std::string gymLeader;                ///< Tên Gym Leader (rỗng nếu không có Gym)
+struct City
+{
+    std::string name;                  ///< Tên địa điểm (vd: "Cerulean City")
+    std::string tag;                   ///< Nhãn hiển thị (vd: "GYM 2", "NO GYM", "HOMETOWN")
+    LinkedList<std::string> npcDialog; ///< Dòng hội thoại NPC — lib/LinkedList, không dùng std::vector
+    bool hasGym;                       ///< True nếu địa điểm có Gym Leader
+    std::string gymLeader;             ///< Tên Gym Leader (rỗng nếu không có Gym)
 
     /**
      * @brief Constructor mặc định.
@@ -28,10 +32,16 @@ struct City {
     City() : hasGym(false) {}
 
     /**
-     * @brief Constructor đầy đủ tham số.
+     * @brief Constructor từ CityData POD struct.
+     *        Nạp dữ liệu từ gen1_cities.hpp vào LinkedList<std::string> npcDialog.
      */
-    City(const std::string& n, const std::string& t,
-         bool gym, const std::string& leader)
+    City(const CityData &data);
+
+    /**
+     * @brief Constructor đầy đủ tham số (sử dụng cho test/debug).
+     */
+    City(const std::string &n, const std::string &t,
+         bool gym, const std::string &leader)
         : name(n), tag(t), hasGym(gym), gymLeader(leader) {}
 };
 
