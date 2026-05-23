@@ -105,21 +105,36 @@ namespace IntroUI
     void showTitleScreen()
     {
         UI::clearScreen();
-        std::cout << "\n\n";
-        std::cout << "        ╔══════════════════════════════════════╗\n";
-        std::cout << "        ║            MONSTER QUEST             ║\n";
-        std::cout << "        ║                v1.0                  ║\n";
-        std::cout << "        ╚══════════════════════════════════════╝\n";
         std::cout << "\n";
-        std::cout << "                   ,___,               \n";
-        std::cout << "                   (o.o)   AN ADVENTURE\n";
-        std::cout << "                   <| - |>  AWAITS YOU!\n";
-        std::cout << "                    /   \\              \n";
-        std::cout << "\n";
-        std::cout << "             [ PRESS ENTER TO START GAME ]\n\n";
+        std::cout << R"(
+                                                                                        ██           ██
+    ██████╗  ██████╗ ██╗  ██╗███████╗███╗   ███╗ ██████╗ ███╗   ██╗              █   ██ █ █          █ █
+    ██╔══██╗██╔═══██╗██║ ██╔╝██╔════╝████╗ ████║██╔═══██╗████╗  ██║             █ █ █ █ █  █         █  █
+    ██████╔╝██║   ██║█████╔╝ █████╗  ██╔████╔██║██║   ██║██╔██╗ ██║             █ ██  █  █ █          █ █
+    ██╔═══╝ ██║   ██║██╔═██╗ ██╔══╝  ██║╚██╔╝██║██║   ██║██║╚██╗██║            █  █   █  █  ██        █  █
+    ██║     ╚██████╔╝██║  ██╗███████╗██║ ╚═╝ ██║╚██████╔╝██║ ╚████║            █     █   █    █      █   █
+    ╚═╝      ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝          ██   █  █   █     ██    █  █
+                                                                            █ █  █ █ █    █      █  █   █
+                                                                           █  █ █  █ █   █ █      █ █   █
+                                                                           █ ███  █   █  █ █      █ █    █
+                ╔══════════════════════════════════╗                      █       █   █ █   █   █  █ █   █
+                ║     ★  HUNG.QUOC VERSION  ★      ║                     █      ███  ██  █ ███  █ █ █    █
+                ║                                  ║                     █          ██   █   █ █  █  █    █
+                ║       GEN 1 — KANTO REGION       ║                     █                  █   █ █ █     █
+                ╚══════════════════════════════════╝                     █    █  ██       █  █  █  ██     █
+                                                                        █    █   █ █   ██  █  █  █ █ █    █
+                                                                       █        █ █ █    █  ██ █ █  █ █  █
+                                                                       █      ██  █ █    █    ██  █ █ █ █
+                                                                        █   ██ █   █ █ ██    █ ██ █ ██  █
+                                                                         ██ █   ███   █     █  █ ███   █
+                                                                           █      █    ██  █  █       █
+                                                                                   ████ ███   ██    ██
+                                                                                         █   █  ████
+                       [PRESS ENTER TO START]                                             ███)"
+                  << "\n";
 
         std::string dummy;
-        std::getline(std::cin, dummy); // Đọc toàn bộ dòng trống khi nhấn Enter
+        std::getline(std::cin, dummy);
     }
 
     void showOpeningStory()
@@ -276,9 +291,9 @@ namespace IntroUI
         if (choice == 1)
             player.starterName = "Bulbasaur";
         else if (choice == 2)
-            player.starterName = "Charmander";
-        else if (choice == 3)
             player.starterName = "Squirtle";
+        else if (choice == 3)
+            player.starterName = "Charmander";
 
         UI::clearScreen();
         std::string confirmation =
@@ -288,7 +303,7 @@ namespace IntroUI
 
         typeWriteBox("PROF. OAK", confirmation);
 
-        std::cout << "\n             [ PRESS ENTER TO EMBARK... ]";
+        std::cout << "                                                                            [Press Enter...]";
         std::getline(std::cin, input);
     }
 }
