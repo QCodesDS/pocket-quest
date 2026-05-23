@@ -8,6 +8,7 @@
 
 #include "../world/WorldMap.hpp"
 #include "../entities/Player.hpp"
+#include "../core/GameState.hpp"
 
 /**
  * @namespace OverworldUI
@@ -21,7 +22,7 @@ namespace OverworldUI
      * @param world Tham chiếu WorldMap để di chuyển qua các thành phố.
      * @param player Tham chiếu Player để cập nhật badges, party, v.v.
      */
-    void run(WorldMap &world, Player &player);
+    void run(WorldMap &world, Player &player, class Game &game);
 }
 
 #endif // OVERWORLDUI_HPP

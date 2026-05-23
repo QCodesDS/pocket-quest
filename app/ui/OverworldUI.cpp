@@ -1,5 +1,9 @@
 #include "OverworldUI.hpp"
 #include "UI.hpp"
+#include "../core/Game.hpp"
+#include "../data/gen1_monsters.hpp"
+#include "../entities/Trainer.hpp"
+#include "../entities/Monster.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -11,7 +15,7 @@ namespace OverworldUI
      * @brief Chạy vòng lặp Overworld: hiển thị màn hình, xử lý input cho đến khi kết thúc.
      *        Dùng LinkedList<City> từ WorldMap để di chuyển qua các thành phố.
      */
-    void run(WorldMap &world, Player &player)
+    void run(WorldMap &world, Player &player, Game &game)
     {
         // Khởi tạo random seed cho wild encounter
         srand((unsigned)time(nullptr));
