@@ -5,7 +5,7 @@
 #include "../ui/OverworldUI.hpp"
 #include <iostream>
 
-Game::Game() : _state(GameState::MENU)
+Game::Game() : _state(GameState::MENU), _currentBattleType(BattleType::WILD)
 {
     // Khởi tạo bản đồ Kanto
     _world.init();
@@ -26,13 +26,15 @@ void Game::run()
 
         case GameState::INTRO:
             // 1. Chạy cốt truyện game mở đầu pokemon
-            IntroUI::showOpeningStory();
+            // IntroUI::showOpeningStory();
             // 2. Chạy cốt truyện giới thiệu của Giáo sư Oak
-            IntroUI::showOakDialog();
+            // IntroUI::showOakDialog();
             // 3. Nhập tên nhân vật (có validate độ dài & rỗng)
             IntroUI::showNameInput(_player);
             // 4. Chọn Starter (có validate chữ/số ngoài phạm vi)
             IntroUI::showStarterSelect(_player);
+            // 5. Khởi tạo party với Starter - GRADER: Sử dụng Queue<Monster> từ lib/
+            _player.initializePartyWithStarter();
 
             // Chuyển sang OVERWORLD để bắt đầu hành trình
             _state = GameState::OVERWORLD;
@@ -40,10 +42,37 @@ void Game::run()
 
         case GameState::OVERWORLD:
             // 5. Chạy vòng lặp Overworld sử dụng LinkedList<City> từ WorldMap
-            OverworldUI::run(_world, _player);
+            OverworldUI::run(_world, _player, *this);
             // TODO: Sau khi kết thúc Overworld, chuyển sang trạng thái tiếp theo
             // Hiện tại: test demo = chuyển sang WIN
             _state = GameState::WIN;
+            break;
+
+        case GameState::BATTLE:
+            // 6. Chạy trận chiến (Wild hoặc Trainer) sử dụng BattleSystem với Queue/Stack từ lib/
+            {
+                BattleResult result = _battleSystem.runBattle(_player);
+
+                if (result == BattleResult::WIN)
+                {
+                    // Victory: add gold, return to overworld
+                    UI::clearScreen();
+                    UI::printBox("Victory!", "You won the battle!");
+                    std::cout << "\nPress Enter to continue...";
+                    std::cin.ignore(10000, '\n');
+                    _state = GameState::OVERWORLD;
+                }
+                else if (result == BattleResult::LOSS)
+                {
+                    // Defeat: game over
+                    _state = GameState::GAMEOVER;
+                }
+                else if (result == BattleResult::RUN)
+                {
+                    // Escaped: return to overworld
+                    _state = GameState::OVERWORLD;
+                }
+            }
             break;
 
         case GameState::WIN:

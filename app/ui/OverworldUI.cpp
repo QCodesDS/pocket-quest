@@ -58,7 +58,10 @@ namespace OverworldUI
                 std::cout << std::string(std::max(0, 30 - (int)currentCity.npcDialog.getCurrent().length()), ' ');
                 std::cout << " ║\n";
                 firstLine = false;
-                currentCity.npcDialog.moveNext();
+
+                // Advance cursor only if there's a next element; break if moveNext() returns false
+                if (!currentCity.npcDialog.moveNext())
+                    break;
             }
 
             std::cout << "╠══════════════════════════════════════╣\n";

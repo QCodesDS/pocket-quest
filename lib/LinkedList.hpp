@@ -52,6 +52,42 @@ public:
     LinkedList() : _head(nullptr), _tail(nullptr), _cursor(nullptr), _size(0) {}
 
     /**
+     * @brief Copy constructor — Tạo một bản sao sâu (Deep Copy) của LinkedList khác.
+     *        Điều này cần thiết để tránh shallow copy khi các LinkedList được lưu trong các container khác.
+     * @param other LinkedList cần sao chép
+     */
+    LinkedList(const LinkedList &other) : _head(nullptr), _tail(nullptr), _cursor(nullptr), _size(0)
+    {
+        // Sao chép từng phần tử từ LinkedList khác
+        LLNode *cur = other._head;
+        while (cur)
+        {
+            insertBack(cur->data);
+            cur = cur->next;
+        }
+    }
+
+    /**
+     * @brief Copy assignment operator — Gán giá trị từ LinkedList khác (Deep Copy).
+     * @param other LinkedList cần gán
+     * @return Tham chiếu tới đối tượng hiện tại để hỗ trợ chaining
+     */
+    LinkedList &operator=(const LinkedList &other)
+    {
+        if (this != &other)
+        {
+            clear();
+            LLNode *cur = other._head;
+            while (cur)
+            {
+                insertBack(cur->data);
+                cur = cur->next;
+            }
+        }
+        return *this;
+    }
+
+    /**
      * @brief Hủy đối tượng danh sách, tự động thu hồi toàn bộ vùng nhớ động của các Node.
      */
     ~LinkedList() { clear(); }

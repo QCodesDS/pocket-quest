@@ -4,17 +4,23 @@
 #include "GameState.hpp"
 #include "../entities/Player.hpp"
 #include "../world/WorldMap.hpp"
+#include "../systems/BattleSystem.hpp"
 
 /**
  * @class Game
  * @brief Lớp điều phối vòng lặp game chính (Main Game Loop) và quản lý chuyển đổi trạng thái.
+ *        Sử dụng BattleSystem cho trận chiến với Queue<Monster> và Stack<std::string> từ lib/.
  */
 class Game
 {
 private:
-    GameState _state; ///< Trạng thái hiện tại của game
-    Player _player;   ///< Thông tin và trạng thái người chơi
-    WorldMap _world;  ///< Bản đồ thế giới (Kanto) sử dụng LinkedList<City> từ lib/
+    GameState _state;              ///< Trạng thái hiện tại của game
+    Player _player;                ///< Thông tin và trạng thái người chơi
+    WorldMap _world;               ///< Bản đồ thế giới (Kanto) sử dụng LinkedList<City> từ lib/
+    BattleSystem _battleSystem;    ///< Hệ thống chiến đấu sử dụng Queue/Stack từ lib/
+    Monster _wildEncounter;        ///< Monster hoang dã hiện tại (nếu có)
+    Trainer _trainerBattle;        ///< Trainer đối thủ hiện tại (nếu có)
+    BattleType _currentBattleType; ///< Loại battle hiện tại (WILD hoặc TRAINER)
 
     /**
      * @brief Xử lý nhập liệu từ bàn phím tương ứng với trạng thái hiện tại.
@@ -53,6 +59,18 @@ public:
      * @param state Trạng thái GameState mong muốn chuyển đổi
      */
     void setState(GameState state) { _state = state; }
+
+    /**
+     * @brief Khởi tạo wild battle.
+     * @param wildMon Monster hoang dã
+     */
+    void startWildBattle(Monster wildMon);
+
+    /**
+     * @brief Khởi tạo trainer battle.
+     * @param trainer Trainer đối thủ
+     */
+    void startTrainerBattle(Trainer &trainer);
 };
 
 #endif // GAME_HPP

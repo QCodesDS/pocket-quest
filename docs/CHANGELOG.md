@@ -23,3 +23,34 @@ Dự án đang ở giai đoạn: **Tài liệu hoàn chỉnh, sẵn sàng bắt 
 ### Notes
 
 - Borders aligned by extending top/bottom width by 2 characters in `printBox` and `typeWriteBox`.
+
+## [2026-05-22] — Phase 02: World System
+
+### Completed
+
+- Added: app/data/gen1_cities.hpp (10 Kanto cities with NPC dialog and gym data)
+- Added: app/world/City.hpp / City.cpp (LinkedList<std::string> for NPC dialog)
+- Added: app/world/Region.hpp / Region.cpp (LinkedList<City> cursor navigation)
+- Added: app/world/WorldMap.hpp / WorldMap.cpp (Kanto region manager)
+- Added: app/ui/OverworldUI.hpp / OverworldUI.cpp (overworld render + input loop)
+- Modified: app/core/Game.cpp (INTRO → OVERWORLD state transition)
+- Modified: lib/LinkedList.hpp (added copy constructor + copy assignment operator)
+
+### Features
+
+- 10 Kanto cities navigable via LinkedList<City> cursor API
+- NPC dialog stored in LinkedList<std::string> per city
+- Wild encounter stub: 30% chance on [1] Go forward
+- Gym stub: [3] Challenge Gym appears only at gym cities
+- Indigo Plateau badge check: blocks entry if badges < 8
+- All cin input validated — no crash on bad input
+
+### Fixes
+
+- Fixed shallow copy crash: added copy constructor/assignment to LinkedList<T>
+- Fixed infinite loop in NPC dialog rendering: check moveNext() return value
+
+### Notes
+
+- Gym battle, wild encounter, inventory, bag are stubs — Phase 03/04 will implement
+- Build: zero warnings, zero errors on g++ -std=c++17 -Wall -Wextra

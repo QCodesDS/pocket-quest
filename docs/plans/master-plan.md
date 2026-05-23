@@ -5,7 +5,7 @@
 | Phase | Tên                      | Thư viện                             | Mốc           | Trạng thái |
 | ----- | ------------------------ | ------------------------------------ | ------------- | ---------- |
 | 01    | Project Setup & Skeleton | —                                    |               | ✅         |
-| 02    | World System             | `LinkedList<City>`                   |               | ⬜         |
+| 02    | World System             | `LinkedList<City>`                   |               | ✅         |
 | 03    | Battle System            | `Queue<Monster>`, `Stack<BattleLog>` | **V1 ✅**     | ⬜         |
 | 04    | Inventory System         | `HashTable<string,Item>`             |               | ⬜         |
 | 05    | Sort & Polish V1         | `Algorithms`                         | **Nộp được**  | ⬜         |
@@ -39,7 +39,7 @@
 **Mục tiêu:** Di chuyển qua các thành phố bằng LinkedList, NPC dialog  
 **Thư viện:** `LinkedList<City>`  
 **Output:** Chọn thành phố → di chuyển → đọc dialog NPC  
-**Trạng thái:** ⬜
+**Trạng thái:** ✅
 
 ### Phase 03 — Battle System
 
