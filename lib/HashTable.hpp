@@ -209,7 +209,7 @@ public:
         int idx = _hash(key);
         Pair<K, V> p(key);
         auto *node = _buckets[idx].search(p);
-        return node ? &node->data.value : nullptr;
+        return node ? &node->value : nullptr;
     }
 
     /**

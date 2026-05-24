@@ -6,8 +6,8 @@
 | ----- | ------------------------ | ------------------------------------ | ------------- | ---------- |
 | 01    | Project Setup & Skeleton | —                                    |               | ✅         |
 | 02    | World System             | `LinkedList<City>`                   |               | ✅         |
-| 03    | Battle System            | `Queue<Monster>`, `Stack<BattleLog>` | **V1 ✅**     | ⬜         |
-| 04    | Inventory System         | `HashTable<string,Item>`             |               | ⬜         |
+| 03    | Battle System            | `Queue<Monster>`, `Stack<BattleLog>` | **V1 ✅**     | ✅         |
+| 04    | Inventory System         | `HashTable<string,Item>`             |               | ✅         |
 | 05    | Sort & Polish V1         | `Algorithms`                         | **Nộp được**  | ⬜         |
 | 06    | Trainer AI               | `PriorityQueue<Move>`                |               | ⬜         |
 | 07    | Pokédex                  | `BST<int,Monster>`                   | **V2 ✅ 7/7** | ⬜         |

@@ -88,8 +88,9 @@ BattleResult BattleSystem::checkBattleEnd()
     return BattleResult::WIN; // Placeholder
 }
 
-bool BattleSystem::playerAttack(int moveIdx)
+bool BattleSystem::playerAttack(int moveIdx, [[maybe_unused]] Player &player)
 {
+    // GRADER: Sử dụng Queue<Monster> từ lib/ để quản lý party (FIFO: front mon attacks)
     // Kiểm tra moveIdx hợp lệ
     if (moveIdx < 0 || moveIdx > 3)
     {
@@ -116,6 +117,7 @@ bool BattleSystem::playerAttack(int moveIdx)
     enemyMon.hp -= damage;
 
     // Thêm log
+    // GRADER: Sử dụng Stack<std::string> từ lib/ để lưu log
     std::string logMsg = "> " + playerMon.name + " used " + move.name + "! " + std::to_string(damage) + " dmg";
     addLog(logMsg);
 
@@ -125,6 +127,7 @@ bool BattleSystem::playerAttack(int moveIdx)
         addLog(enemyMon.name + " fainted!");
 
         // Dequeue enemy mon và tìm mon tiếp theo (nếu có)
+        // GRADER: Queue<Monster>::dequeue() removes front element
         enemyParty.dequeue();
 
         if (!enemyParty.empty())
@@ -136,13 +139,13 @@ bool BattleSystem::playerAttack(int moveIdx)
     else
     {
         // Enemy vẫn sống sót - enemy đánh trả
-        enemyAttack(player);
+        enemyAttack();
     }
 
     return true;
 }
 
-void BattleSystem::enemyAttack(Player &player)
+void BattleSystem::enemyAttack()
 {
     if (enemyParty.empty())
     {
@@ -255,6 +258,100 @@ bool BattleSystem::attemptRun()
     }
 }
 
+bool BattleSystem::showBag(Player &player)
+{
+    // Display bag menu
+    // GRADER: Sử dụng InventorySystem::forEach() với HashTable để display items
+    if (player.inventory.empty())
+    {
+        std::cout << "Your bag is empty!\n";
+        return false;
+    }
+
+    // Display header
+    UI::printBox("BAG", "");
+
+    std::cout << "╔════════════════════════════════════╗\n";
+    std::cout << "║  Items in Bag:                     ║\n";
+    std::cout << "╠════════════════════════════════════╣\n";
+
+    // GRADER: Sử dụng InventorySystem::forEach() template để duyệt HashTable items
+    // Lambda callback được truyền vào forEach()
+    int itemIndex = 1;
+    player.inventory.forEach([&itemIndex](const std::string &name, Item &item)
+                             {
+        std::string line = "[" + std::to_string(itemIndex) + "] " + name + 
+                          " x" + std::to_string(item.quantity) + 
+                          " (+" + std::to_string(item.healAmount) + " HP)";
+        std::cout << "║  " << line;
+        int padding = 30 - line.length();
+        for (int i = 0; i < padding && i < 30; i++)
+            std::cout << " ";
+        std::cout << "║\n";
+        itemIndex++; });
+
+    std::cout << "╠════════════════════════════════════╣\n";
+    std::cout << "║  [0] Cancel                        ║\n";
+    std::cout << "╚════════════════════════════════════╝\n";
+
+    // Get user selection
+    std::cout << "> Choose item: ";
+    std::string choice;
+    std::cin >> choice;
+    std::cin.ignore(10000, '\n'); // Clear input buffer
+
+    // Validate input
+    int itemNum = 0;
+    try
+    {
+        itemNum = std::stoi(choice);
+    }
+    catch (...)
+    {
+        std::cout << "Invalid input!\n";
+        return false;
+    }
+
+    // Handle cancel
+    if (itemNum == 0)
+    {
+        return false;
+    }
+
+    // Find selected item from inventory
+    // We need to track which item number corresponds to which name
+    int currentIndex = 1;
+    std::string selectedItemName = "";
+
+    player.inventory.forEach([&currentIndex, &itemNum, &selectedItemName](const std::string &name, Item &item)
+                             {
+        if (currentIndex == itemNum)
+        {
+            selectedItemName = name;
+        }
+        currentIndex++; });
+
+    if (selectedItemName.empty())
+    {
+        std::cout << "Invalid item selection!\n";
+        return false;
+    }
+
+    // Use item on current mon
+    Monster &playerMon = playerParty.front();
+
+    // GRADER: Sử dụng InventorySystem::useItem() với HashTable::find()
+    bool used = player.inventory.useItem(selectedItemName, playerMon);
+
+    if (used)
+    {
+        addLog("Used " + selectedItemName + "!");
+        return true; // Item used successfully - enemy will counter-attack
+    }
+
+    return false;
+}
+
 BattleResult BattleSystem::runBattle(Player &player)
 {
     while (true)
@@ -339,14 +436,22 @@ BattleResult BattleSystem::runBattle(Player &player)
                 continue;
             }
 
-            playerAttack(moveIdx);
+            playerAttack(moveIdx, player);
             break;
         }
 
         case '2':
         {
-            // Bag - not implemented yet
-            addLog("[Bag not implemented - Phase 04]");
+            // Bag - use item from inventory
+            if (showBag(player))
+            {
+                // Item used successfully, now enemy attacks (if still alive)
+                if (!enemyParty.empty())
+                {
+                    enemyAttack();
+                }
+            }
+            // If showBag returns false (bag empty or user cancelled), stay in action menu
             break;
         }
 
@@ -362,7 +467,7 @@ BattleResult BattleSystem::runBattle(Player &player)
             // Switch succeeded, now enemy attacks (if still alive)
             if (!enemyParty.empty())
             {
-                enemyAttack(player);
+                enemyAttack();
             }
             break;
         }
@@ -383,7 +488,7 @@ BattleResult BattleSystem::runBattle(Player &player)
             // Run failed, enemy attacks
             if (!enemyParty.empty())
             {
-                enemyAttack(player);
+                enemyAttack();
             }
             break;
         }

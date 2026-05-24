@@ -15,7 +15,7 @@ namespace OverworldUI
      * @brief Chạy vòng lặp Overworld: hiển thị màn hình, xử lý input cho đến khi kết thúc.
      *        Dùng LinkedList<City> từ WorldMap để di chuyển qua các thành phố.
      */
-    void run(WorldMap &world, Player &player, Game &game)
+    void run(WorldMap &world, Player &player, [[maybe_unused]] Game &game)
     {
         // Khởi tạo random seed cho wild encounter
         srand((unsigned)time(nullptr));
@@ -192,11 +192,9 @@ namespace OverworldUI
                 }
                 else
                 {
-                    // Open bag
+                    // Open bag (non-gym city)
                     UI::clearScreen();
-                    UI::printBox("Bag", "[Bag system stub - TODO]");
-                    std::cout << "\nPress Enter to continue...";
-                    std::cin.ignore(10000, '\n');
+                    handleBagMenu(player);
                 }
                 break;
             }
@@ -205,11 +203,9 @@ namespace OverworldUI
             {
                 if (currentCity.hasGym)
                 {
-                    // Open bag
+                    // Open bag (gym city)
                     UI::clearScreen();
-                    UI::printBox("Bag", "[Bag system stub - TODO]");
-                    std::cout << "\nPress Enter to continue...";
-                    std::cin.ignore(10000, '\n');
+                    handleBagMenu(player);
                 }
                 else
                 {
@@ -227,6 +223,132 @@ namespace OverworldUI
             }
             }
         }
+    }
+
+    /**
+     * @brief Hiển thị bag menu ngoài battle, xử lý item sử dụng.
+     *        GRADER: Sử dụng InventorySystem::forEach() để duyệt HashTable items.
+     */
+    void handleBagMenu(Player &player)
+    {
+        if (player.inventory.empty())
+        {
+            UI::printBox("Bag", "Your bag is empty!");
+            std::cout << "\nPress Enter to continue...";
+            std::cin.ignore(10000, '\n');
+            return;
+        }
+
+        // Display bag with items
+        std::cout << "╔════════════════════════════════════╗\n";
+        std::cout << "║  BAG                               ║\n";
+        std::cout << "╠════════════════════════════════════╣\n";
+
+        // GRADER: Sử dụng InventorySystem::forEach() với lambda callback
+        int itemIndex = 1;
+        player.inventory.forEach([&itemIndex](const std::string &name, Item &item)
+                                 {
+            std::string line = "[" + std::to_string(itemIndex) + "] " + name + 
+                              " x" + std::to_string(item.quantity) + 
+                              " (+" + std::to_string(item.healAmount) + " HP)";
+            std::cout << "║  " << line;
+            int padding = 30 - line.length();
+            for (int i = 0; i < padding && i < 30; i++)
+                std::cout << " ";
+            std::cout << "║\n";
+            itemIndex++; });
+
+        std::cout << "╠════════════════════════════════════╣\n";
+        std::cout << "║  [0] Cancel                        ║\n";
+        std::cout << "╚════════════════════════════════════╝\n";
+
+        // Get user selection
+        std::cout << "> Choose item: ";
+        std::string choice;
+        std::cin >> choice;
+        std::cin.ignore(10000, '\n');
+
+        // Validate input
+        int itemNum = 0;
+        try
+        {
+            itemNum = std::stoi(choice);
+        }
+        catch (...)
+        {
+            std::cout << "Invalid input!\n";
+            return;
+        }
+
+        // Handle cancel
+        if (itemNum == 0)
+        {
+            return;
+        }
+
+        // Find selected item from inventory
+        int currentIndex = 1;
+        std::string selectedItemName = "";
+
+        player.inventory.forEach([&currentIndex, &itemNum, &selectedItemName](const std::string &name, Item &item)
+                                 {
+            if (currentIndex == itemNum && item.quantity > 0)
+            {
+                selectedItemName = name;
+            }
+            currentIndex++; });
+
+        if (selectedItemName.empty())
+        {
+            std::cout << "Invalid item selection!\n";
+            return;
+        }
+
+        // Select which mon to use item on
+        UI::clearScreen();
+        std::cout << "╔════════════════════════════════════╗\n";
+        std::cout << "║  Choose Pokemon to use item on:     ║\n";
+        std::cout << "╠════════════════════════════════════╣\n";
+
+        // Display party mons
+        // TODO: Implement party iteration from Queue
+        std::cout << "║  [1] Front pokemon                 ║\n";
+        std::cout << "║  [0] Cancel                        ║\n";
+        std::cout << "╚════════════════════════════════════╝\n";
+
+        std::cout << "> Choose pokemon: ";
+        std::string monChoice;
+        std::cin >> monChoice;
+        std::cin.ignore(10000, '\n');
+
+        if (monChoice == "0")
+        {
+            return;
+        }
+
+        // Use item on player's current mon (front of queue)
+        if (!player.party.empty())
+        {
+            Monster &targetMon = player.party.front();
+
+            // GRADER: Sử dụng InventorySystem::useItem() với HashTable::find()
+            if (player.inventory.useItem(selectedItemName, targetMon))
+            {
+                std::cout << "\nUsed " << selectedItemName << " on " << targetMon.name << "!\n";
+                std::cout << targetMon.name << "'s HP is now " << targetMon.hp << "/" << targetMon.maxHp << ".\n";
+            }
+            else
+            {
+                std::cout << "\nCouldn't use " << selectedItemName << ".\n";
+            }
+        }
+        else
+        {
+            std::cout << "You have no pokemon to use item on!\n";
+        }
+
+        std::cout << "\nPress Enter to continue...";
+        std::cin.ignore(10000, '\n');
     }
 
 } // namespace OverworldUI

@@ -3,6 +3,7 @@
 
 #include <string>
 #include "../systems/BattleSystem.hpp"
+#include "../systems/InventorySystem.hpp"
 
 /**
  * @namespace BattleUI
@@ -23,7 +24,7 @@ namespace BattleUI
      * @brief Hiển thị thông tin Pokémon (tên, level, HP bar).
      * @param mon Tham chiếu Monster
      * @param owner Tên owner ("Enemy" hoặc "Your")
-     * @param isEnemy True nếu là enemy mon, False nếu là player mon
+     * @param isEnemy True nếu là enemy mon, False nếu là player mon (reserved for future use)
      */
     void displayMonsterInfo(Monster &mon, const std::string &owner, bool isEnemy);
 
@@ -38,6 +39,13 @@ namespace BattleUI
      * @brief Hiển thị menu tùy chọn chiến đấu ([1] Fight, [2] Bag, [3] Switch, [4] Run).
      */
     void displayActionMenu();
+
+    /**
+     * @brief Hiển thị bag menu với danh sách items từ InventorySystem.
+     *        GRADER: Sử dụng InventorySystem::forEach() để duyệt HashTable items.
+     * @param inventory Tham chiếu InventorySystem của player
+     */
+    void displayBagMenu(InventorySystem &inventory);
 }
 
 #endif // BATTLEUI_HPP

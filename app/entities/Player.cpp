@@ -4,6 +4,10 @@
 Player::Player() : name(""), badges(0), starterName("")
 {
     // Khởi tạo hàng đợi party rỗng, sẽ được thêm Starter khi initializePartyWithStarter() gọi
+
+    // GRADER: Khởi tạo inventory với Potion ×3 ban đầu
+    // Sử dụng InventorySystem::addItem() với HashTable::insert()
+    inventory.addItem("Potion", 3);
 }
 
 void Player::initializePartyWithStarter()

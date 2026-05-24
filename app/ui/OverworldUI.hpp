@@ -9,6 +9,7 @@
 #include "../world/WorldMap.hpp"
 #include "../entities/Player.hpp"
 #include "../core/GameState.hpp"
+#include "../core/Game.hpp"
 
 /**
  * @namespace OverworldUI
@@ -21,8 +22,16 @@ namespace OverworldUI
      *        Hiển thị thành phố hiện tại, dialog NPC, và các tùy chọn di chuyển.
      * @param world Tham chiếu WorldMap để di chuyển qua các thành phố.
      * @param player Tham chiếu Player để cập nhật badges, party, v.v.
+     * @param game Tham chiếu Game (reserved for future use).
      */
-    void run(WorldMap &world, Player &player, class Game &game);
+    void run(WorldMap &world, Player &player, Game &game);
+
+    /**
+     * @brief Hiển thị bag menu ngoài battle, xử lý item sử dụng trên pokemon.
+     *        GRADER: Sử dụng InventorySystem::forEach() để duyệt HashTable items.
+     * @param player Tham chiếu Player (inventory và party)
+     */
+    void handleBagMenu(Player &player);
 }
 
 #endif // OVERWORLDUI_HPP

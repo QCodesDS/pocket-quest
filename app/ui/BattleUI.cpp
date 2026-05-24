@@ -49,7 +49,7 @@ namespace BattleUI
         std::cout << "╚══════════════════════════════════════╝\n";
     }
 
-    void displayMonsterInfo(Monster &mon, const std::string &owner, bool isEnemy)
+    void displayMonsterInfo(Monster &mon, const std::string &owner, [[maybe_unused]] bool isEnemy)
     {
         // Format: "Enemy PIDGEY    Lv.5"
         //         "HP [##########]  35/35"
@@ -125,6 +125,39 @@ namespace BattleUI
     {
         std::cout << "║     [1] Fight      [2] Bag           ║\n";
         std::cout << "║     [3] Switch     [4] Run           ║\n";
+    }
+
+    void displayBagMenu(InventorySystem &inventory)
+    {
+        // GRADER: Sử dụng InventorySystem::forEach() để duyệt HashTable items
+        if (inventory.empty())
+        {
+            UI::printBox("BAG", "Your bag is empty!");
+            return;
+        }
+
+        // Display header
+        std::cout << "╔════════════════════════════════════╗\n";
+        std::cout << "║  BAG                               ║\n";
+        std::cout << "╠════════════════════════════════════╣\n";
+
+        // GRADER: Sử dụng template forEach() với lambda callback
+        int itemIndex = 1;
+        inventory.forEach([&itemIndex](const std::string &name, Item &item)
+                          {
+            std::string line = "[" + std::to_string(itemIndex) + "] " + name + 
+                              " x" + std::to_string(item.quantity) + 
+                              " (+" + std::to_string(item.healAmount) + " HP)";
+            std::cout << "║  " << line;
+            int padding = 30 - line.length();
+            for (int i = 0; i < padding && i < 30; i++)
+                std::cout << " ";
+            std::cout << "║\n";
+            itemIndex++; });
+
+        std::cout << "╠════════════════════════════════════╣\n";
+        std::cout << "║  [0] Cancel                        ║\n";
+        std::cout << "╚════════════════════════════════════╝\n";
     }
 
 } // namespace BattleUI

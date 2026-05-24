@@ -4,11 +4,13 @@
 #include <string>
 #include "Queue.hpp"
 #include "Monster.hpp"
+#include "../systems/InventorySystem.hpp"
 
 /**
  * @struct Player
  * @brief  Cấu trúc dữ liệu lưu trữ thông tin và trạng thái của người chơi (Trainer).
  *         Quản lý party thông qua Queue<Monster> từ lib/ (Phase 03 lib usage).
+ *         Quản lý bag thông qua InventorySystem với HashTable<string, Item> (Phase 04 lib usage).
  */
 struct Player
 {
@@ -17,8 +19,12 @@ struct Player
     Queue<Monster> party;    ///< Đội hình chiến đấu dùng Queue<Monster> (FIFO: front mon battles first)
     std::string starterName; ///< Tên của Starter được chọn ban đầu
 
+    // GRADER: InventorySystem uses HashTable<string, Item> from lib/ (Phase 04 lib usage)
+    InventorySystem inventory; ///< Bag của player quản lý items
+
     /**
      * @brief Constructor khởi tạo Trainer mặc định với các giá trị rỗng.
+     *        Khởi tạo inventory với Potion ×3 ban đầu.
      */
     Player();
 

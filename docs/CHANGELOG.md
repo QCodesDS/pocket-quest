@@ -48,9 +48,80 @@ Dự án đang ở giai đoạn: **Tài liệu hoàn chỉnh, sẵn sàng bắt 
 ### Fixes
 
 - Fixed shallow copy crash: added copy constructor/assignment to LinkedList<T>
+
+## [2026-05-22] — Phase 03: Battle System
+
+### Completed
+
+- Added: app/entities/Move.hpp / Move.cpp
+- Added: app/entities/Trainer.hpp / Trainer.cpp
+- Added: app/entities/Monster.cpp (full implementation)
+- Added: app/data/gen1_monsters.hpp (18 monsters: starters, wild, gym leaders, elite four)
+- Added: app/data/gen1_moves.hpp (move database, 2-4 moves per monster)
+- Added: app/systems/BattleSystem.hpp / BattleSystem.cpp
+- Added: app/ui/BattleUI.hpp / BattleUI.cpp
+- Modified: app/entities/Monster.hpp (added moves[4] array + level)
+- Modified: app/entities/Player.hpp / Player.cpp (enqueue starter into Queue<Monster>)
+- Modified: app/core/Game.hpp / Game.cpp (BATTLE state handler)
+- Modified: app/ui/OverworldUI.hpp / OverworldUI.cpp (connect wild/gym stubs)
+- Created: Makefile (automated build)
+
+### Features
+
+- Turn-based combat: player → enemy alternating
+- Queue<Monster> party management — front mon fights, faint → dequeue → next
+- Stack<std::string> battle log — max 5 lines displayed
+- Damage formula: dmg = (move.power \* atk) / (def > 0 ? def : 1)
+- Run attempt: 50% success, wild only — blocked for trainer/gym
+- Switch: rotate Queue front → back
+- Enemy AI: random move selection (PriorityQueue in Phase 06)
+
+### Fixes
+
+- BattleSystem.cpp: playerAttack() scope error fixed
+- BattleUI.cpp: unused parameter suppressed
+- OverworldUI.hpp: linker error fixed (include + signature mismatch)
+
+### Notes
+
+- [2] Bag in battle is stub — Phase 04
+- Gym battle linkage is stub — Phase 05
+- Build: zero warnings, zero errors, 19 .cpp files compiled
 - Fixed infinite loop in NPC dialog rendering: check moveNext() return value
 
 ### Notes
 
 - Gym battle, wild encounter, inventory, bag are stubs — Phase 03/04 will implement
 - Build: zero warnings, zero errors on g++ -std=c++17 -Wall -Wextra
+
+## [2026-05-22] — Phase 04: Inventory System
+
+### Completed
+
+- Added: app/entities/Item.hpp (Item struct: name, healAmount, quantity)
+- Added: app/data/items.hpp (POTION +20HP, SUPER_POTION +50HP, FULL_RESTORE full HP)
+- Modified: app/systems/InventorySystem.hpp / InventorySystem.cpp (full implementation)
+- Modified: app/entities/Player.hpp / Player.cpp (added InventorySystem inventory, init Potion x3)
+- Modified: app/systems/BattleSystem.cpp (showBag() replacing case 2 stub)
+- Modified: app/ui/BattleUI.hpp / BattleUI.cpp (displayBagMenu using forEach)
+- Modified: app/ui/OverworldUI.hpp / OverworldUI.cpp (handleBagMenu outside battle)
+
+### Features
+
+- HashTable<string, Item> from lib/ — O(1) item lookup by name
+- Player starts with Potion x3
+- [2] Bag in battle: select item → heal active mon → enemy counter-attacks
+- Bag outside battle: select item → select target mon → heal
+- HP full check: reject use with message, qty unchanged
+- Bag empty: show "Your bag is empty." message
+- Max 10 item types in bag
+
+### Fixes
+
+- BattleUI.hpp: missing #endif header guard added
+- lib/HashTable.hpp: const find() corrected to return &node->value
+
+### Notes
+
+- GRADER comments on all HashTable operations (insert, find, remove, contains, forEach)
+- Build: zero warnings, zero errors

@@ -1,0 +1,40 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build MonsterQuest",
+			"type": "shell",
+			"command": "g++",
+			"args": [
+				"-std=c++17",
+				"-Wall",
+				"-Wextra",
+				"-I./lib",
+				"${workspaceFolder}/app/main.cpp",
+				"${workspaceFolder}/app/core/Game.cpp",
+				"${workspaceFolder}/app/core/SaveData.cpp",
+				"${workspaceFolder}/app/entities/Monster.cpp",
+				"${workspaceFolder}/app/entities/Move.cpp",
+				"${workspaceFolder}/app/entities/Player.cpp",
+				"${workspaceFolder}/app/entities/Trainer.cpp",
+				"${workspaceFolder}/app/systems/BattleSystem.cpp",
+				"${workspaceFolder}/app/systems/InventorySystem.cpp",
+				"${workspaceFolder}/app/systems/PokedexSystem.cpp",
+				"${workspaceFolder}/app/systems/WildSystem.cpp",
+				"${workspaceFolder}/app/ui/BattleUI.cpp",
+				"${workspaceFolder}/app/ui/IntroUI.cpp",
+				"${workspaceFolder}/app/ui/MenuUI.cpp",
+				"${workspaceFolder}/app/ui/OverworldUI.cpp",
+				"${workspaceFolder}/app/ui/UI.cpp",
+				"${workspaceFolder}/app/world/City.cpp",
+				"${workspaceFolder}/app/world/Region.cpp",
+				"${workspaceFolder}/app/world/WorldMap.cpp",
+				"-o",
+				"pocket-quest"
+			],
+			"problemMatcher": [
+				"$gcc"
+			]
+		}
+	]
+}

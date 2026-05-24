@@ -71,10 +71,11 @@ private:
 
     /**
      * @brief Xử lý lượt tấn công của enemy (random move selection).
+     *        Tính damage sử dụng các queue mons hiện tại từ playerParty và enemyParty.
      *        Phase 03: enemy chọn move ngẫu nhiên.
      *        Phase 06: sẽ dùng PriorityQueue để chọn move tốt nhất.
      */
-    void enemyAttack(Player &player);
+    void enemyAttack();
 
     /**
      * @brief Hiển thị thông tin monster hiện tại và HP bar.
@@ -109,11 +110,12 @@ public:
     void initializeTrainerBattle(Player &player, Trainer &trainer);
 
     /**
-     * @brief Xử lý tấn công của player.
+     * @brief Xử lý tấn công của player. Sử dụng Queue<Monster> và Stack<std::string> để quản lý party và log.
      * @param moveIdx Index của move (0-3) mà player chọn
+     * @param player Tham chiếu tới Player để kiểm tra trạng thái (dùng cho enemyAttack call)
      * @return True nếu tấn công thành công, False nếu input không hợp lệ
      */
-    bool playerAttack(int moveIdx);
+    bool playerAttack(int moveIdx, Player &player);
 
     /**
      * @brief Lấy tham chiếu Stack log để display.
@@ -162,6 +164,15 @@ public:
      * @brief Kiểm tra xem player có thể chạy được không (chỉ wild được run).
      */
     bool canRun() const { return battleType == BattleType::WILD; }
+
+    /**
+     * @brief Hiển thị bag menu trong battle, xử lý item selection và use.
+     *        GRADER: Sử dụng InventorySystem::forEach() để display items từ HashTable.
+     * @param player Tham chiếu Player (lấy inventory)
+     * @return True nếu item được dùng thành công (enemy sẽ counter-attack)
+     *         False nếu bag rỗng, user cancel, hoặc item không applicable
+     */
+    bool showBag(Player &player);
 };
 
 #endif // BATTLESYSTEM_HPP
