@@ -26,9 +26,9 @@ void Game::run()
 
         case GameState::INTRO:
             // 1. Chạy cốt truyện game mở đầu pokemon
-            // IntroUI::showOpeningStory();
+            IntroUI::showOpeningStory();
             // 2. Chạy cốt truyện giới thiệu của Giáo sư Oak
-            // IntroUI::showOakDialog();
+            IntroUI::showOakDialog();
             // 3. Nhập tên nhân vật (có validate độ dài & rỗng)
             IntroUI::showNameInput(_player);
             // 4. Chọn Starter (có validate chữ/số ngoài phạm vi)
