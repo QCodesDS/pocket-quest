@@ -11,7 +11,7 @@
 | 05    | Sort & Polish V1         | `Algorithms`                         | **Nộp được**  | ⬜         |
 | 06    | Trainer AI               | `PriorityQueue<Move>`                |               | ⬜         |
 | 07    | Pokédex                  | `BST<int,Monster>`                   | **V2 ✅ 7/7** | ⬜         |
-| 08    | Gen 2 & Gen 3            | Tất cả                               | **V3 ✅**     | ⬜         |
+| 08    | Gen 1 Complete           | Tất cả                               | **V3 ✅**     | ⬜         |
 | 09    | Demo Prep                | —                                    | **Nộp**       | ⬜         |
 
 ---
@@ -76,10 +76,10 @@
 **Output:** Menu Pokédex → tìm theo ID → xem stat đầy đủ  
 **Trạng thái:** ⬜
 
-### Phase 08 — Gen 2 & Gen 3
+### Phase 08 — Gen 1 Complete
 
-**Mục tiêu:** Thêm Johto và Hoenn, unlock sau khi thắng gen trước  
-**Output:** Chơi được cả 3 gen liên tiếp  
+**Mục tiêu:** Hoàn thiện toàn bộ cốt truyện Kanto (không bug, không crash), chơi được từ Pallet Town đến Champion Blue trong 10 phút  
+**Output:** Phát hành Gen 1 hoàn chỉnh (Stability) và sẵn sàng cho Phase 09 (Demo Prep)  
 **Trạng thái:** ⬜
 
 ### Phase 09 — Demo Prep

@@ -23,22 +23,30 @@ chơi được mượt từ Pallet Town đến Champion Blue trong 10 phút.
 ### Cốt truyện đặc biệt
 
 - [ ] **Lavender Town**: không có Gym — chỉ dialog buồn về Pokémon Tower:
-  ```
+
+```bash
   "This town is home to Pokémon Tower... where Pokémon rest in peace.
    Strange things happen here at night. Team Rocket did something terrible..."
-  ```
+```
+
 - [ ] **Celadon City**: hint Team Rocket ở Game Corner:
-  ```
+
+```bash
   "Strange men in black uniforms have been seen in the basement..."
-  ```
+```
+
 - [ ] **Saffron City**: Team Rocket chiếm Silph Co.:
-  ```
+
+```bash
   "Team Rocket has taken over Silph Co.! They want the Master Ball prototype!"
-  ```
+```
+
 - [ ] **Giovanni Gym 8**: lộ mặt là trùm Team Rocket:
-  ```
+
+```bash
   "I am Giovanni — Leader of Team Rocket, and the final Gym Leader."
-  ```
+```
+
 - [ ] Sau thắng Giovanni: Team Rocket tan rã dialog
 
 ### Edge cases
