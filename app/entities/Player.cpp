@@ -1,9 +1,17 @@
 #include "Player.hpp"
 #include "../data/gen1_monsters.hpp"
 
-Player::Player() : name(""), badges(0), starterName("")
+Player::Player() : name(""), badges(0), starterName(""),
+                   hasParcel(false), deliveredParcel(false), hasSSTicket(false),
+                   hasCut(false), hasSilphScope(false), hasPokeFlute(false),
+                   hasSurf(false), hasGoldTeeth(false), hasStrength(false),
+                   hasSecretKey(false)
 {
     // Khởi tạo hàng đợi party rỗng, sẽ được thêm Starter khi initializePartyWithStarter() gọi
+    for (int i = 0; i < 4; i++)
+    {
+        rivalDefeated[i] = false;
+    }
 
     // GRADER: Khởi tạo inventory với Potion ×3 ban đầu
     // Sử dụng InventorySystem::addItem() với HashTable::insert()

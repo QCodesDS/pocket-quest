@@ -16,25 +16,27 @@
  * @tparam T Kiểu dữ liệu của các phần tử được lưu trữ trong ngăn xếp.
  */
 template <typename T>
-class Stack {
+class Stack
+{
 private:
     /**
      * @struct SNode
      * @brief  Cấu trúc một phần tử Node nội bộ (Nested Struct) phục vụ việc liên kết dữ liệu.
      */
-    struct SNode {
-        T data;       ///< Dữ liệu của phần tử
-        SNode* next;  ///< Con trỏ liên kết đến Node tiếp theo phía dưới trong ngăn xếp
+    struct SNode
+    {
+        T data;      ///< Dữ liệu của phần tử
+        SNode *next; ///< Con trỏ liên kết đến Node tiếp theo phía dưới trong ngăn xếp
 
         /**
          * @brief Khởi tạo một Node ngăn xếp mới với dữ liệu cho trước.
          * @param val Giá trị dữ liệu cần lưu trữ
          */
-        SNode(const T& val) : data(val), next(nullptr) {}
+        SNode(const T &val) : data(val), next(nullptr) {}
     };
 
-    SNode* _top;  ///< Con trỏ quản lý phần tử ở đỉnh ngăn xếp (Top element)
-    int _size;    ///< Số lượng phần tử hiện có trong ngăn xếp
+    SNode *_top; ///< Con trỏ quản lý phần tử ở đỉnh ngăn xếp (Top element)
+    int _size;   ///< Số lượng phần tử hiện có trong ngăn xếp
 
 public:
     // ================================================================================
@@ -60,8 +62,9 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @param  val Giá trị phần tử cần đưa vào ngăn xếp
      */
-    void push(const T& val) {
-        SNode* node = new SNode(val);
+    void push(const T &val)
+    {
+        SNode *node = new SNode(val);
         node->next = _top;
         _top = node;
         _size++;
@@ -74,9 +77,10 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @return Giá trị của phần tử vừa bị loại bỏ ở đỉnh ngăn xếp
      */
-    T pop() {
+    T pop()
+    {
         T val = _top->data;
-        SNode* tmp = _top;
+        SNode *tmp = _top;
         _top = _top->next;
         delete tmp;
         _size--;
@@ -89,7 +93,7 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @return Tham chiếu (Reference) tới dữ liệu phần tử đỉnh hiện tại
      */
-    T& top() { return _top->data; }
+    T &top() { return _top->data; }
 
     /**
      * @brief  Truy xuất tham chiếu hằng đến phần tử nằm ở đỉnh ngăn xếp mà không loại bỏ nó.
@@ -98,7 +102,7 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @return Tham chiếu hằng (Const Reference) tới dữ liệu phần tử đỉnh hiện tại
      */
-    const T& top() const { return _top->data; }
+    const T &top() const { return _top->data; }
 
     // ================================================================================
     //  Utility / State Functions (Các hàm tiện ích và trạng thái)
@@ -119,11 +123,86 @@ public:
     /**
      * @brief Xóa toàn bộ nội dung của ngăn xếp, giải phóng mọi phân vùng bộ nhớ động đã cấp phát.
      */
-    void clear() {
-        while (!empty()) {
+    void clear()
+    {
+        while (!empty())
+        {
             pop();
         }
     }
+
+    // ================================================================================
+    //  Copy Support
+    // ================================================================================
+
+    /**
+     * @brief Copy constructor deep-copies stack contents.
+     */
+    Stack(const Stack &other) : _top(nullptr), _size(0)
+    {
+        if (other._top)
+        {
+            // Copy elements to temporary array to preserve order
+            int count = 0;
+            SNode *cur = other._top;
+            while (cur)
+            {
+                count++;
+                cur = cur->next;
+            }
+
+            T *temp = new T[count];
+            cur = other._top;
+            for (int i = 0; i < count; i++)
+            {
+                temp[i] = cur->data;
+                cur = cur->next;
+            }
+
+            for (int i = count - 1; i >= 0; i--)
+            {
+                push(temp[i]);
+            }
+
+            delete[] temp;
+        }
+    }
+
+    /**
+     * @brief Copy assignment operator deep-copies stack contents.
+     */
+    Stack &operator=(const Stack &other)
+    {
+        if (this == &other)
+            return *this;
+        clear();
+        if (other._top)
+        {
+            int count = 0;
+            SNode *cur = other._top;
+            while (cur)
+            {
+                count++;
+                cur = cur->next;
+            }
+
+            T *temp = new T[count];
+            cur = other._top;
+            for (int i = 0; i < count; i++)
+            {
+                temp[i] = cur->data;
+                cur = cur->next;
+            }
+
+            for (int i = count - 1; i >= 0; i--)
+            {
+                push(temp[i]);
+            }
+
+            delete[] temp;
+        }
+        return *this;
+    }
 };
 
-#endif  // STACK_HPP
+#endif // STACK_HPP

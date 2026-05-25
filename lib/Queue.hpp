@@ -16,26 +16,28 @@
  * @tparam T Kiểu dữ liệu của các phần tử được lưu trữ trong hàng đợi.
  */
 template <typename T>
-class Queue {
+class Queue
+{
 private:
     /**
      * @struct QNode
      * @brief  Cấu trúc một phần tử Node nội bộ (Nested Struct) phục vụ việc liên kết dữ liệu.
      */
-    struct QNode {
-        T data;       ///< Dữ liệu của phần tử
-        QNode* next;  ///< Con trỏ liên kết đến Node tiếp theo phía sau trong hàng đợi
+    struct QNode
+    {
+        T data;      ///< Dữ liệu của phần tử
+        QNode *next; ///< Con trỏ liên kết đến Node tiếp theo phía sau trong hàng đợi
 
         /**
          * @brief Khởi tạo một Node hàng đợi mới với dữ liệu cho trước.
          * @param val Giá trị dữ liệu cần lưu trữ
          */
-        QNode(const T& val) : data(val), next(nullptr) {}
+        QNode(const T &val) : data(val), next(nullptr) {}
     };
 
-    QNode* _front;  ///< Con trỏ quản lý phần tử ở đầu hàng đợi (Vị trí lấy dữ liệu ra)
-    QNode* _back;   ///< Con trỏ quản lý phần tử ở cuối hàng đợi (Vị trí thêm dữ liệu vào)
-    int _size;      ///< Số lượng phần tử hiện có trong hàng đợi
+    QNode *_front; ///< Con trỏ quản lý phần tử ở đầu hàng đợi (Vị trí lấy dữ liệu ra)
+    QNode *_back;  ///< Con trỏ quản lý phần tử ở cuối hàng đợi (Vị trí thêm dữ liệu vào)
+    int _size;     ///< Số lượng phần tử hiện có trong hàng đợi
 
 public:
     // ================================================================================
@@ -61,11 +63,15 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @param  val Giá trị phần tử cần đưa vào hàng đợi
      */
-    void enqueue(const T& val) {
-        QNode* node = new QNode(val);
-        if (!_back) {
+    void enqueue(const T &val)
+    {
+        QNode *node = new QNode(val);
+        if (!_back)
+        {
             _front = _back = node;
-        } else {
+        }
+        else
+        {
             _back->next = node;
             _back = node;
         }
@@ -79,11 +85,13 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @return Giá trị của phần tử vừa bị loại bỏ ở đầu hàng đợi
      */
-    T dequeue() {
+    T dequeue()
+    {
         T val = _front->data;
-        QNode* tmp = _front;
+        QNode *tmp = _front;
         _front = _front->next;
-        if (!_front) _back = nullptr;
+        if (!_front)
+            _back = nullptr;
         delete tmp;
         _size--;
         return val;
@@ -95,7 +103,7 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @return Tham chiếu (Reference) tới dữ liệu phần tử đầu hàng hiện tại
      */
-    T& front() { return _front->data; }
+    T &front() { return _front->data; }
 
     /**
      * @brief  Truy xuất tham chiếu hằng đến phần tử nằm ở đầu hàng đợi mà không loại bỏ nó.
@@ -104,7 +112,7 @@ public:
      * @note   Độ phức tạp thời gian thuật toán: O(1).
      * @return Tham chiếu hằng (Const Reference) tới dữ liệu phần tử đầu hàng hiện tại
      */
-    const T& front() const { return _front->data; }
+    const T &front() const { return _front->data; }
 
     // ================================================================================
     //  Utility / State Functions (Các hàm tiện ích và trạng thái)
@@ -125,11 +133,47 @@ public:
     /**
      * @brief Xóa toàn bộ nội dung của hàng đợi, giải phóng mọi phân vùng bộ nhớ động đã cấp phát.
      */
-    void clear() {
-        while (!empty()) {
+    void clear()
+    {
+        while (!empty())
+        {
             dequeue();
         }
     }
+
+    // ================================================================================
+    //  Copy Support
+    // ================================================================================
+
+    /**
+     * @brief Copy constructor deep-copies queue contents.
+     */
+    Queue(const Queue &other) : _front(nullptr), _back(nullptr), _size(0)
+    {
+        QNode *cur = other._front;
+        while (cur)
+        {
+            enqueue(cur->data);
+            cur = cur->next;
+        }
+    }
+
+    /**
+     * @brief Copy assignment operator deep-copies queue contents.
+     */
+    Queue &operator=(const Queue &other)
+    {
+        if (this == &other)
+            return *this;
+        clear();
+        QNode *cur = other._front;
+        while (cur)
+        {
+            enqueue(cur->data);
+            cur = cur->next;
+        }
+        return *this;
+    }
 };
 
-#endif  // QUEUE_HPP
+#endif // QUEUE_HPP

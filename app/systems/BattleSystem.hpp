@@ -57,6 +57,16 @@ private:
     int calculateDamage(Monster &attacker, Monster &defender, Move &move);
 
     /**
+     * @brief Tính hệ số tương khắc hệ giữa chiêu thức và Pokémon bị tấn công.
+     *        Hỗ trợ 18 hệ chuẩn Pokémon: ×2 siêu hiệu quả, ×0 miễn dịch, ×0.5 không hiệu quả.
+     *        Defender có thể đa hệ (dạng "Fire/Flying"), hệ số nhân chồng lên nhau.
+     * @param moveType   Hệ của chiêu thức (ví dụ: "Fire")
+     * @param defType    Hệ của Pokémon bị tấn công (ví dụ: "Grass" hoặc "Water/Ice")
+     * @return Hệ số nhân (×100 để dùng integer math): 200=x2, 100=x1, 50=x0.5, 0=immune
+     */
+    int getTypeEffectiveness(const std::string &moveType, const std::string &defType);
+
+    /**
      * @brief Thêm log line vào Stack, duy trì tối đa 5 dòng.
      *        GRADER: Sử dụng Stack<std::string> với cơ chế giới hạn 5 lines.
      * @param line Dòng log cần thêm
@@ -81,6 +91,15 @@ private:
      * @brief Hiển thị thông tin monster hiện tại và HP bar.
      */
     void displayBattleUI();
+
+    /**
+     * @brief Áp dụng badge stat boosts lên playerParty trước khi battle bắt đầu.
+     *        Theo Gen 1 mechanic: mỗi badge nhân stat tương ứng ×9/8 (≈1.125).
+     *        Boulder=Atk, Cascade=Def, Thunder=Spd, Rainbow=Spc,
+     *        Soul=Spd, Marsh=Spc, Volcano=Spc, Earth=Def.
+     * @param badgeCount Số badge player đang có (0–8)
+     */
+    void applyBadgeBoosts(int badgeCount);
 
     /**
      * @brief Xử lý mon faint (HP <= 0).

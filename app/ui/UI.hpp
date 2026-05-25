@@ -3,11 +3,14 @@
 
 #include <string>
 
+struct Player;
+
 /**
  * @namespace UI
  * @brief     Cung cấp các hàm vẽ, định dạng giao diện console ASCII chuẩn và đẹp mắt.
  */
-namespace UI {
+namespace UI
+{
     /**
      * @brief Xóa trắng màn hình console, tự động chuyển đổi theo hệ điều hành (Windows cls / Unix clear).
      */
@@ -18,7 +21,7 @@ namespace UI {
      * @param title Tiêu đề hộp thoại
      * @param content Nội dung dòng văn bản cần in
      */
-    void printBox(const std::string& title, const std::string& content);
+    void printBox(const std::string &title, const std::string &content);
 
     /**
      * @brief In ra đường kẻ phân tách dài với ký tự tùy chọn.
@@ -35,6 +38,12 @@ namespace UI {
      * @return Chuỗi vẽ thanh HP (ví dụ: "[#######...]")
      */
     std::string hpBar(int hp, int maxHp, int width = 10);
+
+    /**
+     * @brief Hiển thị màn hình chi tiết chiến thắng Champion.
+     * @param player Thông tin người chơi để hiển thị tên, starter và badges.
+     */
+    void showVictoryScreen(Player &player);
 }
 
 #endif // UI_HPP

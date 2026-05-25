@@ -23,6 +23,9 @@ void BattleSystem::initializeWildBattle(Player &player, Monster wildMon)
     battleTurn = 0;
     isPlayerTurn = true;
 
+    // Áp dụng badge boosts lên party trước battle
+    applyBadgeBoosts(player.badges);
+
     // Khởi tạo log trống
     std::string startMsg = "Wild " + wildMon.name + " appeared!";
     addLog(startMsg);
@@ -41,6 +44,9 @@ void BattleSystem::initializeTrainerBattle(Player &player, Trainer &trainer)
     battleTurn = 0;
     isPlayerTurn = true;
 
+    // Áp dụng badge boosts lên party trước battle
+    applyBadgeBoosts(player.badges);
+
     std::string startMsg = "Trainer " + trainer.name + " sent out " + enemyParty.front().name + "!";
     addLog(startMsg);
 }
@@ -56,6 +62,64 @@ int BattleSystem::calculateDamage(Monster &attacker, Monster &defender, Move &mo
         damage = 1;
 
     return damage;
+}
+
+// GRADER: Badge Stat Boosts (Gen 1 mechanic) — nhân các chỉ số theo huy hiệu sản phẩm
+// Mỗi badge áp dụng hệ số 9/8 (~1.125) lên stat tương ứng của tất cả mons trong party.
+void BattleSystem::applyBadgeBoosts(int badgeCount)
+{
+    // Không có badge nào thì không boost
+    if (badgeCount <= 0)
+        return;
+
+    // Snapshot toàn bộ party ra, rồi đưa lại sau khi đã áp boost
+    // Vì Queue không có iterator, ta dequeue hết, sửa, enqueue lại
+    int partySize = static_cast<int>(playerParty.size());
+    Monster mons[6]; // Kanto max 6 mons
+
+    for (int i = 0; i < partySize && i < 6; i++)
+    {
+        mons[i] = playerParty.dequeue();
+    }
+
+    for (int i = 0; i < partySize && i < 6; i++)
+    {
+        Monster &m = mons[i];
+
+        // Badge 1 — Boulder Badge: +Atk (Brock)
+        if (badgeCount >= 1)
+            m.atk = m.atk * 9 / 8;
+
+        // Badge 2 — Cascade Badge: +Def (Misty)
+        if (badgeCount >= 2)
+            m.def = m.def * 9 / 8;
+
+        // Badge 3 — Thunder Badge: +Spd (Lt. Surge)
+        if (badgeCount >= 3)
+            m.spd = m.spd * 9 / 8;
+
+        // Badge 4 — Rainbow Badge: +Spc (Erika)
+        if (badgeCount >= 4)
+            m.spc = m.spc * 9 / 8;
+
+        // Badge 5 — Soul Badge: +Def (Koga) — stacks with Cascade
+        if (badgeCount >= 5)
+            m.def = m.def * 9 / 8;
+
+        // Badge 6 — Marsh Badge: +Spc (Sabrina) — stacks with Rainbow
+        if (badgeCount >= 6)
+            m.spc = m.spc * 9 / 8;
+
+        // Badge 7 — Volcano Badge: +Spc (Blaine) — stacks
+        if (badgeCount >= 7)
+            m.spc = m.spc * 9 / 8;
+
+        // Badge 8 — Earth Badge: +Atk (Giovanni) — stacks with Boulder
+        if (badgeCount >= 8)
+            m.atk = m.atk * 9 / 8;
+
+        playerParty.enqueue(m);
+    }
 }
 
 void BattleSystem::addLog(const std::string &line)
@@ -260,39 +324,21 @@ bool BattleSystem::attemptRun()
 
 bool BattleSystem::showBag(Player &player)
 {
-    // Display bag menu
-    // GRADER: Sử dụng InventorySystem::forEach() với HashTable để display items
+    // Display bag menu and sort items by name for consistent selection mapping
     if (player.inventory.empty())
     {
         std::cout << "Your bag is empty!\n";
         return false;
     }
 
-    // Display header
-    UI::printBox("BAG", "");
+    BattleUI::ItemEntry items[10];
+    int itemCount = 0;
+    BattleUI::displayBagMenu(player.inventory, items, itemCount);
 
-    std::cout << "╔════════════════════════════════════╗\n";
-    std::cout << "║  Items in Bag:                     ║\n";
-    std::cout << "╠════════════════════════════════════╣\n";
-
-    // GRADER: Sử dụng InventorySystem::forEach() template để duyệt HashTable items
-    // Lambda callback được truyền vào forEach()
-    int itemIndex = 1;
-    player.inventory.forEach([&itemIndex](const std::string &name, Item &item)
-                             {
-        std::string line = "[" + std::to_string(itemIndex) + "] " + name + 
-                          " x" + std::to_string(item.quantity) + 
-                          " (+" + std::to_string(item.healAmount) + " HP)";
-        std::cout << "║  " << line;
-        int padding = 30 - line.length();
-        for (int i = 0; i < padding && i < 30; i++)
-            std::cout << " ";
-        std::cout << "║\n";
-        itemIndex++; });
-
-    std::cout << "╠════════════════════════════════════╣\n";
-    std::cout << "║  [0] Cancel                        ║\n";
-    std::cout << "╚════════════════════════════════════╝\n";
+    if (itemCount == 0)
+    {
+        return false;
+    }
 
     // Get user selection
     std::cout << "> Choose item: ";
@@ -318,24 +364,13 @@ bool BattleSystem::showBag(Player &player)
         return false;
     }
 
-    // Find selected item from inventory
-    // We need to track which item number corresponds to which name
-    int currentIndex = 1;
-    std::string selectedItemName = "";
-
-    player.inventory.forEach([&currentIndex, &itemNum, &selectedItemName](const std::string &name, Item &)
-                             {
-        if (currentIndex == itemNum)
-        {
-            selectedItemName = name;
-        }
-        currentIndex++; });
-
-    if (selectedItemName.empty())
+    if (itemNum < 1 || itemNum > itemCount)
     {
         std::cout << "Invalid item selection!\n";
         return false;
     }
+
+    std::string selectedItemName = items[itemNum - 1].name;
 
     // Use item on current mon
     Monster &playerMon = playerParty.front();

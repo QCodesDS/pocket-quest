@@ -8,10 +8,10 @@
 | 02    | World System             | `LinkedList<City>`                   |               | ✅         |
 | 03    | Battle System            | `Queue<Monster>`, `Stack<BattleLog>` | **V1 ✅**     | ✅         |
 | 04    | Inventory System         | `HashTable<string,Item>`             |               | ✅         |
-| 05    | Sort & Polish V1         | `Algorithms`                         | **Nộp được**  | ⬜         |
+| 05    | Sort & Polish V1         | `Algorithms`                         | **Nộp được**  | ✅         |
 | 06    | Trainer AI               | `PriorityQueue<Move>`                |               | ⬜         |
 | 07    | Pokédex                  | `BST<int,Monster>`                   | **V2 ✅ 7/7** | ⬜         |
-| 08    | Gen 1 Complete           | Tất cả                               | **V3 ✅**     | ⬜         |
+| 08    | Gen 1 Complete           | Tất cả                               | **V3 ✅**     | ✅         |
 | 09    | Demo Prep                | —                                    | **Nộp**       | ⬜         |
 
 ---
@@ -46,21 +46,21 @@
 **Mục tiêu:** Turn-based battle hoàn chỉnh với Queue party và Stack log  
 **Thư viện:** `Queue<Monster>`, `Stack<BattleLog>`  
 **Output:** Wild encounter → battle → thắng/thua → return overworld  
-**Trạng thái:** ⬜
+**Trạng thái:** ✅
 
 ### Phase 04 — Inventory System
 
 **Mục tiêu:** Bag với HashTable, dùng item trong và ngoài battle  
 **Thư viện:** `HashTable<string, Item>`  
 **Output:** `[2] Bag` trong battle → chọn Potion → HP hồi phục  
-**Trạng thái:** ⬜
+**Trạng thái:** ✅
 
 ### Phase 05 — Sort & Polish V1
 
 **Mục tiêu:** Sort party/Pokédex, UI đẹp hơn, Gym + Elite Four Gen 1  
 **Thư viện:** `Algorithms`  
 **Output:** V1 hoàn chỉnh — 1 gen chơi được từ đầu đến Champion  
-**Trạng thái:** ⬜
+**Trạng thái:** ✅
 
 ### Phase 06 — Trainer AI
 
@@ -80,7 +80,7 @@
 
 **Mục tiêu:** Hoàn thiện toàn bộ cốt truyện Kanto (không bug, không crash), chơi được từ Pallet Town đến Champion Blue trong 10 phút  
 **Output:** Phát hành Gen 1 hoàn chỉnh (Stability) và sẵn sàng cho Phase 09 (Demo Prep)  
-**Trạng thái:** ⬜
+**Trạng thái:** ✅
 
 ### Phase 09 — Demo Prep
 

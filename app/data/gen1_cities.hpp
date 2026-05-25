@@ -76,6 +76,12 @@ const CityData GEN1_CITIES[] = {
       "Sabrina's psychic powers are terrifying."},
      true,
      "Sabrina"},
+    {"Cinnabar Island",
+     "GYM 7",
+     {"Blaine's Fire Pokemon are hot to handle!",
+      "The Gym is locked. Find the Secret Key in the Pokemon Mansion."},
+     true,
+     "Blaine"},
     {"Indigo Plateau",
      "LEAGUE",
      {"The Pokemon League awaits.",
@@ -83,6 +89,6 @@ const CityData GEN1_CITIES[] = {
      false,
      nullptr}};
 
-const int GEN1_CITY_COUNT = 10;
+const int GEN1_CITY_COUNT = 11;
 
 #endif // GEN1_CITIES_HPP

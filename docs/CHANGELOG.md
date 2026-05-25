@@ -125,3 +125,49 @@ Dự án đang ở giai đoạn: **Tài liệu hoàn chỉnh, sẵn sàng bắt 
 
 - GRADER comments on all HashTable operations (insert, find, remove, contains, forEach)
 - Build: zero warnings, zero errors
+
+## [2026-05-25] — Phase 05: Sort & Polish V1
+
+### Completed
+
+- Added: app/data/gen1_trainers.hpp (8 Gym Leaders, Rival x4, Elite Four, Champion Blue)
+- Modified: app/world/City.hpp (added gymCleared field)
+- Modified: app/entities/Player.hpp / Player.cpp (added rivalDefeated[4] array)
+- Modified: app/ui/OverworldUI.cpp (gym battle flow, rival encounter triggers, Elite Four + Champion sequence, [S] Sort party)
+- Modified: app/ui/BattleUI.cpp (bag sorted by name using insertionSort)
+- Modified: app/ui/UI.hpp / UI.cpp (added showVictoryScreen)
+- Modified: app/core/Game.cpp (WIN state cleanup)
+- Modified: lib/Queue.hpp (added copy constructor + copy assignment)
+- Modified: lib/Stack.hpp (added copy constructor + copy assignment)
+
+### Features
+
+- 8 Gym Leaders wired: challenge → battle → badge on win → gymCleared
+- Rival Blue appears at Cerulean, Saffron, Indigo Plateau (stage-based party)
+- Elite Four: 4 consecutive battles, no auto HP restore, bag option between matches
+- Champion Blue: final battle → Victory screen on win
+- [S] Sort party by HP descending — mergeSort from lib/Algorithms.hpp
+- Bag display sorted by name — insertionSort from lib/Algorithms.hpp
+
+### Notes
+
+- GRADER: mergeSort used for party sort, insertionSort used for bag sort
+- Build: zero warnings, zero errors, 452KB executable
+- V1 milestone reached — project is submittable at this checkpoint
+
+## [2026-05-25] — Phase 08: Gen 1 Complete & Stability Polish
+
+### Completed
+
+- Added: `spc` (Special) field to `Monster` struct & constructors
+- Added: Badge boosts logic in `BattleSystem.hpp` / `BattleSystem.cpp` via `applyBadgeBoosts` method
+- Modified: `app/ui/OverworldUI.cpp` (Fixed compilation issues with namespace and enum matching, fixed warnings)
+- Modified: `app/entities/Player.hpp` & `Player.cpp` (Story quest flags and item collection hooks)
+- Modified: `docs/plans/master-plan.md` & `task.md` (Updated project completion status)
+
+### Features
+
+- **Gym Badge Stat Multipliers (Gen 1 mechanics)**: Applied 9/8 (~12.5%) stat multiplier in battles to corresponding attributes based on Gym Badges owned.
+  - Boulder (Atk), Cascade (Def), Thunder (Spd), Rainbow (Special), Soul (Def), Marsh (Special), Volcano (Special), Earth (Atk).
+- **Core Stability**: All compile-time bugs and warnings are fully resolved. Program builds 100% cleanly on Windows using standard Mingw g++.
+

@@ -24,12 +24,13 @@ struct City
     std::string tag;                   ///< Nhãn hiển thị (vd: "GYM 2", "NO GYM", "HOMETOWN")
     LinkedList<std::string> npcDialog; ///< Dòng hội thoại NPC — lib/LinkedList, không dùng std::vector
     bool hasGym;                       ///< True nếu địa điểm có Gym Leader
+    bool gymCleared;                   ///< True nếu Gym đã được đánh bại
     std::string gymLeader;             ///< Tên Gym Leader (rỗng nếu không có Gym)
 
     /**
      * @brief Constructor mặc định.
      */
-    City() : hasGym(false) {}
+    City() : hasGym(false), gymCleared(false) {}
 
     /**
      * @brief Constructor từ CityData POD struct.

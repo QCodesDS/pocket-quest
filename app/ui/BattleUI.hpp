@@ -2,6 +2,7 @@
 #define BATTLEUI_HPP
 
 #include <string>
+#include "../entities/Item.hpp"
 #include "../systems/BattleSystem.hpp"
 #include "../systems/InventorySystem.hpp"
 
@@ -12,6 +13,11 @@
  */
 namespace BattleUI
 {
+    struct ItemEntry
+    {
+        std::string name;
+        Item item;
+    };
     /**
      * @brief Hiển thị màn hình chiến đấu chính (battle state).
      *        Bao gồm: Enemy info, Player info, Battle log (5 lines), Menu choices.
@@ -21,14 +27,6 @@ namespace BattleUI
     void renderBattleScreen(BattleSystem &battle);
 
     /**
-     * @brief Hiển thị thông tin Pokémon (tên, level, HP bar).
-     * @param mon Tham chiếu Monster
-     * @param owner Tên owner ("Enemy" hoặc "Your")
-     * @param isEnemy True nếu là enemy mon, False nếu là player mon (reserved for future use)
-     */
-    void displayMonsterInfo(Monster &mon, const std::string &owner, bool isEnemy);
-
-    /**
      * @brief Hiển thị danh sách 5 dòng log gần nhất từ Stack.
      *        GRADER: Dùng Stack<std::string> từ lib/ để lấy và display log.
      * @param log Tham chiếu Stack<std::string> từ BattleSystem
@@ -36,16 +34,13 @@ namespace BattleUI
     void displayLog(Stack<std::string> &log);
 
     /**
-     * @brief Hiển thị menu tùy chọn chiến đấu ([1] Fight, [2] Bag, [3] Switch, [4] Run).
-     */
-    void displayActionMenu();
-
-    /**
      * @brief Hiển thị bag menu với danh sách items từ InventorySystem.
-     *        GRADER: Sử dụng InventorySystem::forEach() để duyệt HashTable items.
+     *        GRADER: Sắp xếp items theo tên bằng insertionSort trước khi hiển thị.
      * @param inventory Tham chiếu InventorySystem của player
+     * @param items Mảng item entries đã được thu thập
+     * @param count Số lượng item entries trong mảng
      */
-    void displayBagMenu(InventorySystem &inventory);
+    void displayBagMenu(InventorySystem &inventory, ItemEntry items[], int &count);
 }
 
 #endif // BATTLEUI_HPP

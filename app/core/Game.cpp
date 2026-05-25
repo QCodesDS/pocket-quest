@@ -3,6 +3,7 @@
 #include "../ui/IntroUI.hpp"
 #include "../ui/MenuUI.hpp"
 #include "../ui/OverworldUI.hpp"
+#include "../data/gen1_trainers.hpp"
 #include <iostream>
 
 Game::Game() : _state(GameState::MENU), _currentBattleType(BattleType::WILD)
@@ -36,6 +37,38 @@ void Game::run()
             // 5. Khởi tạo party với Starter - GRADER: Sử dụng Queue<Monster> từ lib/
             _player.initializePartyWithStarter();
 
+            // Kích hoạt trận đấu Rival đầu game (Stage 0) ở Pallet Town
+            {
+                Trainer rival = Gen1Trainers::getRivalEncounter(0, _player.starterName);
+                BattleSystem battle;
+                battle.initializeTrainerBattle(_player, rival);
+
+                UI::clearScreen();
+                UI::printBox("Rival Battle", "Your rival Blue challenges you to a battle!");
+                std::cout << "\nPress Enter to begin the first battle...";
+                std::cin.ignore(10000, '\n');
+
+                BattleResult rivalResult = battle.runBattle(_player);
+                _player.party = battle.getPlayerParty();
+
+                UI::clearScreen();
+                if (rivalResult == BattleResult::WIN)
+                {
+                    UI::printBox("Victory!", "Prof. Oak: \"Ah! You won! That was an excellent battle!\"\nBlue: \"Humph! I'll catch a stronger Pokemon!\"");
+                }
+                else
+                {
+                    UI::printBox("Rival Battle", "Blue: \"Yeah! Am I great or what?\"\nProf. Oak: \"Don't worry, keep training your Pokemon!\"");
+                    // Hồi phục HP cho Pokemon để không bị Game Over ngay từ đầu
+                    if (!_player.party.empty())
+                    {
+                        _player.party.front().hp = _player.party.front().maxHp;
+                    }
+                }
+                std::cout << "\nPress Enter to begin your journey...";
+                std::cin.ignore(10000, '\n');
+            }
+
             // Chuyển sang OVERWORLD để bắt đầu hành trình
             _state = GameState::OVERWORLD;
             break;
@@ -43,9 +76,11 @@ void Game::run()
         case GameState::OVERWORLD:
             // 5. Chạy vòng lặp Overworld sử dụng LinkedList<City> từ WorldMap
             OverworldUI::run(_world, _player, *this);
-            // TODO: Sau khi kết thúc Overworld, chuyển sang trạng thái tiếp theo
-            // Hiện tại: test demo = chuyển sang WIN
-            _state = GameState::WIN;
+            // Nếu OverworldUI đã set state sang WIN, giữ nguyên.
+            if (_state == GameState::OVERWORLD)
+            {
+                _state = GameState::WIN;
+            }
             break;
 
         case GameState::BATTLE:
@@ -76,10 +111,8 @@ void Game::run()
             break;
 
         case GameState::WIN:
-            // 6. Thử nghiệm giao diện chiến thắng (Victory Screen)
-            MenuUI::showVictory(_player);
-            // Demo chuyển tiếp sang GAMEOVER để test màn hình Thất bại
-            _state = GameState::GAMEOVER;
+            // Victory has already been shown by the Pokemon League flow.
+            running = false;
             break;
 
         case GameState::GAMEOVER:

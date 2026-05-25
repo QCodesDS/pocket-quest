@@ -21,6 +21,7 @@ struct Monster
     int atk;          ///< Điểm công (Attack)
     int def;          ///< Điểm thủ (Defense)
     int spd;          ///< Tốc độ (Speed)
+    int spc;          ///< Chỉ số đặc biệt (Special — Gen 1: dùng cho cả Sp.Atk và Sp.Def)
     Move moves[4];    ///< Array 4 moves của monster (cần dùng trong BattleSystem)
 
     /**
@@ -40,7 +41,7 @@ struct Monster
      * @param s Speed
      */
     Monster(const std::string &n, const std::string &t, int i, int lvl,
-            int hp_, int a, int d, int s);
+            int hp_, int a, int d, int s, int sp = -1);
 };
 
 #endif // MONSTER_HPP
