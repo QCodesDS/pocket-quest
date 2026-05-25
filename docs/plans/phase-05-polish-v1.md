@@ -26,7 +26,8 @@ Kết quả: V1 đầy đủ — chơi được từ Pallet Town đến Champion
 ### Data — Gym Leaders
 
 - [ ] `app/data/gen1_trainers.hpp` — 8 Gym Leaders + Elite Four + Champion:
-  ```
+
+```bash
   Brock      Rock    — Geodude Lv12, Onix Lv14
   Misty      Water   — Staryu Lv18, Starmie Lv21
   Lt. Surge  Elec    — Voltorb Lv21, Pikachu Lv18, Raichu Lv24
@@ -35,19 +36,21 @@ Kết quả: V1 đầy đủ — chơi được từ Pallet Town đến Champion
   Sabrina    Psychic — Kadabra Lv38, Mr.Mime Lv37, Alakazam Lv43
   Blaine     Fire    — Growlithe Lv42, Ponyta Lv40, Arcanine Lv47
   Giovanni   Ground  — Rhyhorn Lv45, Dugtrio Lv42, Nidoqueen Lv44
-  ```
+```
+
 - [ ] Elite Four: Lorelei (Ice), Bruno (Fighting), Agatha (Ghost), Lance (Dragon)
 - [ ] Champion: Blue — party 5 mon mixed
 
 ### Data — Rival
 
 - [ ] Rival Blue xuất hiện 4 lần — dialog + battle:
-  ```
+
+```bash
   Lần 1: Pallet Town     — party: starter Lv5
   Lần 2: Cerulean City   — party: starter Lv18 + 1 mon
   Lần 3: Silph Co.       — party: starter Lv40 + 3 mon
   Lần 4: Indigo Plateau  — Champion, party: 5 mon
-  ```
+```
 
 ### Flow hoàn chỉnh
 
@@ -64,7 +67,7 @@ Kết quả: V1 đầy đủ — chơi được từ Pallet Town đến Champion
 
 ## Expected output — Victory screen
 
-```
+```bash
 ╔══════════════════════════════════════╗
 ║                                      ║
 ║           ★  CHAMPION!  ★           ║

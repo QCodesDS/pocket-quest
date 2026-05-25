@@ -323,7 +323,7 @@ bool BattleSystem::showBag(Player &player)
     int currentIndex = 1;
     std::string selectedItemName = "";
 
-    player.inventory.forEach([&currentIndex, &itemNum, &selectedItemName](const std::string &name, Item &item)
+    player.inventory.forEach([&currentIndex, &itemNum, &selectedItemName](const std::string &name, Item &)
                              {
         if (currentIndex == itemNum)
         {
