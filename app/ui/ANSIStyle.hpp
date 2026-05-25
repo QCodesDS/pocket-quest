@@ -90,32 +90,27 @@ namespace ANSIStyle
      */
     inline void blinkText(const std::string &text,
                           const std::string &color,
-                          int times = 3,
-                          int intervalMs = 500)
+                          int times = 4,
+                          int intervalMs = 350)
     {
-        // In placeholder để giữ dòng
-        std::cout << "\n"
-                  << std::flush;
+        if (text.empty())
+            return;
 
-        for (int i = 0; i < times * 2; i++)
+        std::cout << std::flush;
+
+        for (int i = 0; i < times; ++i)
         {
-            // Di chuyển con trỏ lên 1 dòng rồi xóa dòng đó
-            std::cout << "\033[1A\033[2K";
+            // Hiện chữ
+            std::cout << "\033[2K" << color << text << ANSIStyle::RESET << "\r" << std::flush;
+            sleepMs(intervalMs);
 
-            if (i % 2 == 0)
-            {
-                std::cout << color << text << RESET << "\n"
-                          << std::flush;
-            }
-            else
-            {
-                std::cout << std::string(text.size(), ' ') << "\n"
-                          << std::flush;
-            }
+            // Ẩn chữ
+            std::cout << "\033[2K\r" << std::flush;
             sleepMs(intervalMs);
         }
-        // Kết thúc: để chữ hiển thị
-        std::cout << "\033[1A\033[2K" << color << text << RESET << "\n"
+
+        // Kết thúc hiển thị
+        std::cout << "\033[2K" << color << text << ANSIStyle::RESET << "\n"
                   << std::flush;
     }
 

@@ -112,10 +112,12 @@ namespace IntroUI
 
         // "PRESS ENTER TO START" — nhap nhanh doc lap
         const std::string pressEnter = "                                                           [PRESS ENTER TO START]";
-        ANSIStyle::blinkText(pressEnter, ANSIStyle::BLINK_CYAN, 6, 450);
+        ANSIStyle::blinkText(pressEnter, ANSIStyle::BLINK_CYAN, 5, 400);
 
         std::string dummy;
         std::getline(std::cin, dummy);
+
+        std::cout << "\033[1A\033[2K"; // ANSI escape code để xóa dòng "PRESS ENTER TO START" sau khi nhấn Enter
     }
 
     void showOpeningStory()
