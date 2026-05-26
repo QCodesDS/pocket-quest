@@ -47,6 +47,11 @@ struct Player
      *        Sử dụng Queue<Monster> từ lib/ để lưu starter vào party.
      */
     void initializePartyWithStarter();
+
+    /**
+     * @brief Hồi phục toàn bộ HP cho tất cả Pokémon trong party (Dùng khi Blackout).
+     */
+    void healParty();
 };
 
 #endif // PLAYER_HPP

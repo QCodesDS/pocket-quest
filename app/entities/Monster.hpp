@@ -22,6 +22,8 @@ struct Monster
     int def;          ///< Điểm thủ (Defense)
     int spd;          ///< Tốc độ (Speed)
     int spc;          ///< Chỉ số đặc biệt (Special — Gen 1: dùng cho cả Sp.Atk và Sp.Def)
+    int exp;          ///< EXP hiện tại
+    int nextLevelExp; ///< EXP cần để lên cấp tiếp theo
     Move moves[4];    ///< Array 4 moves của monster (cần dùng trong BattleSystem)
 
     /**
@@ -42,6 +44,18 @@ struct Monster
      */
     Monster(const std::string &n, const std::string &t, int i, int lvl,
             int hp_, int a, int d, int s, int sp = -1);
+
+    /**
+     * @brief Thêm EXP cho Pokémon
+     * @param amount Lượng EXP nhận được
+     * @return true nếu thăng cấp
+     */
+    bool gainExp(int amount);
+
+    /**
+     * @brief Thực hiện việc tăng level và chỉ số
+     */
+    void levelUp();
 };
 
 #endif // MONSTER_HPP

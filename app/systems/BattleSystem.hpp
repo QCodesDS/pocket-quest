@@ -42,29 +42,23 @@ class BattleSystem
 private:
     Queue<Monster> playerParty;   ///< GRADER: Queue<Monster> từ lib/ cho player party (FIFO)
     Queue<Monster> enemyParty;    ///< Enemy party (wild or trainer mons)
+    Queue<Monster> faintedPlayerMons; ///< Lưu trữ những Pokemon đã fainted để trả về sau trận
     Stack<std::string> battleLog; ///< GRADER: Stack<std::string> từ lib/ cho log (max 5 lines)
     BattleType battleType;        ///< Loại trận chiến
     int battleTurn;               ///< Số lượt đã diễn ra
     bool isPlayerTurn;            ///< Lượt của ai (player=true, enemy=false)
+    int totalPlayerMons;          ///< Tổng số Pokemon ban đầu của player
+    int totalEnemyMons;           ///< Tổng số Pokemon ban đầu của enemy
 
     /**
      * @brief Tính sát thương dựa trên công thức: dmg = (power * atk) / def
      * @param attacker Monster tấn công
      * @param defender Monster bị tấn công
      * @param move Đòn đánh dùng
-     * @return Sát thương (tối thiểu 1)
+     * @param effectiveness Tham chiếu trả về hệ số khắc hệ để in ra log
+     * @return Sát thương
      */
-    int calculateDamage(Monster &attacker, Monster &defender, Move &move);
-
-    /**
-     * @brief Tính hệ số tương khắc hệ giữa chiêu thức và Pokémon bị tấn công.
-     *        Hỗ trợ 18 hệ chuẩn Pokémon: ×2 siêu hiệu quả, ×0 miễn dịch, ×0.5 không hiệu quả.
-     *        Defender có thể đa hệ (dạng "Fire/Flying"), hệ số nhân chồng lên nhau.
-     * @param moveType   Hệ của chiêu thức (ví dụ: "Fire")
-     * @param defType    Hệ của Pokémon bị tấn công (ví dụ: "Grass" hoặc "Water/Ice")
-     * @return Hệ số nhân (×100 để dùng integer math): 200=x2, 100=x1, 50=x0.5, 0=immune
-     */
-    int getTypeEffectiveness(const std::string &moveType, const std::string &defType);
+    int calculateDamage(Monster &attacker, Monster &defender, Move &move, float &effectiveness);
 
     /**
      * @brief Thêm log line vào Stack, duy trì tối đa 5 dòng.
@@ -183,6 +177,16 @@ public:
      * @brief Kiểm tra xem player có thể chạy được không (chỉ wild được run).
      */
     bool canRun() const { return battleType == BattleType::WILD; }
+
+    /**
+     * @brief Lấy tổng số Pokemon ban đầu của player.
+     */
+    int getTotalPlayerMons() const { return totalPlayerMons; }
+
+    /**
+     * @brief Lấy tổng số Pokemon ban đầu của enemy.
+     */
+    int getTotalEnemyMons() const { return totalEnemyMons; }
 
     /**
      * @brief Hiển thị bag menu trong battle, xử lý item selection và use.

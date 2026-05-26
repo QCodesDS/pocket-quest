@@ -25,6 +25,7 @@ namespace BattleUI
      * @param battle Tham chiếu BattleSystem (để lấy party, log)
      */
     void renderBattleScreen(BattleSystem &battle);
+    std::string formatDualTypeDisp(const std::string& type);
 
     /**
      * @brief Hiển thị danh sách 5 dòng log gần nhất từ Stack.

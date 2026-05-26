@@ -1,6 +1,7 @@
 #include "BattleSystem.hpp"
 #include "../ui/BattleUI.hpp"
 #include "../ui/UI.hpp"
+#include "TypeSystem.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -12,9 +13,20 @@ BattleSystem::BattleSystem()
 
 void BattleSystem::initializeWildBattle(Player &player, Monster wildMon)
 {
-    // Copy player party into playerParty Queue
-    // GRADER: Dùng Queue<Monster> từ lib/ để quản lý party
-    playerParty = player.party;
+    // Lọc Pokemon còn sống vào playerParty, fainted vào faintedPlayerMons
+    playerParty.clear();
+    faintedPlayerMons.clear();
+    
+    Queue<Monster> temp = player.party;
+    while (!temp.empty())
+    {
+        Monster m = temp.dequeue();
+        if (m.hp > 0) {
+            playerParty.enqueue(m);
+        } else {
+            faintedPlayerMons.enqueue(m);
+        }
+    }
 
     // Tạo enemy party chỉ với wild mon
     enemyParty.enqueue(wildMon);
@@ -22,6 +34,8 @@ void BattleSystem::initializeWildBattle(Player &player, Monster wildMon)
     battleType = BattleType::WILD;
     battleTurn = 0;
     isPlayerTurn = true;
+    totalPlayerMons = player.party.size();
+    totalEnemyMons = 1; // Wild battle has only 1 enemy
 
     // Áp dụng badge boosts lên party trước battle
     applyBadgeBoosts(player.badges);
@@ -33,8 +47,22 @@ void BattleSystem::initializeWildBattle(Player &player, Monster wildMon)
 
 void BattleSystem::initializeTrainerBattle(Player &player, Trainer &trainer)
 {
+    // Lọc Pokemon còn sống vào playerParty, fainted vào faintedPlayerMons
+    playerParty.clear();
+    faintedPlayerMons.clear();
+    
+    Queue<Monster> temp = player.party;
+    while (!temp.empty())
+    {
+        Monster m = temp.dequeue();
+        if (m.hp > 0) {
+            playerParty.enqueue(m);
+        } else {
+            faintedPlayerMons.enqueue(m);
+        }
+    }
+    
     // GRADER: Dùng Queue<Monster> từ lib/ để quản lý party của trainer
-    playerParty = player.party;
     enemyParty = trainer.party;
 
     battleType = (trainer.type == TrainerType::GYM) ? BattleType::TRAINER : (trainer.type == TrainerType::ELITE)  ? BattleType::ELITE
@@ -43,6 +71,8 @@ void BattleSystem::initializeTrainerBattle(Player &player, Trainer &trainer)
 
     battleTurn = 0;
     isPlayerTurn = true;
+    totalPlayerMons = player.party.size();
+    totalEnemyMons = trainer.party.size();
 
     // Áp dụng badge boosts lên party trước battle
     applyBadgeBoosts(player.badges);
@@ -51,15 +81,25 @@ void BattleSystem::initializeTrainerBattle(Player &player, Trainer &trainer)
     addLog(startMsg);
 }
 
-int BattleSystem::calculateDamage(Monster &attacker, Monster &defender, Move &move)
+int BattleSystem::calculateDamage(Monster &attacker, Monster &defender, Move &move, float &effectiveness)
 {
-    // Công thức damage: dmg = (power * atk) / def
-    // Nếu def = 0, dùng 1 để tránh divide by zero
+    // Công thức damage cơ bản: dmg = (power * atk) / def
     int damage = (move.power * attacker.atk) / (defender.def > 0 ? defender.def : 1);
 
-    // Tối thiểu 1 damage để tránh vô hạn
-    if (damage < 1)
+    // Tính STAB (Same Type Attack Bonus)
+    float stab = TypeSystem::getSTAB(move.type, attacker.type);
+
+    // Tính hệ số khắc hệ
+    effectiveness = TypeSystem::getMultiplier(move.type, defender.type);
+
+    // Sát thương cuối cùng
+    damage = static_cast<int>(damage * stab * effectiveness);
+
+    // Tối thiểu 1 damage nếu đòn đánh có power > 0 và không bị miễn nhiễm
+    if (damage < 1 && effectiveness > 0.0f && move.power > 0)
         damage = 1;
+    else if (effectiveness == 0.0f)
+        damage = 0;
 
     return damage;
 }
@@ -175,29 +215,33 @@ bool BattleSystem::playerAttack(int moveIdx, [[maybe_unused]] Player &player)
     }
 
     // Tính sát thương
-    int damage = calculateDamage(playerMon, enemyMon, move);
+    float effectiveness = 1.0f;
+    int damage = calculateDamage(playerMon, enemyMon, move, effectiveness);
 
     // Giảm HP enemy
     enemyMon.hp -= damage;
 
     // Thêm log
     // GRADER: Sử dụng Stack<std::string> từ lib/ để lưu log
-    std::string logMsg = "> " + playerMon.name + " used " + move.name + "! " + std::to_string(damage) + " dmg";
+    std::string logMsg = playerMon.name + " used " + move.name + "! " + std::to_string(damage) + " dmg";
     addLog(logMsg);
+
+    if (move.power > 0) {
+        if (effectiveness > 1.5f) addLog("It's super effective!");
+        else if (effectiveness < 0.9f && effectiveness > 0.0f) addLog("It's not very effective...");
+        else if (effectiveness == 0.0f) addLog("It has no effect on " + enemyMon.name + "!");
+    }
 
     // Kiểm tra enemy faint
     if (enemyMon.hp <= 0)
     {
         addLog(enemyMon.name + " fainted!");
 
-        // Dequeue enemy mon và tìm mon tiếp theo (nếu có)
-        // GRADER: Queue<Monster>::dequeue() removes front element
-        enemyParty.dequeue();
-
-        if (!enemyParty.empty())
-        {
-            std::string nextMsg = "Enemy sent out " + enemyParty.front().name + "!";
-            addLog(nextMsg);
+        // Cấp EXP cho playerMon
+        int expYield = enemyMon.level * 10;
+        addLog(playerMon.name + " gained " + std::to_string(expYield) + " EXP!");
+        if (playerMon.gainExp(expYield)) {
+            addLog(playerMon.name + " grew to Lv." + std::to_string(playerMon.level) + "!");
         }
     }
     else
@@ -231,7 +275,8 @@ void BattleSystem::enemyAttack()
     }
 
     // Tính sát thương
-    int damage = calculateDamage(enemyMon, playerMon, move);
+    float effectiveness = 1.0f;
+    int damage = calculateDamage(enemyMon, playerMon, move, effectiveness);
 
     // Giảm HP player
     playerMon.hp -= damage;
@@ -239,20 +284,17 @@ void BattleSystem::enemyAttack()
     // Thêm log
     std::string logMsg = "Enemy " + enemyMon.name + " used " + move.name + "! " + std::to_string(damage) + " dmg";
     addLog(logMsg);
+    
+    if (move.power > 0) {
+        if (effectiveness > 1.5f) addLog("It's super effective!");
+        else if (effectiveness < 0.9f && effectiveness > 0.0f) addLog("It's not very effective...");
+        else if (effectiveness == 0.0f) addLog("It has no effect on " + playerMon.name + "!");
+    }
 
     // Kiểm tra player faint
     if (playerMon.hp <= 0)
     {
         addLog(playerMon.name + " fainted!");
-
-        // Dequeue player mon và tìm mon tiếp theo (nếu có)
-        playerParty.dequeue();
-
-        if (!playerParty.empty())
-        {
-            std::string nextMsg = playerParty.front().name + " was sent out!";
-            addLog(nextMsg);
-        }
     }
 }
 
@@ -391,8 +433,72 @@ BattleResult BattleSystem::runBattle(Player &player)
 {
     while (true)
     {
-        // 1. Hiển thị trạng thái hiện tại
+        // Kiểm tra trận chiến kết thúc TRƯỚC khi render, nhưng nếu vừa có mon faint thì đã render ở loop trước
+        if (playerParty.empty())
+        {
+            // Restore fainted Pokemon
+            while (!faintedPlayerMons.empty()) {
+                playerParty.enqueue(faintedPlayerMons.dequeue());
+            }
+            
+            // Tự động hồi máu party nếu thua trận để tránh softlock
+            int s = playerParty.size();
+            for(int i=0; i<s; i++) {
+                Monster m = playerParty.dequeue();
+                m.hp = m.maxHp;
+                playerParty.enqueue(m);
+            }
+            
+            std::cout << "\n[BATTLE END] You have no more Pokemon left...\n";
+            std::cout << "Press Enter to return to overworld...";
+            std::string dummy;
+            std::getline(std::cin, dummy);
+            
+            return BattleResult::LOSS;
+        }
+        
+        if (enemyParty.empty())
+        {
+            // Trả lại fainted Pokemon vào đội hình (vẫn ở trạng thái 0 HP)
+            while (!faintedPlayerMons.empty()) {
+                playerParty.enqueue(faintedPlayerMons.dequeue());
+            }
+            
+            std::cout << "\n[BATTLE END] You won the battle!\n";
+            std::cout << "Press Enter to return to overworld...";
+            std::string dummy;
+            std::getline(std::cin, dummy);
+            
+            return BattleResult::WIN;
+        }
+
+        // 1. Hiển thị trạng thái hiện tại (bao gồm cả trạng thái 0 HP nếu vừa đánh xong)
         BattleUI::renderBattleScreen(*this);
+
+        // Xử lý Pokémon fainted (hiển thị xong rồi mới dequeue)
+        if (playerParty.front().hp <= 0) {
+            std::cout << "\nPress Enter to continue...";
+            std::string dummy;
+            std::getline(std::cin, dummy);
+            
+            faintedPlayerMons.enqueue(playerParty.dequeue());
+            if (!playerParty.empty()) {
+                addLog("Go! " + playerParty.front().name + "!");
+            }
+            continue; // Quay lại đầu loop để render mon mới
+        }
+
+        if (enemyParty.front().hp <= 0) {
+            std::cout << "\nPress Enter to continue...";
+            std::string dummy;
+            std::getline(std::cin, dummy);
+            
+            enemyParty.dequeue();
+            if (!enemyParty.empty()) {
+                addLog("Enemy sent out " + enemyParty.front().name + "!");
+            }
+            continue; // Quay lại đầu loop để render mon mới
+        }
 
         // 2. Lấy input từ player
         std::cout << "> ";
@@ -430,6 +536,7 @@ BattleResult BattleSystem::runBattle(Player &player)
             }
 
             Monster &playerMon = playerParty.front();
+            Monster &enemyMon = enemyParty.front();
 
             // Hiển thị available moves
             std::cout << "\nAvailable moves:\n";
@@ -437,8 +544,16 @@ BattleResult BattleSystem::runBattle(Player &player)
             {
                 if (playerMon.moves[i].power > 0 || i < 2)
                 {
-                    std::cout << "  [" << (i + 1) << "] " << playerMon.moves[i].name
-                              << " (Power: " << playerMon.moves[i].power << ")\n";
+                    float eff = TypeSystem::getMultiplier(playerMon.moves[i].type, enemyMon.type);
+                    std::string indicator = "";
+                    if (eff > 1.5f) indicator = " (UP)";
+                    else if (eff < 0.9f && eff > 0.0f) indicator = " (DOWN)";
+                    else if (eff == 0.0f) indicator = " (x)";
+
+                    std::cout << "  [" << (i + 1) << "] " << playerMon.moves[i].name 
+                              << " " << BattleUI::formatDualTypeDisp(playerMon.moves[i].type)
+                              << " (Pwr: " << playerMon.moves[i].power << ")"
+                              << indicator << "\n";
                 }
             }
             std::cout << "> Choose move (1-4): ";
@@ -535,16 +650,11 @@ BattleResult BattleSystem::runBattle(Player &player)
         }
         }
 
-        // Kiểm tra trận chiến kết thúc
-        if (playerParty.empty())
-        {
-            return BattleResult::LOSS;
-        }
-        if (enemyParty.empty())
-        {
-            return BattleResult::WIN;
-        }
     }
 
-    return BattleResult::LOSS; // Default fallback
+    // Default fallback
+    while (!faintedPlayerMons.empty()) {
+        playerParty.enqueue(faintedPlayerMons.dequeue());
+    }
+    return BattleResult::LOSS;
 }

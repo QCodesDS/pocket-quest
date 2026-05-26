@@ -37,3 +37,14 @@ void Player::initializePartyWithStarter()
     }
     // Nếu starterName không hợp lệ, party vẫn rỗng (safe fallback)
 }
+
+void Player::healParty()
+{
+    int s = party.size();
+    for (int i = 0; i < s; i++)
+    {
+        Monster m = party.dequeue();
+        m.hp = m.maxHp;
+        party.enqueue(m);
+    }
+}

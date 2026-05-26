@@ -171,3 +171,18 @@ Dự án đang ở giai đoạn: **Tài liệu hoàn chỉnh, sẵn sàng bắt 
   - Boulder (Atk), Cascade (Def), Thunder (Spd), Rainbow (Special), Soul (Def), Marsh (Special), Volcano (Special), Earth (Atk).
 - **Core Stability**: All compile-time bugs and warnings are fully resolved. Program builds 100% cleanly on Windows using standard Mingw g++.
 
+## [2026-05-26] — Bug Fix: Empty Party & Softlock Prevention
+
+### Completed
+
+- Modified: `app/systems/BattleSystem.hpp` / `BattleSystem.cpp`
+- Modified: `app/entities/Player.hpp` / `Player.cpp`
+
+### Features
+
+- **Queue Preservation**: Fainted Pokémon are no longer permanently deleted from the player's `Queue<Monster>` via `dequeue()`. They are temporarily stored in `faintedPlayerMons` and restored after the battle.
+- **Auto-Heal on Blackout**: Added `healParty()` to restore all Pokémon to 100% HP when the player blacks out (thua trắng), successfully preventing the `Empty party during battle!` softlock loop.
+- **Battle UI Polish**: Added type effectiveness indicators (UP, DOWN, x) in move selection. Fainted Pokémon now visibly display 0 HP and 0% on the battle screen before being switched out, instead of showing negative values.
+
+
+

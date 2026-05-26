@@ -1,5 +1,6 @@
 #include "OverworldUI.hpp"
 #include "UI.hpp"
+#include "MapRenderer.hpp"
 #include "../core/Game.hpp"
 #include "../data/gen1_monsters.hpp"
 #include "../data/gen1_trainers.hpp"
@@ -56,62 +57,72 @@ namespace OverworldUI
 
             City &currentCity = world.getCurrent();
 
-            // Tiêu đề: Tag + Tên Thành Phố
+            // Lấy map
+            std::vector<std::string> mapLines = MapRenderer::getMapLines(currentCity.name);
+
+            // Xây dựng giao diện Console bên trái
+            std::vector<std::string> leftLines(17, "");
+
+            leftLines[0] = ".------------------------------------.";
+            leftLines[1] = "|                                    |";
+
             std::string title = currentCity.tag + "          " + currentCity.name;
-            std::string info = "Trainer: " + player.name + "        Badges: " + std::to_string(player.badges) + "/8";
+            std::string paddedTitle = "|  " + title;
+            paddedTitle += std::string(std::max(0, 38 - (int)paddedTitle.length() - 1), ' ') + "|";
+            leftLines[2] = paddedTitle;
 
-            // In hộp thoại chính
-            std::cout << "╔══════════════════════════════════════╗\n";
-            std::cout << "║ " << std::string(34, ' ') << " ║\n";
-            std::cout << "║  " << title << std::string(std::max(0, 32 - (int)title.length()), ' ') << "║\n";
-            std::cout << "║  " << info << std::string(std::max(0, 32 - (int)info.length()), ' ') << "║\n";
-            std::cout << "║ " << std::string(34, ' ') << " ║\n";
-            std::cout << "╠══════════════════════════════════════╣\n";
+            leftLines[3] = "|                                    |";
 
-            // In NPC dialog từ LinkedList
-            std::cout << "║ NPC: ";
+            std::string info = "Trainer: " + player.name + "      Badges: " + std::to_string(player.badges) + "/8";
+            std::string paddedInfo = "|  " + info;
+            paddedInfo += std::string(std::max(0, 38 - (int)paddedInfo.length() - 1), ' ') + "|";
+            leftLines[4] = paddedInfo;
+
+            leftLines[5] = "|                                    |";
+            leftLines[6] = "|------------------------------------|";
+
             currentCity.npcDialog.resetCursor();
-            bool firstLine = true;
-            while (currentCity.npcDialog.hasCurrent())
-            {
-                if (!firstLine)
-                {
-                    std::cout << "║      ";
-                }
-                std::cout << currentCity.npcDialog.getCurrent();
-                std::cout << std::string(std::max(0, 30 - (int)currentCity.npcDialog.getCurrent().length()), ' ');
-                std::cout << " ║\n";
-                firstLine = false;
-
-                // Advance cursor only if there's a next element; break if moveNext() returns false
-                if (!currentCity.npcDialog.moveNext())
-                    break;
+            std::string npcText1 = "";
+            std::string npcText2 = "";
+            if (currentCity.npcDialog.hasCurrent()) {
+                npcText1 = currentCity.npcDialog.getCurrent();
+                currentCity.npcDialog.moveNext();
+            }
+            if (currentCity.npcDialog.hasCurrent()) {
+                npcText2 = currentCity.npcDialog.getCurrent();
             }
 
-            std::cout << "╠══════════════════════════════════════╣\n";
+            std::string pNpc1 = "| NPC: " + npcText1;
+            pNpc1 += std::string(std::max(0, 38 - (int)pNpc1.length() - 1), ' ') + "|";
+            leftLines[7] = pNpc1;
 
-            // In các tùy chọn menu
-            std::cout << "║  [1] Go forward                      ║\n";
-            std::cout << "║  [2] Check area                      ║\n";
+            std::string pNpc2 = "|      " + npcText2;
+            pNpc2 += std::string(std::max(0, 38 - (int)pNpc2.length() - 1), ' ') + "|";
+            leftLines[8] = pNpc2;
 
-            // Nếu có Gym ở thành phố này và gym chưa bị đánh bại, hiển thị tùy chọn Challenge Gym
-            if (currentCity.hasGym && !currentCity.gymCleared)
-            {
-                std::string gymOption = "║  [3] Challenge Gym — " + currentCity.gymLeader;
-                gymOption += std::string(std::max(0, 39 - (int)gymOption.length()), ' ');
-                gymOption += "║";
-                std::cout << gymOption << "\n";
-                std::cout << "║  [4] View party                      ║\n";
-                std::cout << "║  [5] Open bag                        ║\n";
+            leftLines[9] = "|------------------------------------|";
+            leftLines[10] = "|  [1] Go forward                    |";
+            leftLines[11] = "|  [2] Check area                    |";
+
+            if (currentCity.hasGym && !currentCity.gymCleared) {
+                std::string gymOption = "|  [3] Challenge Gym - " + currentCity.gymLeader;
+                gymOption += std::string(std::max(0, 38 - (int)gymOption.length() - 1), ' ') + "|";
+                leftLines[12] = gymOption;
+                leftLines[13] = "|  [4] View party                    |";
+                leftLines[14] = "|  [5] Open bag                      |";
+            } else {
+                leftLines[12] = "|  [3] View party                    |";
+                leftLines[13] = "|  [4] Open bag                      |";
+                leftLines[14] = "|                                    |";
             }
-            else
-            {
-                std::cout << "║  [3] View party                      ║\n";
-                std::cout << "║  [4] Open bag                        ║\n";
-            }
 
-            std::cout << "║  [S] Sort party by HP               ║\n";
-            std::cout << "╚══════════════════════════════════════╝\n";
+            leftLines[15] = "|  [S] Sort party by HP              |";
+            leftLines[16] = "'------------------------------------'";
+
+            // In ra kết hợp
+            for (int i = 0; i < 17; i++) {
+                std::cout << leftLines[i] << "    " << mapLines[i] << "\n";
+            }
 
             // ==========================================
             // 2. Input: Xử lý lựa chọn từ người chơi
@@ -132,8 +143,23 @@ namespace OverworldUI
 
                 if (currentName == "Viridian City" && !player.deliveredParcel)
                 {
-                    UI::clearScreen();
                     UI::printBox("Viridian City Guard", "Guard: \"Hold on! The road to Pewter City is closed!\nYou must deliver Prof. Oak's Parcel first! Check the Poké Mart.\"");
+                    std::cout << "\nPress Enter to continue...";
+                    std::cin.ignore(10000, '\n');
+                    break;
+                }
+
+                if (currentName == "Cerulean City" && !player.hasSSTicket)
+                {
+                    UI::printBox("Underground Path Gate", "The guard stops you: \"You should visit Bill at the Cape on Route 25 first!\"");
+                    std::cout << "\nPress Enter to continue...";
+                    std::cin.ignore(10000, '\n');
+                    break;
+                }
+
+                if (currentName == "Vermilion City" && !player.hasCut)
+                {
+                    UI::printBox("Route 9 Gate", "A small tree blocks the way to Route 9 and Rock Tunnel!\nYou need the Cut skill (HM01) to chop it down!");
                     std::cout << "\nPress Enter to continue...";
                     std::cin.ignore(10000, '\n');
                     break;
@@ -141,17 +167,15 @@ namespace OverworldUI
 
                 if (currentName == "Celadon City" && !player.hasPokeFlute)
                 {
-                    UI::clearScreen();
                     UI::printBox("Route 16 Gate", "A sleeping Snorlax blocks the path to Fuchsia City!\nYou cannot wake it up without a Poké Flute!");
                     std::cout << "\nPress Enter to continue...";
                     std::cin.ignore(10000, '\n');
                     break;
                 }
 
-                if (currentName == "Fuchsia City" && !player.hasSurf)
+                if (currentName == "Fuchsia City" && (!player.hasSurf || !player.hasStrength))
                 {
-                    UI::clearScreen();
-                    UI::printBox("Route 19 Gate", "You need the Surf skill (HM03) to swim across the sea to Cinnabar Island!\nExplore the Safari Zone in Fuchsia City first!");
+                    UI::printBox("Fuchsia City", "You should explore the Safari Zone first to find HM03 (Surf) and HM04 (Strength) before heading to Saffron City!");
                     std::cout << "\nPress Enter to continue...";
                     std::cin.ignore(10000, '\n');
                     break;
@@ -180,12 +204,34 @@ namespace OverworldUI
                         viridian.npcDialog.insertBack("Prove your strength to me in battle!");
                         continue;
                     }
+                    else
+                    {
+                        UI::printBox("Route 21", "You must defeat the 8th Gym before heading to the Pokemon League!");
+                        std::cout << "\nPress Enter to continue...";
+                        std::cin.ignore(10000, '\n');
+                        break;
+                    }
+                }
+
+                if (currentName == "Viridian City" && player.badges == 8)
+                {
+                    UI::clearScreen();
+                    UI::printBox("Victory Road Gate", "Guard: You have 8 badges! You may pass to the Pokemon League!");
+                    std::cout << "\nTravel to Indigo Plateau? [Y/N]: ";
+                    char ans;
+                    std::cin >> ans;
+                    std::cin.ignore(10000, '\n');
+                    if (ans == 'Y' || ans == 'y')
+                    {
+                        world.resetCursor();
+                        for(int k=0; k<10; k++) world.moveNext(); // Move to Indigo Plateau
+                        continue;
+                    }
                 }
 
                 // Chặn đi từ Saffron sang Cinnabar nếu chưa giải phóng Silph Co. (chưa hạ Rival lần 3)
                 if (currentName == "Saffron City" && !player.rivalDefeated[2])
                 {
-                    UI::clearScreen();
                     UI::printBox("Saffron City", "You must defeat Team Rocket at Silph Co. first!");
                     std::cout << "\nPress Enter to continue...";
                     std::cin.ignore(10000, '\n');
@@ -197,10 +243,15 @@ namespace OverworldUI
                 {
                     std::string newCityName = world.getCurrent().name;
 
+                    if (newCityName == "Saffron City") {
+                        UI::printBox("Saffron Gate", "You give the thirsty guard a drink from Celadon City.\nGuard: \"Wow, thanks! You can pass through to Saffron City!\"");
+                        std::cout << "\nPress Enter to continue...";
+                        std::cin.ignore(10000, '\n');
+                    }
+
                     // 1. Trực quan hóa Snorlax
                     if (newCityName == "Fuchsia City" && player.hasPokeFlute)
                     {
-                        UI::clearScreen();
                         UI::printBox("Snorlax Gate", "You play the Poké Flute...\nThe sleeping Snorlax wakes up, yawns, and leaves!\nThe Cycling Road to Fuchsia City is now open!");
                         std::cout << "\nPress Enter to continue...";
                         std::cin.ignore(10000, '\n');
@@ -209,8 +260,7 @@ namespace OverworldUI
                     // 2. Trực quan hóa Surf sang Cinnabar Island
                     if (newCityName == "Cinnabar Island" && player.hasSurf)
                     {
-                        UI::clearScreen();
-                        UI::printBox("Seafoam Islands", "You use HM03 Surf to swim across the sea!\nYou pass the Seafoam Islands and arrive at Cinnabar Island.");
+                        UI::printBox("Seafoam Islands", "You travel back south and use HM03 Surf to swim across Route 19 and 20!\nYou pass the Seafoam Islands and arrive at Cinnabar Island.");
                         std::cout << "\nPress Enter to continue...";
                         std::cin.ignore(10000, '\n');
                     }
@@ -451,7 +501,6 @@ namespace OverworldUI
 
             case '2':
             {
-                UI::clearScreen();
                 std::string cityName = currentCity.name;
                 if (cityName == "Pallet Town")
                 {
@@ -568,6 +617,18 @@ namespace OverworldUI
                         {
                             UI::printBox("Pokémon Tower Top", "You put the spirit of Marowak to rest!\nAt the top floor, you defeat Team Rocket Grunts and save Mr. Fuji!\n\nMr. Fuji: \"Thank you, RED! Please take this Poké Flute!\"\n\n[Received Poké Flute!]");
                             player.hasPokeFlute = true;
+                            
+                            UI::printBox("Lavender Town", "Would you like to travel to Celadon City?");
+                            std::cout << "\nTravel to Celadon City? [Y/N]: ";
+                            char ans;
+                            std::cin >> ans;
+                            std::cin.ignore(10000, '\n');
+                            if (ans == 'Y' || ans == 'y')
+                            {
+                                world.resetCursor();
+                                for(int k=0; k<6; k++) world.moveNext(); // Move to Celadon City (index 6)
+                                continue;
+                            }
                         }
                         else
                         {
@@ -585,6 +646,18 @@ namespace OverworldUI
                     {
                         UI::printBox("Game Corner Rocket Hideout", "You push a secret switch behind the poster in Game Corner!\nYou infiltrate the basement Rocket Hideout!\n\nAfter defeating Grunts, you defeat Boss Giovanni!\nGiovanni: \"Impressive. Take this Silph Scope. We shall meet again!\"\n\n[Received Silph Scope!]");
                         player.hasSilphScope = true;
+
+                        UI::printBox("Celadon City", "Would you like to travel back to Lavender Town to explore the Pokemon Tower?");
+                        std::cout << "\nTravel back to Lavender Town? [Y/N]: ";
+                        char ans;
+                        std::cin >> ans;
+                        std::cin.ignore(10000, '\n');
+                        if (ans == 'Y' || ans == 'y')
+                        {
+                            world.resetCursor();
+                            for(int k=0; k<5; k++) world.moveNext(); // Move to Lavender Town (index 5)
+                            continue;
+                        }
                     }
                     else
                     {
@@ -666,6 +739,21 @@ namespace OverworldUI
                         UI::printBox("Gym Victory", "You got the " + std::to_string(player.badges) + " Badge!");
                         std::cout << "\nPress Enter to continue...";
                         std::cin.ignore(10000, '\n');
+
+                        if (currentCity.name == "Viridian City" && player.badges == 8) {
+                            UI::clearScreen();
+                            UI::printBox("Victory Road Gate", "Guard: You have 8 badges! You may pass to the Pokemon League!");
+                            std::cout << "\nTravel to Indigo Plateau? [Y/N]: ";
+                            char ans;
+                            std::cin >> ans;
+                            std::cin.ignore(10000, '\n');
+                            if (ans == 'Y' || ans == 'y')
+                            {
+                                world.resetCursor();
+                                for(int k=0; k<10; k++) world.moveNext(); // Move to Indigo Plateau
+                                continue;
+                            }
+                        }
                     }
                     else
                     {
