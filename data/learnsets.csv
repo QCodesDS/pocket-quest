@@ -1,0 +1,226 @@
+pokemon_id,name,level,move_name
+1,Bulbasaur,1,Tackle
+1,Bulbasaur,1,Growl
+1,Bulbasaur,7,Leech Seed
+1,Bulbasaur,13,Vine Whip
+1,Bulbasaur,20,Poison Powder
+1,Bulbasaur,27,Sleep Powder
+1,Bulbasaur,34,Solar Beam
+2,Ivysaur,1,Tackle
+2,Ivysaur,1,Growl
+2,Ivysaur,7,Leech Seed
+2,Ivysaur,13,Vine Whip
+2,Ivysaur,20,Poison Powder
+2,Ivysaur,27,Sleep Powder
+2,Ivysaur,34,Solar Beam
+3,Venusaur,1,Tackle
+3,Venusaur,1,Growl
+3,Venusaur,7,Leech Seed
+3,Venusaur,13,Vine Whip
+3,Venusaur,20,Poison Powder
+3,Venusaur,27,Sleep Powder
+3,Venusaur,34,Solar Beam
+4,Charmander,1,Scratch
+4,Charmander,1,Growl
+4,Charmander,10,Ember
+4,Charmander,16,Flame Burst
+4,Charmander,23,Smokescreen
+4,Charmander,30,Fire Spin
+4,Charmander,36,Flamethrower
+5,Charmeleon,1,Scratch
+5,Charmeleon,1,Growl
+5,Charmeleon,10,Ember
+5,Charmeleon,16,Flame Burst
+5,Charmeleon,23,Smokescreen
+5,Charmeleon,30,Fire Spin
+5,Charmeleon,36,Flamethrower
+6,Charizard,1,Scratch
+6,Charizard,1,Growl
+6,Charizard,10,Ember
+6,Charizard,16,Flame Burst
+6,Charizard,23,Smokescreen
+6,Charizard,30,Fire Spin
+6,Charizard,36,Flamethrower
+7,Squirtle,1,Tackle
+7,Squirtle,1,Tail Whip
+7,Squirtle,8,Water Gun
+7,Squirtle,15,Bite
+7,Squirtle,22,Withdraw
+7,Squirtle,29,Bubblebeam
+7,Squirtle,36,Hydro Pump
+8,Wartortle,1,Tackle
+8,Wartortle,1,Tail Whip
+8,Wartortle,8,Water Gun
+8,Wartortle,15,Bite
+8,Wartortle,22,Withdraw
+8,Wartortle,29,Bubblebeam
+8,Wartortle,36,Hydro Pump
+9,Blastoise,1,Tackle
+9,Blastoise,1,Tail Whip
+9,Blastoise,8,Water Gun
+9,Blastoise,15,Bite
+9,Blastoise,22,Withdraw
+9,Blastoise,29,Bubblebeam
+9,Blastoise,36,Hydro Pump
+16,Pidgeot,1,Tackle
+16,Pidgeot,1,Sand Attack
+16,Pidgeot,5,Gust
+16,Pidgeot,13,Quick Attack
+16,Pidgeot,21,Whirlwind
+16,Pidgeot,25,Wing Attack
+19,Rattata,1,Tackle
+19,Rattata,1,Tail Whip
+19,Rattata,7,Quick Attack
+19,Rattata,13,Fury Attack
+25,Pikachu,1,Thundershock
+25,Pikachu,1,Tail Whip
+25,Pikachu,6,Thunder Wave
+25,Pikachu,11,Quick Attack
+25,Pikachu,16,Double Team
+25,Pikachu,21,Thunderbolt
+26,Raichu,1,Thundershock
+26,Raichu,1,Tail Whip
+26,Raichu,6,Thunder Wave
+26,Raichu,11,Quick Attack
+26,Raichu,16,Double Team
+26,Raichu,21,Thunderbolt
+43,Oddish,1,Absorb
+43,Oddish,1,Growl
+43,Oddish,7,Sleep Powder
+43,Oddish,13,Acid
+43,Oddish,20,Poison Powder
+43,Oddish,27,Stun Spore
+43,Oddish,34,Solar Beam
+45,Vileplume,1,Absorb
+45,Vileplume,1,Growl
+45,Vileplume,7,Sleep Powder
+45,Vileplume,13,Acid
+45,Vileplume,20,Poison Powder
+45,Vileplume,27,Stun Spore
+45,Vileplume,34,Solar Beam
+58,Growlithe,1,Bite
+58,Growlithe,1,Growl
+58,Growlithe,8,Ember
+58,Growlithe,15,Leer
+58,Growlithe,22,Take Down
+58,Growlithe,29,Fire Spin
+58,Growlithe,36,Flare Blitz
+59,Arcanine,1,Bite
+59,Arcanine,1,Growl
+59,Arcanine,8,Ember
+59,Arcanine,15,Leer
+59,Arcanine,22,Take Down
+59,Arcanine,29,Fire Spin
+59,Arcanine,36,Flare Blitz
+74,Geodude,1,Tackle
+74,Geodude,1,Defense Curl
+74,Geodude,8,Rock Throw
+74,Geodude,15,Magnitude
+74,Geodude,22,Rock Slide
+75,Graveler,1,Tackle
+75,Graveler,1,Defense Curl
+75,Graveler,8,Rock Throw
+75,Graveler,15,Magnitude
+75,Graveler,22,Rock Slide
+76,Golem,1,Tackle
+76,Golem,1,Defense Curl
+76,Golem,8,Rock Throw
+76,Golem,15,Magnitude
+76,Golem,22,Rock Slide
+86,Gastly,1,Sleep Powder
+86,Gastly,1,Spite
+86,Gastly,8,Hypnosis
+86,Gastly,12,Night Shade
+86,Gastly,15,Lick
+86,Gastly,20,Shadow Ball
+87,Gengar,1,Sleep Powder
+87,Gengar,1,Spite
+87,Gengar,8,Hypnosis
+87,Gengar,12,Night Shade
+87,Gengar,15,Lick
+87,Gengar,20,Shadow Ball
+88,Onix,1,Tackle
+88,Onix,1,Screech
+88,Onix,8,Rock Throw
+88,Onix,15,Bind
+88,Onix,22,Rock Slide
+95,Onix,1,Tackle
+95,Onix,1,Screech
+95,Onix,8,Rock Throw
+95,Onix,15,Bind
+95,Onix,22,Rock Slide
+113,Staryu,1,Tackle
+113,Staryu,1,Protect
+113,Staryu,8,Water Gun
+113,Staryu,15,Quick Attack
+113,Staryu,22,Bubblebeam
+113,Staryu,30,Recover
+114,Starmie,1,Tackle
+114,Starmie,1,Protect
+114,Starmie,8,Water Gun
+114,Starmie,15,Quick Attack
+114,Starmie,22,Bubblebeam
+114,Starmie,30,Recover
+120,Staryu,1,Tackle
+120,Staryu,1,Protect
+120,Staryu,8,Water Gun
+120,Staryu,15,Quick Attack
+120,Staryu,22,Bubblebeam
+120,Staryu,30,Recover
+121,Starmie,1,Tackle
+121,Starmie,1,Protect
+121,Starmie,8,Water Gun
+121,Starmie,15,Quick Attack
+121,Starmie,22,Bubblebeam
+121,Starmie,30,Recover
+131,Lapras,1,Water Gun
+131,Lapras,1,Growl
+131,Lapras,8,Sing
+131,Lapras,15,Mist
+131,Lapras,22,Body Slam
+131,Lapras,29,Hydro Pump
+137,Porygon,1,Tackle
+137,Porygon,1,Sharpen
+137,Porygon,8,Conversion
+137,Porygon,15,Recover
+137,Porygon,22,Tri Attack
+146,Moltres,1,Peck
+146,Moltres,1,Fire Spin
+146,Moltres,8,Ember
+146,Moltres,15,Wing Attack
+146,Moltres,22,Flamethrower
+146,Moltres,36,Sky Attack
+147,Articuno,1,Peck
+147,Articuno,1,Powder Snow
+147,Articuno,8,Mist
+147,Articuno,15,Wing Attack
+147,Articuno,22,Ice Beam
+147,Articuno,36,Blizzard
+148,Zapdos,1,Peck
+148,Zapdos,1,Thundershock
+148,Zapdos,8,Thunder Wave
+148,Zapdos,15,Wing Attack
+148,Zapdos,22,Thunderbolt
+148,Zapdos,36,Thunder
+155,Dratini,1,Wrap
+155,Dratini,1,Leer
+155,Dratini,8,Thunder Wave
+155,Dratini,15,Twister
+155,Dratini,22,Dragon Rage
+156,Dragonair,1,Wrap
+156,Dragonair,1,Leer
+156,Dragonair,8,Thunder Wave
+156,Dragonair,15,Twister
+156,Dragonair,22,Dragon Rage
+157,Dragonite,1,Wrap
+157,Dragonite,1,Leer
+157,Dragonite,8,Thunder Wave
+157,Dragonite,15,Twister
+157,Dragonite,22,Dragon Rage
+158,Mewtwo,1,Confusion
+158,Mewtwo,1,Disable
+158,Mewtwo,10,Barrier
+158,Mewtwo,20,Swift
+158,Mewtwo,30,Psychic
+158,Mewtwo,40,Amnesia
+159,Mew,1,Transform

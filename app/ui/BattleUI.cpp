@@ -22,24 +22,36 @@ namespace BattleUI
         return result;
     }
 
-    std::string getTypeColor(const std::string& type)
+    std::string getTypeColor(const std::string &type)
     {
-        if (type.find("Fire") != std::string::npos) return "\033[31m";
-        if (type.find("Water") != std::string::npos) return "\033[34m";
-        if (type.find("Grass") != std::string::npos) return "\033[32m";
-        if (type.find("Electric") != std::string::npos) return "\033[33m";
-        if (type.find("Poison") != std::string::npos) return "\033[35m";
-        if (type.find("Psychic") != std::string::npos || type.find("Ghost") != std::string::npos) return "\033[35m";
-        if (type.find("Flying") != std::string::npos || type.find("Ice") != std::string::npos) return "\033[36m";
-        if (type.find("Bug") != std::string::npos) return "\033[32m";
-        if (type.find("Ground") != std::string::npos || type.find("Rock") != std::string::npos) return "\033[33m";
-        if (type.find("Dragon") != std::string::npos) return "\033[34m";
+        if (type.find("Fire") != std::string::npos)
+            return "\033[31m";
+        if (type.find("Water") != std::string::npos)
+            return "\033[34m";
+        if (type.find("Grass") != std::string::npos)
+            return "\033[32m";
+        if (type.find("Electric") != std::string::npos)
+            return "\033[33m";
+        if (type.find("Poison") != std::string::npos)
+            return "\033[35m";
+        if (type.find("Psychic") != std::string::npos || type.find("Ghost") != std::string::npos)
+            return "\033[35m";
+        if (type.find("Flying") != std::string::npos || type.find("Ice") != std::string::npos)
+            return "\033[36m";
+        if (type.find("Bug") != std::string::npos)
+            return "\033[32m";
+        if (type.find("Ground") != std::string::npos || type.find("Rock") != std::string::npos)
+            return "\033[33m";
+        if (type.find("Dragon") != std::string::npos)
+            return "\033[34m";
         return "\033[37m"; // White default
     }
 
-    std::string formatDualTypeDisp(const std::string& type) {
+    std::string formatDualTypeDisp(const std::string &type)
+    {
         size_t pos = type.find('/');
-        if (pos != std::string::npos) {
+        if (pos != std::string::npos)
+        {
             std::string t1 = type.substr(0, pos);
             std::string t2 = type.substr(pos + 1);
             return "[" + getTypeColor(t1) + t1 + "\033[0m][" + getTypeColor(t2) + t2 + "\033[0m]";
@@ -47,9 +59,11 @@ namespace BattleUI
         return "[" + getTypeColor(type) + type + "\033[0m]";
     }
 
-    std::string formatDualTypeRaw(const std::string& type) {
+    std::string formatDualTypeRaw(const std::string &type)
+    {
         size_t pos = type.find('/');
-        if (pos != std::string::npos) {
+        if (pos != std::string::npos)
+        {
             std::string t1 = type.substr(0, pos);
             std::string t2 = type.substr(pos + 1);
             return "[" + t1 + "][" + t2 + "]";
@@ -91,7 +105,8 @@ namespace BattleUI
         // Row 1: enemy party indicator (right-aligned)
         int ePartyLen = (int)eParty.length();
         std::cout << "|";
-        for (int i = 0; i < 78 - ePartyLen - 2; i++) std::cout << " ";
+        for (int i = 0; i < 78 - ePartyLen - 2; i++)
+            std::cout << " ";
         std::cout << eParty << "  |\n";
 
         // Row 2: enemy name + level + type (right-aligned)
@@ -99,21 +114,24 @@ namespace BattleUI
         std::string eInfoDisp = enemyMon.name + "  Lv" + std::to_string(enemyMon.level) + " " + formatDualTypeDisp(enemyMon.type);
         int eInfoLen = (int)eInfoRaw.length();
         std::cout << "|";
-        for (int i = 0; i < 78 - eInfoLen - 2; i++) std::cout << " ";
+        for (int i = 0; i < 78 - eInfoLen - 2; i++)
+            std::cout << " ";
         std::cout << eInfoDisp << "  |\n";
 
         // Row 3: enemy HP bar (right-aligned)
         std::string eBarLine = "HP: " + eHpBar;
         int eBarLen = (int)eBarLine.length();
         std::cout << "|";
-        for (int i = 0; i < 78 - eBarLen - 2; i++) std::cout << " ";
+        for (int i = 0; i < 78 - eBarLen - 2; i++)
+            std::cout << " ";
         std::cout << eBarLine << "  |\n";
 
         // Row 4: enemy HP numbers (right-aligned)
         std::string eHpNum = std::to_string(eDisplayHp) + "/" + std::to_string(enemyMon.maxHp);
         int eHpNumLen = (int)eHpNum.length();
         std::cout << "|";
-        for (int i = 0; i < 78 - eHpNumLen - 2; i++) std::cout << " ";
+        for (int i = 0; i < 78 - eHpNumLen - 2; i++)
+            std::cout << " ";
         std::cout << eHpNum << "  |\n";
 
         // Separator row
@@ -123,7 +141,8 @@ namespace BattleUI
         // Row 1: player party indicator (left-aligned)
         std::cout << "|  " << pParty;
         int pPartyLen = (int)pParty.length();
-        for (int i = 0; i < 78 - pPartyLen - 2; i++) std::cout << " ";
+        for (int i = 0; i < 78 - pPartyLen - 2; i++)
+            std::cout << " ";
         std::cout << "|\n";
 
         // Row 2: player name + level + type (left-aligned)
@@ -131,21 +150,24 @@ namespace BattleUI
         std::string pInfoDisp = playerMon.name + "  Lv" + std::to_string(playerMon.level) + " " + formatDualTypeDisp(playerMon.type);
         int pInfoLen = (int)pInfoRaw.length();
         std::cout << "|  " << pInfoDisp;
-        for (int i = 0; i < 78 - pInfoLen - 2; i++) std::cout << " ";
+        for (int i = 0; i < 78 - pInfoLen - 2; i++)
+            std::cout << " ";
         std::cout << "|\n";
 
         // Row 3: player HP bar (left-aligned)
         std::string pBarLine = "HP: " + pHpBar;
         int pBarLen = (int)pBarLine.length();
         std::cout << "|  " << pBarLine;
-        for (int i = 0; i < 78 - pBarLen - 2; i++) std::cout << " ";
+        for (int i = 0; i < 78 - pBarLen - 2; i++)
+            std::cout << " ";
         std::cout << "|\n";
 
         // Row 4: player HP numbers (left-aligned)
         std::string pHpNum = std::to_string(pDisplayHp) + "/" + std::to_string(playerMon.maxHp);
         int pHpNumLen = (int)pHpNum.length();
         std::cout << "|  " << pHpNum;
-        for (int i = 0; i < 78 - pHpNumLen - 2; i++) std::cout << " ";
+        for (int i = 0; i < 78 - pHpNumLen - 2; i++)
+            std::cout << " ";
         std::cout << "|\n";
 
         // ========== BATTLE LOG ==========
