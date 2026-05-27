@@ -144,11 +144,6 @@ pokemon_id,name,level,move_name
 88,Onix,8,Rock Throw
 88,Onix,15,Bind
 88,Onix,22,Rock Slide
-95,Onix,1,Tackle
-95,Onix,1,Screech
-95,Onix,8,Rock Throw
-95,Onix,15,Bind
-95,Onix,22,Rock Slide
 113,Staryu,1,Tackle
 113,Staryu,1,Protect
 113,Staryu,8,Water Gun
@@ -161,18 +156,6 @@ pokemon_id,name,level,move_name
 114,Starmie,15,Quick Attack
 114,Starmie,22,Bubblebeam
 114,Starmie,30,Recover
-120,Staryu,1,Tackle
-120,Staryu,1,Protect
-120,Staryu,8,Water Gun
-120,Staryu,15,Quick Attack
-120,Staryu,22,Bubblebeam
-120,Staryu,30,Recover
-121,Starmie,1,Tackle
-121,Starmie,1,Protect
-121,Starmie,8,Water Gun
-121,Starmie,15,Quick Attack
-121,Starmie,22,Bubblebeam
-121,Starmie,30,Recover
 131,Lapras,1,Water Gun
 131,Lapras,1,Growl
 131,Lapras,8,Sing

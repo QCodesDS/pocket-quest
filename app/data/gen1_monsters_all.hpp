@@ -15,7 +15,7 @@ namespace Gen1Monsters
      */
     const Monster BULBASAUR(
         "Bulbasaur", "Grass/Poison", 1, 5,
-        45, 49, 49, 45, 65
+        45, 49, 49, 45, 65, 65
     );
 
     /**
@@ -23,7 +23,7 @@ namespace Gen1Monsters
      */
     const Monster IVYSAUR(
         "Ivysaur", "Grass/Poison", 2, 5,
-        60, 62, 63, 60, 80
+        60, 62, 63, 60, 80, 80
     );
 
     /**
@@ -31,7 +31,7 @@ namespace Gen1Monsters
      */
     const Monster VENUSAUR(
         "Venusaur", "Grass/Poison", 3, 5,
-        80, 82, 83, 80, 100
+        80, 82, 83, 80, 100, 100
     );
 
     /**
@@ -40,7 +40,7 @@ namespace Gen1Monsters
      */
     const Monster CHARMANDER(
         "Charmander", "Fire", 4, 5,
-        39, 52, 43, 65, 60
+        39, 52, 43, 65, 60, 60
     );
 
     /**
@@ -48,7 +48,7 @@ namespace Gen1Monsters
      */
     const Monster CHARMELEON(
         "Charmeleon", "Fire", 5, 5,
-        58, 64, 58, 80, 80
+        58, 64, 58, 80, 80, 80
     );
 
     /**
@@ -56,7 +56,7 @@ namespace Gen1Monsters
      */
     const Monster CHARIZARD(
         "Charizard", "Fire/Flying", 6, 5,
-        78, 84, 78, 100, 109
+        78, 84, 78, 100, 109, 109
     );
 
     /**
@@ -65,7 +65,7 @@ namespace Gen1Monsters
      */
     const Monster SQUIRTLE(
         "Squirtle", "Water", 7, 5,
-        44, 48, 65, 43, 50
+        44, 48, 65, 43, 50, 50
     );
 
     /**
@@ -73,7 +73,7 @@ namespace Gen1Monsters
      */
     const Monster WARTORTLE(
         "Wartortle", "Water", 8, 5,
-        59, 63, 80, 58, 65
+        59, 63, 80, 58, 65, 65
     );
 
     /**
@@ -81,7 +81,7 @@ namespace Gen1Monsters
      */
     const Monster BLASTOISE(
         "Blastoise", "Water", 9, 5,
-        79, 83, 100, 78, 85
+        79, 83, 100, 78, 85, 85
     );
 
     /**
@@ -89,7 +89,7 @@ namespace Gen1Monsters
      */
     const Monster CATERPIE(
         "Caterpie", "Bug", 10, 5,
-        45, 52, 43, 35, 20
+        45, 52, 43, 35, 20, 20
     );
 
     /**
@@ -97,7 +97,7 @@ namespace Gen1Monsters
      */
     const Monster METAPOD(
         "Metapod", "Bug", 11, 5,
-        50, 65, 55, 30, 25
+        50, 65, 55, 30, 25, 25
     );
 
     /**
@@ -105,7 +105,7 @@ namespace Gen1Monsters
      */
     const Monster BUTTERFREE(
         "Butterfree", "Bug/Flying", 12, 5,
-        60, 55, 72, 65, 60
+        60, 55, 72, 65, 60, 60
     );
 
     /**
@@ -113,7 +113,7 @@ namespace Gen1Monsters
      */
     const Monster WEEDLE(
         "Weedle", "Bug/Poison", 13, 5,
-        40, 35, 30, 50, 20
+        40, 35, 30, 50, 20, 20
     );
 
     /**
@@ -121,7 +121,7 @@ namespace Gen1Monsters
      */
     const Monster KAKUNA(
         "Kakuna", "Bug/Poison", 14, 5,
-        45, 25, 50, 35, 25
+        45, 25, 50, 35, 25, 25
     );
 
     /**
@@ -129,7 +129,7 @@ namespace Gen1Monsters
      */
     const Monster BEEDRILL(
         "Beedrill", "Bug/Poison", 15, 5,
-        65, 90, 40, 75, 45
+        65, 90, 40, 75, 45, 45
     );
 
     /**
@@ -137,7 +137,7 @@ namespace Gen1Monsters
      */
     const Monster PIDGEOT(
         "Pidgeot", "Normal/Flying", 16, 5,
-        83, 100, 65, 111, 77
+        83, 100, 65, 111, 77, 77
     );
 
     /**
@@ -145,7 +145,7 @@ namespace Gen1Monsters
      */
     const Monster PIDGEOTTO(
         "Pidgeotto", "Normal/Flying", 17, 5,
-        63, 60, 55, 71, 50
+        63, 60, 55, 71, 50, 50
     );
 
     /**
@@ -153,7 +153,7 @@ namespace Gen1Monsters
      */
     const Monster PIDGEOT(
         "Pidgeot", "Normal/Flying", 18, 5,
-        83, 100, 65, 111, 77
+        83, 100, 65, 111, 77, 77
     );
 
     /**
@@ -161,7 +161,7 @@ namespace Gen1Monsters
      */
     const Monster RATTATA(
         "Rattata", "Normal", 19, 5,
-        30, 56, 35, 72, 25
+        30, 56, 35, 72, 25, 25
     );
 
     /**
@@ -169,7 +169,7 @@ namespace Gen1Monsters
      */
     const Monster RATICATE(
         "Raticate", "Normal", 20, 5,
-        55, 81, 60, 97, 50
+        55, 81, 60, 97, 50, 50
     );
 
     /**
@@ -177,7 +177,7 @@ namespace Gen1Monsters
      */
     const Monster SPEAROW(
         "Spearow", "Normal/Flying", 21, 5,
-        40, 60, 30, 70, 31
+        40, 60, 30, 70, 31, 31
     );
 
     /**
@@ -185,7 +185,7 @@ namespace Gen1Monsters
      */
     const Monster FEAROW(
         "Fearow", "Normal/Flying", 22, 5,
-        65, 90, 65, 100, 61
+        65, 90, 65, 100, 61, 61
     );
 
     /**
@@ -193,7 +193,7 @@ namespace Gen1Monsters
      */
     const Monster EKANS(
         "Ekans", "Poison", 23, 5,
-        35, 60, 44, 55, 40
+        35, 60, 44, 55, 40, 40
     );
 
     /**
@@ -201,7 +201,7 @@ namespace Gen1Monsters
      */
     const Monster ARBOK(
         "Arbok", "Poison", 24, 5,
-        60, 95, 69, 80, 65
+        60, 95, 69, 80, 65, 65
     );
 
     /**
@@ -209,7 +209,7 @@ namespace Gen1Monsters
      */
     const Monster PIKACHU(
         "Pikachu", "Electric", 25, 5,
-        35, 55, 40, 90, 50
+        35, 55, 40, 90, 50, 50
     );
 
     /**
@@ -217,7 +217,7 @@ namespace Gen1Monsters
      */
     const Monster RAICHU(
         "Raichu", "Electric", 26, 5,
-        60, 90, 55, 100, 90
+        60, 90, 55, 100, 90, 90
     );
 
     /**
@@ -225,7 +225,7 @@ namespace Gen1Monsters
      */
     const Monster SANDSHREW(
         "Sandshrew", "Ground", 27, 5,
-        50, 75, 66, 45, 30
+        50, 75, 66, 45, 30, 30
     );
 
     /**
@@ -233,7 +233,7 @@ namespace Gen1Monsters
      */
     const Monster SANDSLASH(
         "Sandslash", "Ground", 28, 5,
-        75, 100, 110, 65, 55
+        75, 100, 110, 65, 55, 55
     );
 
     /**
@@ -241,7 +241,7 @@ namespace Gen1Monsters
      */
     const Monster NIDORAN♀(
         "Nidoran♀", "Poison", 29, 5,
-        55, 47, 52, 41, 40
+        55, 47, 52, 41, 40, 40
     );
 
     /**
@@ -249,7 +249,7 @@ namespace Gen1Monsters
      */
     const Monster NIDORINA(
         "Nidorina", "Poison", 30, 5,
-        70, 62, 67, 56, 55
+        70, 62, 67, 56, 55, 55
     );
 
     /**
@@ -257,7 +257,7 @@ namespace Gen1Monsters
      */
     const Monster NIDOQUEEN(
         "Nidoqueen", "Poison/Ground", 31, 5,
-        90, 92, 87, 76, 75
+        90, 92, 87, 76, 75, 75
     );
 
     /**
@@ -265,7 +265,7 @@ namespace Gen1Monsters
      */
     const Monster NIDORAN♂(
         "Nidoran♂", "Poison", 32, 5,
-        46, 57, 40, 50, 40
+        46, 57, 40, 50, 40, 40
     );
 
     /**
@@ -273,7 +273,7 @@ namespace Gen1Monsters
      */
     const Monster NIDORINO(
         "Nidorino", "Poison", 33, 5,
-        61, 72, 55, 65, 55
+        61, 72, 55, 65, 55, 55
     );
 
     /**
@@ -281,7 +281,7 @@ namespace Gen1Monsters
      */
     const Monster NIDOKING(
         "Nidoking", "Poison/Ground", 34, 5,
-        81, 102, 77, 85, 75
+        81, 102, 77, 85, 75, 75
     );
 
     /**
@@ -289,7 +289,7 @@ namespace Gen1Monsters
      */
     const Monster CLEFAIRY(
         "Clefairy", "Normal", 35, 5,
-        35, 48, 48, 35, 60
+        35, 48, 48, 35, 60, 60
     );
 
     /**
@@ -297,7 +297,7 @@ namespace Gen1Monsters
      */
     const Monster CLEFABLE(
         "Clefable", "Normal", 36, 5,
-        73, 60, 73, 60, 73
+        73, 60, 73, 60, 73, 73
     );
 
     /**
@@ -305,7 +305,7 @@ namespace Gen1Monsters
      */
     const Monster VULPIX(
         "Vulpix", "Fire", 37, 5,
-        38, 41, 40, 65, 65
+        38, 41, 40, 65, 65, 65
     );
 
     /**
@@ -313,7 +313,7 @@ namespace Gen1Monsters
      */
     const Monster NINETALES(
         "Ninetales", "Fire", 38, 5,
-        73, 76, 75, 100, 100
+        73, 76, 75, 100, 100, 100
     );
 
     /**
@@ -321,7 +321,7 @@ namespace Gen1Monsters
      */
     const Monster JIGGLYPUFF(
         "Jigglypuff", "Normal", 39, 5,
-        115, 40, 20, 20, 25
+        115, 40, 20, 20, 25, 25
     );
 
     /**
@@ -329,7 +329,7 @@ namespace Gen1Monsters
      */
     const Monster WIGGLYTUFF(
         "Wigglytuff", "Normal", 40, 5,
-        140, 70, 45, 45, 75
+        140, 70, 45, 45, 75, 75
     );
 
     /**
@@ -337,7 +337,7 @@ namespace Gen1Monsters
      */
     const Monster ZUBAT(
         "Zubat", "Poison/Flying", 41, 5,
-        40, 45, 35, 55, 30
+        40, 45, 35, 55, 30, 30
     );
 
     /**
@@ -345,7 +345,7 @@ namespace Gen1Monsters
      */
     const Monster GOLBAT(
         "Golbat", "Poison/Flying", 42, 5,
-        75, 80, 70, 90, 65
+        75, 80, 70, 90, 65, 65
     );
 
     /**
@@ -353,7 +353,7 @@ namespace Gen1Monsters
      */
     const Monster ODDISH(
         "Oddish", "Grass/Poison", 43, 5,
-        45, 50, 55, 30, 75
+        45, 50, 55, 30, 75, 75
     );
 
     /**
@@ -361,7 +361,7 @@ namespace Gen1Monsters
      */
     const Monster GLOOM(
         "Gloom", "Grass/Poison", 44, 5,
-        60, 65, 70, 40, 85
+        60, 65, 70, 40, 85, 85
     );
 
     /**
@@ -369,7 +369,7 @@ namespace Gen1Monsters
      */
     const Monster VILEPLUME(
         "Vileplume", "Grass/Poison", 45, 5,
-        75, 80, 85, 50, 100
+        75, 80, 85, 50, 100, 100
     );
 
     /**
@@ -377,7 +377,7 @@ namespace Gen1Monsters
      */
     const Monster PARAS(
         "Paras", "Bug/Grass", 46, 5,
-        35, 70, 55, 25, 55
+        35, 70, 55, 25, 55, 55
     );
 
     /**
@@ -385,7 +385,7 @@ namespace Gen1Monsters
      */
     const Monster PARASECT(
         "Parasect", "Bug/Grass", 47, 5,
-        60, 95, 80, 30, 60
+        60, 95, 80, 30, 60, 60
     );
 
     /**
@@ -393,7 +393,7 @@ namespace Gen1Monsters
      */
     const Monster VENONAT(
         "Venonat", "Bug/Poison", 48, 5,
-        60, 55, 50, 45, 40
+        60, 55, 50, 45, 40, 40
     );
 
     /**
@@ -401,7 +401,7 @@ namespace Gen1Monsters
      */
     const Monster VENOMOTH(
         "Venomoth", "Bug/Poison", 49, 5,
-        70, 65, 60, 90, 75
+        70, 65, 60, 90, 75, 75
     );
 
     /**
@@ -409,7 +409,7 @@ namespace Gen1Monsters
      */
     const Monster DIGLETT(
         "Diglett", "Ground", 50, 5,
-        10, 55, 25, 95, 35
+        10, 55, 25, 95, 35, 35
     );
 
     /**
@@ -417,7 +417,7 @@ namespace Gen1Monsters
      */
     const Monster DUGTRIO(
         "Dugtrio", "Ground", 51, 5,
-        35, 80, 50, 120, 70
+        35, 80, 50, 120, 70, 70
     );
 
     /**
@@ -425,7 +425,7 @@ namespace Gen1Monsters
      */
     const Monster MEOWTH(
         "Meowth", "Normal", 52, 5,
-        40, 45, 35, 90, 40
+        40, 45, 35, 90, 40, 40
     );
 
     /**
@@ -433,7 +433,7 @@ namespace Gen1Monsters
      */
     const Monster PERSIAN(
         "Persian", "Normal", 53, 5,
-        65, 70, 60, 115, 65
+        65, 70, 60, 115, 65, 65
     );
 
     /**
@@ -441,7 +441,7 @@ namespace Gen1Monsters
      */
     const Monster PSYDUCK(
         "Psyduck", "Water", 54, 5,
-        50, 52, 48, 55, 65
+        50, 52, 48, 55, 65, 65
     );
 
     /**
@@ -449,7 +449,7 @@ namespace Gen1Monsters
      */
     const Monster GOLDUCK(
         "Golduck", "Water", 55, 5,
-        80, 82, 78, 85, 95
+        80, 82, 78, 85, 95, 95
     );
 
     /**
@@ -457,7 +457,7 @@ namespace Gen1Monsters
      */
     const Monster MANKEY(
         "Mankey", "Fighting", 56, 5,
-        40, 80, 35, 70, 35
+        40, 80, 35, 70, 35, 35
     );
 
     /**
@@ -465,7 +465,7 @@ namespace Gen1Monsters
      */
     const Monster PRIMEAPE(
         "Primeape", "Fighting", 57, 5,
-        65, 105, 60, 95, 60
+        65, 105, 60, 95, 60, 60
     );
 
     /**
@@ -473,7 +473,7 @@ namespace Gen1Monsters
      */
     const Monster GROWLITHE(
         "Growlithe", "Fire", 58, 5,
-        55, 70, 45, 60, 70
+        55, 70, 45, 60, 70, 70
     );
 
     /**
@@ -481,7 +481,7 @@ namespace Gen1Monsters
      */
     const Monster ARCANINE(
         "Arcanine", "Fire", 59, 5,
-        90, 110, 80, 100, 80
+        90, 110, 80, 100, 80, 80
     );
 
     /**
@@ -489,7 +489,7 @@ namespace Gen1Monsters
      */
     const Monster POLIWAG(
         "Poliwag", "Water", 60, 5,
-        40, 50, 40, 90, 40
+        40, 50, 40, 90, 40, 40
     );
 
     /**
@@ -497,7 +497,7 @@ namespace Gen1Monsters
      */
     const Monster POLIWHIRL(
         "Poliwhirl", "Water", 61, 5,
-        65, 65, 65, 90, 50
+        65, 65, 65, 90, 50, 50
     );
 
     /**
@@ -505,7 +505,7 @@ namespace Gen1Monsters
      */
     const Monster POLIWRATH(
         "Poliwrath", "Water/Fighting", 62, 5,
-        90, 95, 95, 70, 70
+        90, 95, 95, 70, 70, 70
     );
 
     /**
@@ -513,7 +513,7 @@ namespace Gen1Monsters
      */
     const Monster ABRA(
         "Abra", "Psychic", 63, 5,
-        25, 20, 15, 90, 105
+        25, 20, 15, 90, 105, 105
     );
 
     /**
@@ -521,7 +521,7 @@ namespace Gen1Monsters
      */
     const Monster KADABRA(
         "Kadabra", "Psychic", 64, 5,
-        40, 35, 30, 105, 120
+        40, 35, 30, 105, 120, 120
     );
 
     /**
@@ -529,7 +529,7 @@ namespace Gen1Monsters
      */
     const Monster ALAKAZAM(
         "Alakazam", "Psychic", 65, 5,
-        55, 50, 45, 120, 135
+        55, 50, 45, 120, 135, 135
     );
 
     /**
@@ -537,7 +537,7 @@ namespace Gen1Monsters
      */
     const Monster MACHOP(
         "Machop", "Fighting", 66, 5,
-        70, 80, 50, 35, 35
+        70, 80, 50, 35, 35, 35
     );
 
     /**
@@ -545,7 +545,7 @@ namespace Gen1Monsters
      */
     const Monster MACHOKE(
         "Machoke", "Fighting", 67, 5,
-        80, 100, 70, 45, 50
+        80, 100, 70, 45, 50, 50
     );
 
     /**
@@ -553,7 +553,7 @@ namespace Gen1Monsters
      */
     const Monster MACHAMP(
         "Machamp", "Fighting", 68, 5,
-        80, 130, 65, 65, 65
+        80, 130, 65, 65, 65, 65
     );
 
     /**
@@ -561,7 +561,7 @@ namespace Gen1Monsters
      */
     const Monster BELLSPROUT(
         "Bellsprout", "Grass/Poison", 69, 5,
-        50, 75, 35, 40, 70
+        50, 75, 35, 40, 70, 70
     );
 
     /**
@@ -569,7 +569,7 @@ namespace Gen1Monsters
      */
     const Monster WEEPINBELL(
         "Weepinbell", "Grass/Poison", 70, 5,
-        65, 90, 50, 55, 85
+        65, 90, 50, 55, 85, 85
     );
 
     /**
@@ -577,7 +577,7 @@ namespace Gen1Monsters
      */
     const Monster VICTREEBEL(
         "Victreebel", "Grass/Poison", 71, 5,
-        80, 105, 65, 72, 100
+        80, 105, 65, 72, 100, 100
     );
 
     /**
@@ -585,7 +585,7 @@ namespace Gen1Monsters
      */
     const Monster TENTACOOL(
         "Tentacool", "Water/Poison", 72, 5,
-        40, 40, 35, 70, 100
+        40, 40, 35, 70, 100, 100
     );
 
     /**
@@ -593,7 +593,7 @@ namespace Gen1Monsters
      */
     const Monster TENTACRUEL(
         "Tentacruel", "Water/Poison", 73, 5,
-        80, 70, 65, 100, 120
+        80, 70, 65, 100, 120, 120
     );
 
     /**
@@ -601,7 +601,7 @@ namespace Gen1Monsters
      */
     const Monster GEODUDE(
         "Geodude", "Rock/Ground", 74, 5,
-        40, 80, 100, 20, 30
+        40, 80, 100, 20, 30, 30
     );
 
     /**
@@ -609,7 +609,7 @@ namespace Gen1Monsters
      */
     const Monster GRAVELER(
         "Graveler", "Rock/Ground", 75, 5,
-        55, 95, 115, 35, 45
+        55, 95, 115, 35, 45, 45
     );
 
     /**
@@ -617,7 +617,7 @@ namespace Gen1Monsters
      */
     const Monster GOLEM(
         "Golem", "Rock/Ground", 76, 5,
-        80, 120, 130, 45, 55
+        80, 120, 130, 45, 55, 55
     );
 
     /**
@@ -625,7 +625,7 @@ namespace Gen1Monsters
      */
     const Monster PONYTA(
         "Ponyta", "Fire", 77, 5,
-        50, 85, 55, 90, 65
+        50, 85, 55, 90, 65, 65
     );
 
     /**
@@ -633,7 +633,7 @@ namespace Gen1Monsters
      */
     const Monster RAPIDASH(
         "Rapidash", "Fire", 78, 5,
-        65, 100, 70, 105, 80
+        65, 100, 70, 105, 80, 80
     );
 
     /**
@@ -641,7 +641,7 @@ namespace Gen1Monsters
      */
     const Monster SLOWPOKE(
         "Slowpoke", "Water/Psychic", 79, 5,
-        90, 65, 65, 40, 40
+        90, 65, 65, 40, 40, 40
     );
 
     /**
@@ -649,7 +649,7 @@ namespace Gen1Monsters
      */
     const Monster SLOWBRO(
         "Slowbro", "Water/Psychic", 80, 5,
-        95, 75, 110, 30, 80
+        95, 75, 110, 30, 80, 80
     );
 
     /**
@@ -657,7 +657,7 @@ namespace Gen1Monsters
      */
     const Monster SEEL(
         "Seel", "Water", 81, 5,
-        65, 45, 55, 45, 70
+        65, 45, 55, 45, 70, 70
     );
 
     /**
@@ -665,7 +665,7 @@ namespace Gen1Monsters
      */
     const Monster DEWGONG(
         "Dewgong", "Water/Ice", 82, 5,
-        90, 70, 80, 70, 95
+        90, 70, 80, 70, 95, 95
     );
 
     /**
@@ -673,7 +673,7 @@ namespace Gen1Monsters
      */
     const Monster SHELLDER(
         "Shellder", "Water", 83, 5,
-        30, 65, 100, 40, 45
+        30, 65, 100, 40, 45, 45
     );
 
     /**
@@ -681,7 +681,7 @@ namespace Gen1Monsters
      */
     const Monster CLOYSTER(
         "Cloyster", "Water", 84, 5,
-        50, 95, 180, 70, 85
+        50, 95, 180, 70, 85, 85
     );
 
     /**
@@ -689,7 +689,7 @@ namespace Gen1Monsters
      */
     const Monster GASTLY(
         "Gastly", "Ghost/Poison", 85, 5,
-        30, 35, 30, 80, 100
+        30, 35, 30, 80, 100, 100
     );
 
     /**
@@ -697,7 +697,7 @@ namespace Gen1Monsters
      */
     const Monster HAUNTER(
         "Haunter", "Ghost/Poison", 86, 5,
-        45, 50, 45, 95, 115
+        45, 50, 45, 95, 115, 115
     );
 
     /**
@@ -705,7 +705,7 @@ namespace Gen1Monsters
      */
     const Monster GENGAR(
         "Gengar", "Ghost/Poison", 87, 5,
-        65, 65, 60, 130, 130
+        65, 65, 60, 130, 130, 130
     );
 
     /**
@@ -713,7 +713,7 @@ namespace Gen1Monsters
      */
     const Monster ONIX(
         "Onix", "Rock/Ground", 88, 5,
-        35, 45, 160, 30, 30
+        35, 45, 160, 30, 30, 30
     );
 
     /**
@@ -721,7 +721,7 @@ namespace Gen1Monsters
      */
     const Monster DROWZEE(
         "Drowzee", "Psychic", 89, 5,
-        60, 48, 45, 42, 43
+        60, 48, 45, 42, 43, 43
     );
 
     /**
@@ -729,7 +729,7 @@ namespace Gen1Monsters
      */
     const Monster HYPNO(
         "Hypno", "Psychic", 90, 5,
-        85, 73, 70, 67, 73
+        85, 73, 70, 67, 73, 73
     );
 
     /**
@@ -737,7 +737,7 @@ namespace Gen1Monsters
      */
     const Monster KRABBY(
         "Krabby", "Water", 91, 5,
-        30, 105, 90, 50, 25
+        30, 105, 90, 50, 25, 25
     );
 
     /**
@@ -745,7 +745,7 @@ namespace Gen1Monsters
      */
     const Monster KINGLER(
         "Kingler", "Water", 92, 5,
-        55, 130, 115, 75, 50
+        55, 130, 115, 75, 50, 50
     );
 
     /**
@@ -753,7 +753,7 @@ namespace Gen1Monsters
      */
     const Monster VOLTORB(
         "Voltorb", "Electric", 93, 5,
-        40, 30, 50, 100, 55
+        40, 30, 50, 100, 55, 55
     );
 
     /**
@@ -761,7 +761,7 @@ namespace Gen1Monsters
      */
     const Monster ELECTRODE(
         "Electrode", "Electric", 94, 5,
-        60, 50, 70, 140, 80
+        60, 50, 70, 140, 80, 80
     );
 
     /**
@@ -769,7 +769,7 @@ namespace Gen1Monsters
      */
     const Monster EXEGGCUTE(
         "Exeggcute", "Grass/Psychic", 95, 5,
-        60, 40, 80, 40, 60
+        60, 40, 80, 40, 60, 60
     );
 
     /**
@@ -777,7 +777,7 @@ namespace Gen1Monsters
      */
     const Monster EXEGGUTOR(
         "Exeggutor", "Grass/Psychic", 96, 5,
-        95, 95, 85, 55, 125
+        95, 95, 85, 55, 125, 125
     );
 
     /**
@@ -785,7 +785,7 @@ namespace Gen1Monsters
      */
     const Monster CUBONE(
         "Cubone", "Ground", 97, 5,
-        50, 75, 40, 35, 40
+        50, 75, 40, 35, 40, 40
     );
 
     /**
@@ -793,7 +793,7 @@ namespace Gen1Monsters
      */
     const Monster MAROWAK(
         "Marowak", "Ground", 98, 5,
-        60, 80, 100, 45, 50
+        60, 80, 100, 45, 50, 50
     );
 
     /**
@@ -801,7 +801,7 @@ namespace Gen1Monsters
      */
     const Monster HITMONLEE(
         "Hitmonlee", "Fighting", 99, 5,
-        50, 120, 53, 87, 35
+        50, 120, 53, 87, 35, 35
     );
 
     /**
@@ -809,7 +809,7 @@ namespace Gen1Monsters
      */
     const Monster HITMONCHAN(
         "Hitmonchan", "Fighting", 100, 5,
-        50, 105, 79, 76, 35
+        50, 105, 79, 76, 35, 35
     );
 
     /**
@@ -817,7 +817,7 @@ namespace Gen1Monsters
      */
     const Monster LICKITUNG(
         "Lickitung", "Normal", 101, 5,
-        90, 55, 75, 30, 60
+        90, 55, 75, 30, 60, 60
     );
 
     /**
@@ -825,7 +825,7 @@ namespace Gen1Monsters
      */
     const Monster KOFFING(
         "Koffing", "Poison", 102, 5,
-        40, 65, 95, 35, 60
+        40, 65, 95, 35, 60, 60
     );
 
     /**
@@ -833,7 +833,7 @@ namespace Gen1Monsters
      */
     const Monster WEEZING(
         "Weezing", "Poison", 103, 5,
-        65, 90, 120, 60, 85
+        65, 90, 120, 60, 85, 85
     );
 
     /**
@@ -841,7 +841,7 @@ namespace Gen1Monsters
      */
     const Monster RHYHORN(
         "Rhyhorn", "Ground/Rock", 104, 5,
-        80, 85, 95, 32, 30
+        80, 85, 95, 32, 30, 30
     );
 
     /**
@@ -849,7 +849,7 @@ namespace Gen1Monsters
      */
     const Monster RHYDON(
         "Rhydon", "Ground/Rock", 105, 5,
-        105, 130, 120, 40, 45
+        105, 130, 120, 40, 45, 45
     );
 
     /**
@@ -857,7 +857,7 @@ namespace Gen1Monsters
      */
     const Monster CHANSEY(
         "Chansey", "Normal", 106, 5,
-        250, 5, 5, 30, 35
+        250, 5, 5, 30, 35, 35
     );
 
     /**
@@ -865,7 +865,7 @@ namespace Gen1Monsters
      */
     const Monster TANGELA(
         "Tangela", "Grass", 107, 5,
-        65, 55, 115, 60, 100
+        65, 55, 115, 60, 100, 100
     );
 
     /**
@@ -873,7 +873,7 @@ namespace Gen1Monsters
      */
     const Monster KANGASKHAN(
         "Kangaskhan", "Normal", 108, 5,
-        105, 95, 80, 90, 40
+        105, 95, 80, 90, 40, 40
     );
 
     /**
@@ -881,7 +881,7 @@ namespace Gen1Monsters
      */
     const Monster HORSEA(
         "Horsea", "Water", 109, 5,
-        30, 40, 70, 60, 70
+        30, 40, 70, 60, 70, 70
     );
 
     /**
@@ -889,7 +889,7 @@ namespace Gen1Monsters
      */
     const Monster SEADRA(
         "Seadra", "Water", 110, 5,
-        55, 65, 95, 85, 95
+        55, 65, 95, 85, 95, 95
     );
 
     /**
@@ -897,7 +897,7 @@ namespace Gen1Monsters
      */
     const Monster GOLDEEN(
         "Goldeen", "Water", 111, 5,
-        45, 67, 60, 63, 50
+        45, 67, 60, 63, 50, 50
     );
 
     /**
@@ -905,7 +905,7 @@ namespace Gen1Monsters
      */
     const Monster SEAKING(
         "Seaking", "Water", 112, 5,
-        80, 92, 65, 68, 80
+        80, 92, 65, 68, 80, 80
     );
 
     /**
@@ -913,7 +913,7 @@ namespace Gen1Monsters
      */
     const Monster STARYU(
         "Staryu", "Water", 113, 5,
-        30, 45, 55, 85, 70
+        30, 45, 55, 85, 70, 70
     );
 
     /**
@@ -921,7 +921,7 @@ namespace Gen1Monsters
      */
     const Monster STARMIE(
         "Starmie", "Water/Psychic", 114, 5,
-        60, 75, 85, 115, 100
+        60, 75, 85, 115, 100, 100
     );
 
     /**
@@ -929,7 +929,7 @@ namespace Gen1Monsters
      */
     const Monster MR_MIME(
         "Mr. Mime", "Psychic", 115, 5,
-        40, 45, 65, 90, 100
+        40, 45, 65, 90, 100, 100
     );
 
     /**
@@ -937,7 +937,7 @@ namespace Gen1Monsters
      */
     const Monster SCYTHER(
         "Scyther", "Bug/Flying", 116, 5,
-        70, 110, 80, 105, 55
+        70, 110, 80, 105, 55, 55
     );
 
     /**
@@ -945,7 +945,7 @@ namespace Gen1Monsters
      */
     const Monster JYNX(
         "Jynx", "Ice/Psychic", 117, 5,
-        65, 50, 35, 95, 95
+        65, 50, 35, 95, 95, 95
     );
 
     /**
@@ -953,7 +953,7 @@ namespace Gen1Monsters
      */
     const Monster ELECTABUZZ(
         "Electabuzz", "Electric", 118, 5,
-        65, 83, 57, 105, 85
+        65, 83, 57, 105, 85, 85
     );
 
     /**
@@ -961,7 +961,7 @@ namespace Gen1Monsters
      */
     const Monster MAGBY(
         "Magby", "Fire", 119, 5,
-        65, 83, 57, 105, 85
+        65, 83, 57, 105, 85, 85
     );
 
     /**
@@ -969,7 +969,7 @@ namespace Gen1Monsters
      */
     const Monster MAGNEMITE(
         "Magnemite", "Electric/Steel", 120, 5,
-        25, 35, 70, 45, 95
+        25, 35, 70, 45, 95, 95
     );
 
     /**
@@ -977,7 +977,7 @@ namespace Gen1Monsters
      */
     const Monster MAGNETON(
         "Magneton", "Electric/Steel", 121, 5,
-        50, 60, 95, 70, 120
+        50, 60, 95, 70, 120, 120
     );
 
     /**
@@ -985,7 +985,7 @@ namespace Gen1Monsters
      */
     const Monster FARFETCH'D(
         "Farfetch'd", "Normal/Flying", 122, 5,
-        52, 90, 55, 58, 58
+        52, 90, 55, 58, 58, 58
     );
 
     /**
@@ -993,7 +993,7 @@ namespace Gen1Monsters
      */
     const Monster DODUO(
         "Doduo", "Normal/Flying", 123, 5,
-        35, 85, 45, 75, 35
+        35, 85, 45, 75, 35, 35
     );
 
     /**
@@ -1001,7 +1001,7 @@ namespace Gen1Monsters
      */
     const Monster DODRIO(
         "Dodrio", "Normal/Flying", 124, 5,
-        60, 110, 70, 100, 60
+        60, 110, 70, 100, 60, 60
     );
 
     /**
@@ -1009,7 +1009,7 @@ namespace Gen1Monsters
      */
     const Monster SEEL(
         "Seel", "Water", 125, 5,
-        65, 45, 55, 45, 70
+        65, 45, 55, 45, 70, 70
     );
 
     /**
@@ -1017,7 +1017,7 @@ namespace Gen1Monsters
      */
     const Monster DEWGONG(
         "Dewgong", "Water/Ice", 126, 5,
-        90, 70, 80, 70, 95
+        90, 70, 80, 70, 95, 95
     );
 
     /**
@@ -1025,7 +1025,7 @@ namespace Gen1Monsters
      */
     const Monster SHELLDER(
         "Shellder", "Water", 127, 5,
-        30, 65, 100, 40, 45
+        30, 65, 100, 40, 45, 45
     );
 
     /**
@@ -1033,7 +1033,7 @@ namespace Gen1Monsters
      */
     const Monster CLOYSTER(
         "Cloyster", "Water", 128, 5,
-        50, 95, 180, 70, 85
+        50, 95, 180, 70, 85, 85
     );
 
     /**
@@ -1041,7 +1041,7 @@ namespace Gen1Monsters
      */
     const Monster KRABBY(
         "Krabby", "Water", 129, 5,
-        30, 105, 90, 50, 25
+        30, 105, 90, 50, 25, 25
     );
 
     /**
@@ -1049,7 +1049,7 @@ namespace Gen1Monsters
      */
     const Monster KINGLER(
         "Kingler", "Water", 130, 5,
-        55, 130, 115, 75, 50
+        55, 130, 115, 75, 50, 50
     );
 
     /**
@@ -1057,7 +1057,7 @@ namespace Gen1Monsters
      */
     const Monster HORSEA(
         "Horsea", "Water", 131, 5,
-        30, 40, 70, 60, 70
+        30, 40, 70, 60, 70, 70
     );
 
     /**
@@ -1065,7 +1065,7 @@ namespace Gen1Monsters
      */
     const Monster SEADRA(
         "Seadra", "Water", 132, 5,
-        55, 65, 95, 85, 95
+        55, 65, 95, 85, 95, 95
     );
 
     /**
@@ -1073,7 +1073,7 @@ namespace Gen1Monsters
      */
     const Monster GOLDEEN(
         "Goldeen", "Water", 133, 5,
-        45, 67, 60, 63, 50
+        45, 67, 60, 63, 50, 50
     );
 
     /**
@@ -1081,7 +1081,7 @@ namespace Gen1Monsters
      */
     const Monster SEAKING(
         "Seaking", "Water", 134, 5,
-        80, 92, 65, 68, 80
+        80, 92, 65, 68, 80, 80
     );
 
     /**
@@ -1089,7 +1089,7 @@ namespace Gen1Monsters
      */
     const Monster STARYU(
         "Staryu", "Water", 135, 5,
-        30, 45, 55, 85, 70
+        30, 45, 55, 85, 70, 70
     );
 
     /**
@@ -1097,7 +1097,7 @@ namespace Gen1Monsters
      */
     const Monster STARMIE(
         "Starmie", "Water/Psychic", 136, 5,
-        60, 75, 85, 115, 100
+        60, 75, 85, 115, 100, 100
     );
 
     /**
@@ -1105,7 +1105,7 @@ namespace Gen1Monsters
      */
     const Monster MAGIKARP(
         "Magikarp", "Water", 137, 5,
-        20, 10, 55, 80, 20
+        20, 10, 55, 80, 20, 20
     );
 
     /**
@@ -1113,7 +1113,7 @@ namespace Gen1Monsters
      */
     const Monster GYARADOS(
         "Gyarados", "Water/Flying", 138, 5,
-        95, 125, 79, 81, 100
+        95, 125, 79, 81, 100, 100
     );
 
     /**
@@ -1121,7 +1121,7 @@ namespace Gen1Monsters
      */
     const Monster LAPRAS(
         "Lapras", "Water/Ice", 139, 5,
-        130, 85, 80, 60, 95
+        130, 85, 80, 60, 95, 95
     );
 
     /**
@@ -1129,7 +1129,7 @@ namespace Gen1Monsters
      */
     const Monster DITTO(
         "Ditto", "Normal", 140, 5,
-        48, 48, 48, 48, 48
+        48, 48, 48, 48, 48, 48
     );
 
     /**
@@ -1137,7 +1137,7 @@ namespace Gen1Monsters
      */
     const Monster EEVEE(
         "Eevee", "Normal", 141, 5,
-        55, 55, 50, 55, 65
+        55, 55, 50, 55, 65, 65
     );
 
     /**
@@ -1145,7 +1145,7 @@ namespace Gen1Monsters
      */
     const Monster VAPOREON(
         "Vaporeon", "Water", 142, 5,
-        130, 65, 60, 65, 110
+        130, 65, 60, 65, 110, 110
     );
 
     /**
@@ -1153,7 +1153,7 @@ namespace Gen1Monsters
      */
     const Monster JOLTEON(
         "Jolteon", "Electric", 143, 5,
-        65, 65, 60, 130, 110
+        65, 65, 60, 130, 110, 110
     );
 
     /**
@@ -1161,7 +1161,7 @@ namespace Gen1Monsters
      */
     const Monster FLAREON(
         "Flareon", "Fire", 144, 5,
-        65, 130, 60, 65, 110
+        65, 130, 60, 65, 110, 110
     );
 
     /**
@@ -1169,7 +1169,7 @@ namespace Gen1Monsters
      */
     const Monster PORYGON(
         "Porygon", "Normal", 145, 5,
-        65, 60, 70, 40, 75
+        65, 60, 70, 40, 75, 75
     );
 
     /**
@@ -1177,7 +1177,7 @@ namespace Gen1Monsters
      */
     const Monster OMANYTE(
         "Omanyte", "Rock/Water", 146, 5,
-        35, 40, 100, 35, 90
+        35, 40, 100, 35, 90, 90
     );
 
     /**
@@ -1185,7 +1185,7 @@ namespace Gen1Monsters
      */
     const Monster OMASTAR(
         "Omastar", "Rock/Water", 147, 5,
-        70, 60, 125, 55, 115
+        70, 60, 125, 55, 115, 115
     );
 
     /**
@@ -1193,7 +1193,7 @@ namespace Gen1Monsters
      */
     const Monster KABUTO(
         "Kabuto", "Rock/Water", 148, 5,
-        30, 80, 90, 55, 45
+        30, 80, 90, 55, 45, 45
     );
 
     /**
@@ -1201,7 +1201,7 @@ namespace Gen1Monsters
      */
     const Monster KABUTOPS(
         "Kabutops", "Rock/Water", 149, 5,
-        60, 115, 105, 80, 70
+        60, 115, 105, 80, 70, 70
     );
 
     /**
@@ -1209,7 +1209,7 @@ namespace Gen1Monsters
      */
     const Monster AERODACTYL(
         "Aerodactyl", "Rock/Flying", 150, 5,
-        80, 105, 65, 130, 60
+        80, 105, 65, 130, 60, 60
     );
 
     /**
@@ -1217,7 +1217,7 @@ namespace Gen1Monsters
      */
     const Monster SNORLAX(
         "Snorlax", "Normal", 151, 5,
-        150, 110, 65, 30, 65
+        150, 110, 65, 30, 65, 65
     );
 
     /**
@@ -1225,7 +1225,7 @@ namespace Gen1Monsters
      */
     const Monster ARTICUNO(
         "Articuno", "Ice/Flying", 152, 5,
-        90, 85, 100, 85, 95
+        90, 85, 100, 85, 95, 95
     );
 
     /**
@@ -1233,7 +1233,7 @@ namespace Gen1Monsters
      */
     const Monster ZAPDOS(
         "Zapdos", "Electric/Flying", 153, 5,
-        90, 90, 85, 100, 125
+        90, 90, 85, 100, 125, 125
     );
 
     /**
@@ -1241,7 +1241,7 @@ namespace Gen1Monsters
      */
     const Monster MOLTRES(
         "Moltres", "Fire/Flying", 154, 5,
-        90, 100, 90, 90, 125
+        90, 100, 90, 90, 125, 125
     );
 
     /**
@@ -1249,7 +1249,7 @@ namespace Gen1Monsters
      */
     const Monster DRATINI(
         "Dratini", "Dragon", 155, 5,
-        41, 64, 45, 50, 50
+        41, 64, 45, 50, 50, 50
     );
 
     /**
@@ -1257,7 +1257,7 @@ namespace Gen1Monsters
      */
     const Monster DRAGONAIR(
         "Dragonair", "Dragon", 156, 5,
-        61, 84, 65, 70, 70
+        61, 84, 65, 70, 70, 70
     );
 
     /**
@@ -1265,7 +1265,7 @@ namespace Gen1Monsters
      */
     const Monster DRAGONITE(
         "Dragonite", "Dragon/Flying", 157, 5,
-        91, 134, 95, 80, 100
+        91, 134, 95, 80, 100, 100
     );
 
     /**
@@ -1273,7 +1273,7 @@ namespace Gen1Monsters
      */
     const Monster MEWTWO(
         "Mewtwo", "Psychic", 158, 5,
-        106, 110, 90, 130, 154
+        106, 110, 90, 130, 154, 154
     );
 
     /**
@@ -1281,7 +1281,7 @@ namespace Gen1Monsters
      */
     const Monster MEW(
         "Mew", "Psychic", 159, 5,
-        100, 100, 100, 100, 100
+        100, 100, 100, 100, 100, 100
     );
 
 }

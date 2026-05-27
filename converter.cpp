@@ -23,7 +23,7 @@ struct Pokemon
     int id;
     std::string name;
     std::string type;
-    int hp, atk, def, spd, spc;
+    int hp, atk, def, spd, spAtk, spDef;
     bool starter;
 };
 
@@ -99,7 +99,7 @@ std::map<int, Pokemon> parsePokemon(const std::string &file)
             continue;
 
         auto parts = split(line);
-        if (parts.size() < 9)
+        if (parts.size() < 10)
             continue;
 
         Pokemon p;
@@ -110,8 +110,9 @@ std::map<int, Pokemon> parsePokemon(const std::string &file)
         p.atk = std::stoi(parts[4]);
         p.def = std::stoi(parts[5]);
         p.spd = std::stoi(parts[6]);
-        p.spc = std::stoi(parts[7]);
-        p.starter = (parts[8] == "yes");
+        p.spAtk = std::stoi(parts[7]);
+        p.spDef = std::stoi(parts[8]);
+        p.starter = (parts[9] == "yes");
 
         result[p.id] = p;
     }
@@ -210,7 +211,7 @@ void generateMonstersHeader(const std::map<int, Pokemon> &pokemons,
         f << "     */\n";
         f << "    const Monster " << safeName << "(\n";
         f << "        \"" << p.name << "\", \"" << p.type << "\", " << p.id << ", 5,\n";
-        f << "        " << p.hp << ", " << p.atk << ", " << p.def << ", " << p.spd << ", " << p.spc << "\n";
+        f << "        " << p.hp << ", " << p.atk << ", " << p.def << ", " << p.spd << ", " << p.spAtk << ", " << p.spDef << "\n";
         f << "    );\n\n";
     }
 

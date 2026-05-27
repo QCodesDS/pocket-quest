@@ -16,14 +16,17 @@ void BattleSystem::initializeWildBattle(Player &player, Monster wildMon)
     // Lọc Pokemon còn sống vào playerParty, fainted vào faintedPlayerMons
     playerParty.clear();
     faintedPlayerMons.clear();
-    
+
     Queue<Monster> temp = player.party;
     while (!temp.empty())
     {
         Monster m = temp.dequeue();
-        if (m.hp > 0) {
+        if (m.hp > 0)
+        {
             playerParty.enqueue(m);
-        } else {
+        }
+        else
+        {
             faintedPlayerMons.enqueue(m);
         }
     }
@@ -50,18 +53,21 @@ void BattleSystem::initializeTrainerBattle(Player &player, Trainer &trainer)
     // Lọc Pokemon còn sống vào playerParty, fainted vào faintedPlayerMons
     playerParty.clear();
     faintedPlayerMons.clear();
-    
+
     Queue<Monster> temp = player.party;
     while (!temp.empty())
     {
         Monster m = temp.dequeue();
-        if (m.hp > 0) {
+        if (m.hp > 0)
+        {
             playerParty.enqueue(m);
-        } else {
+        }
+        else
+        {
             faintedPlayerMons.enqueue(m);
         }
     }
-    
+
     // GRADER: Dùng Queue<Monster> từ lib/ để quản lý party của trainer
     enemyParty = trainer.party;
 
@@ -138,21 +144,30 @@ void BattleSystem::applyBadgeBoosts(int badgeCount)
         if (badgeCount >= 3)
             m.spd = m.spd * 9 / 8;
 
-        // Badge 4 — Rainbow Badge: +Spc (Erika)
+        // Badge 4 — Rainbow Badge: +SpA/SpD (Erika)
         if (badgeCount >= 4)
-            m.spc = m.spc * 9 / 8;
+        {
+            m.spAtk = m.spAtk * 9 / 8;
+            m.spDef = m.spDef * 9 / 8;
+        }
 
         // Badge 5 — Soul Badge: +Def (Koga) — stacks with Cascade
         if (badgeCount >= 5)
             m.def = m.def * 9 / 8;
 
-        // Badge 6 — Marsh Badge: +Spc (Sabrina) — stacks with Rainbow
+        // Badge 6 — Marsh Badge: +SpA/SpD (Sabrina) — stacks with Rainbow
         if (badgeCount >= 6)
-            m.spc = m.spc * 9 / 8;
+        {
+            m.spAtk = m.spAtk * 9 / 8;
+            m.spDef = m.spDef * 9 / 8;
+        }
 
-        // Badge 7 — Volcano Badge: +Spc (Blaine) — stacks
+        // Badge 7 — Volcano Badge: +SpA/SpD (Blaine) — stacks
         if (badgeCount >= 7)
-            m.spc = m.spc * 9 / 8;
+        {
+            m.spAtk = m.spAtk * 9 / 8;
+            m.spDef = m.spDef * 9 / 8;
+        }
 
         // Badge 8 — Earth Badge: +Atk (Giovanni) — stacks with Boulder
         if (badgeCount >= 8)
@@ -226,10 +241,14 @@ bool BattleSystem::playerAttack(int moveIdx, [[maybe_unused]] Player &player)
     std::string logMsg = playerMon.name + " used " + move.name + "! " + std::to_string(damage) + " dmg";
     addLog(logMsg);
 
-    if (move.power > 0) {
-        if (effectiveness > 1.5f) addLog("It's super effective!");
-        else if (effectiveness < 0.9f && effectiveness > 0.0f) addLog("It's not very effective...");
-        else if (effectiveness == 0.0f) addLog("It has no effect on " + enemyMon.name + "!");
+    if (move.power > 0)
+    {
+        if (effectiveness > 1.5f)
+            addLog("It's super effective!");
+        else if (effectiveness < 0.9f && effectiveness > 0.0f)
+            addLog("It's not very effective...");
+        else if (effectiveness == 0.0f)
+            addLog("It has no effect on " + enemyMon.name + "!");
     }
 
     // Kiểm tra enemy faint
@@ -240,7 +259,8 @@ bool BattleSystem::playerAttack(int moveIdx, [[maybe_unused]] Player &player)
         // Cấp EXP cho playerMon
         int expYield = enemyMon.level * 10;
         addLog(playerMon.name + " gained " + std::to_string(expYield) + " EXP!");
-        if (playerMon.gainExp(expYield)) {
+        if (playerMon.gainExp(expYield))
+        {
             addLog(playerMon.name + " grew to Lv." + std::to_string(playerMon.level) + "!");
         }
     }
@@ -284,11 +304,15 @@ void BattleSystem::enemyAttack()
     // Thêm log
     std::string logMsg = "Enemy " + enemyMon.name + " used " + move.name + "! " + std::to_string(damage) + " dmg";
     addLog(logMsg);
-    
-    if (move.power > 0) {
-        if (effectiveness > 1.5f) addLog("It's super effective!");
-        else if (effectiveness < 0.9f && effectiveness > 0.0f) addLog("It's not very effective...");
-        else if (effectiveness == 0.0f) addLog("It has no effect on " + playerMon.name + "!");
+
+    if (move.power > 0)
+    {
+        if (effectiveness > 1.5f)
+            addLog("It's super effective!");
+        else if (effectiveness < 0.9f && effectiveness > 0.0f)
+            addLog("It's not very effective...");
+        else if (effectiveness == 0.0f)
+            addLog("It has no effect on " + playerMon.name + "!");
     }
 
     // Kiểm tra player faint
@@ -437,38 +461,41 @@ BattleResult BattleSystem::runBattle(Player &player)
         if (playerParty.empty())
         {
             // Restore fainted Pokemon
-            while (!faintedPlayerMons.empty()) {
+            while (!faintedPlayerMons.empty())
+            {
                 playerParty.enqueue(faintedPlayerMons.dequeue());
             }
-            
+
             // Tự động hồi máu party nếu thua trận để tránh softlock
             int s = playerParty.size();
-            for(int i=0; i<s; i++) {
+            for (int i = 0; i < s; i++)
+            {
                 Monster m = playerParty.dequeue();
                 m.hp = m.maxHp;
                 playerParty.enqueue(m);
             }
-            
+
             std::cout << "\n[BATTLE END] You have no more Pokemon left...\n";
             std::cout << "Press Enter to return to overworld...";
             std::string dummy;
             std::getline(std::cin, dummy);
-            
+
             return BattleResult::LOSS;
         }
-        
+
         if (enemyParty.empty())
         {
             // Trả lại fainted Pokemon vào đội hình (vẫn ở trạng thái 0 HP)
-            while (!faintedPlayerMons.empty()) {
+            while (!faintedPlayerMons.empty())
+            {
                 playerParty.enqueue(faintedPlayerMons.dequeue());
             }
-            
+
             std::cout << "\n[BATTLE END] You won the battle!\n";
             std::cout << "Press Enter to return to overworld...";
             std::string dummy;
             std::getline(std::cin, dummy);
-            
+
             return BattleResult::WIN;
         }
 
@@ -476,25 +503,29 @@ BattleResult BattleSystem::runBattle(Player &player)
         BattleUI::renderBattleScreen(*this);
 
         // Xử lý Pokémon fainted (hiển thị xong rồi mới dequeue)
-        if (playerParty.front().hp <= 0) {
+        if (playerParty.front().hp <= 0)
+        {
             std::cout << "\nPress Enter to continue...";
             std::string dummy;
             std::getline(std::cin, dummy);
-            
+
             faintedPlayerMons.enqueue(playerParty.dequeue());
-            if (!playerParty.empty()) {
+            if (!playerParty.empty())
+            {
                 addLog("Go! " + playerParty.front().name + "!");
             }
             continue; // Quay lại đầu loop để render mon mới
         }
 
-        if (enemyParty.front().hp <= 0) {
+        if (enemyParty.front().hp <= 0)
+        {
             std::cout << "\nPress Enter to continue...";
             std::string dummy;
             std::getline(std::cin, dummy);
-            
+
             enemyParty.dequeue();
-            if (!enemyParty.empty()) {
+            if (!enemyParty.empty())
+            {
                 addLog("Enemy sent out " + enemyParty.front().name + "!");
             }
             continue; // Quay lại đầu loop để render mon mới
@@ -546,11 +577,14 @@ BattleResult BattleSystem::runBattle(Player &player)
                 {
                     float eff = TypeSystem::getMultiplier(playerMon.moves[i].type, enemyMon.type);
                     std::string indicator = "";
-                    if (eff > 1.5f) indicator = " (UP)";
-                    else if (eff < 0.9f && eff > 0.0f) indicator = " (DOWN)";
-                    else if (eff == 0.0f) indicator = " (x)";
+                    if (eff > 1.5f)
+                        indicator = " (UP)";
+                    else if (eff < 0.9f && eff > 0.0f)
+                        indicator = " (DOWN)";
+                    else if (eff == 0.0f)
+                        indicator = " (x)";
 
-                    std::cout << "  [" << (i + 1) << "] " << playerMon.moves[i].name 
+                    std::cout << "  [" << (i + 1) << "] " << playerMon.moves[i].name
                               << " " << BattleUI::formatDualTypeDisp(playerMon.moves[i].type)
                               << " (Pwr: " << playerMon.moves[i].power << ")"
                               << indicator << "\n";
@@ -649,11 +683,11 @@ BattleResult BattleSystem::runBattle(Player &player)
             break;
         }
         }
-
     }
 
     // Default fallback
-    while (!faintedPlayerMons.empty()) {
+    while (!faintedPlayerMons.empty())
+    {
         playerParty.enqueue(faintedPlayerMons.dequeue());
     }
     return BattleResult::LOSS;

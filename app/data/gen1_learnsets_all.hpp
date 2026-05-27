@@ -194,14 +194,6 @@ namespace Gen1Learnsets
     };
 
     /**
-     * @brief Onix learnset (Dex #95)
-     */
-    struct ONIX_Learnset {
-        static const Move MOVES[];
-        static constexpr int SIZE = 5;
-    };
-
-    /**
      * @brief Staryu learnset (Dex #113)
      */
     struct STARYU_Learnset {
@@ -211,22 +203,6 @@ namespace Gen1Learnsets
 
     /**
      * @brief Starmie learnset (Dex #114)
-     */
-    struct STARMIE_Learnset {
-        static const Move MOVES[];
-        static constexpr int SIZE = 6;
-    };
-
-    /**
-     * @brief Staryu learnset (Dex #120)
-     */
-    struct STARYU_Learnset {
-        static const Move MOVES[];
-        static constexpr int SIZE = 6;
-    };
-
-    /**
-     * @brief Starmie learnset (Dex #121)
      */
     struct STARMIE_Learnset {
         static const Move MOVES[];
@@ -527,32 +503,6 @@ namespace Gen1Learnsets
         Move("Rock Throw", "Rock", 50, 15),  // Lv8
         Move("Bind", "Normal", 15, 20),  // Lv15
         Move("Rock Slide", "Normal", 0, 20),  // Lv22 (NOT FOUND)
-    };
-
-    const Move ONIX_Learnset::MOVES[] = {
-        Move("Tackle", "Normal", 40, 35),  // Lv1
-        Move("Screech", "Normal", 0, 40),  // Lv1
-        Move("Rock Throw", "Rock", 50, 15),  // Lv8
-        Move("Bind", "Normal", 15, 20),  // Lv15
-        Move("Rock Slide", "Normal", 0, 20),  // Lv22 (NOT FOUND)
-    };
-
-    const Move STARYU_Learnset::MOVES[] = {
-        Move("Tackle", "Normal", 40, 35),  // Lv1
-        Move("Protect", "Normal", 0, 20),  // Lv1 (NOT FOUND)
-        Move("Water Gun", "Water", 40, 25),  // Lv8
-        Move("Quick Attack", "Normal", 40, 30),  // Lv15
-        Move("Bubblebeam", "Normal", 0, 20),  // Lv22 (NOT FOUND)
-        Move("Recover", "Normal", 0, 20),  // Lv30
-    };
-
-    const Move STARMIE_Learnset::MOVES[] = {
-        Move("Tackle", "Normal", 40, 35),  // Lv1
-        Move("Protect", "Normal", 0, 20),  // Lv1 (NOT FOUND)
-        Move("Water Gun", "Water", 40, 25),  // Lv8
-        Move("Quick Attack", "Normal", 40, 30),  // Lv15
-        Move("Bubblebeam", "Normal", 0, 20),  // Lv22 (NOT FOUND)
-        Move("Recover", "Normal", 0, 20),  // Lv30
     };
 
     const Move STARYU_Learnset::MOVES[] = {

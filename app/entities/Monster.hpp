@@ -21,7 +21,8 @@ struct Monster
     int atk;          ///< Điểm công (Attack)
     int def;          ///< Điểm thủ (Defense)
     int spd;          ///< Tốc độ (Speed)
-    int spc;          ///< Chỉ số đặc biệt (Special — Gen 1: dùng cho cả Sp.Atk và Sp.Def)
+    int spAtk;        ///< Chỉ số công đặc biệt (Special Attack)
+    int spDef;        ///< Chỉ số thủ đặc biệt (Special Defense)
     int exp;          ///< EXP hiện tại
     int nextLevelExp; ///< EXP cần để lên cấp tiếp theo
     Move moves[4];    ///< Array 4 moves của monster (cần dùng trong BattleSystem)
@@ -41,9 +42,11 @@ struct Monster
      * @param a Attack
      * @param d Defense
      * @param s Speed
+     * @param spAtk_ Special Attack
+     * @param spDef_ Special Defense
      */
     Monster(const std::string &n, const std::string &t, int i, int lvl,
-            int hp_, int a, int d, int s, int sp = -1);
+            int hp_, int a, int d, int s, int spAtk_, int spDef_);
 
     /**
      * @brief Thêm EXP cho Pokémon
@@ -56,6 +59,18 @@ struct Monster
      * @brief Thực hiện việc tăng level và chỉ số
      */
     void levelUp();
+
+    /**
+     * @brief Kiểm tra và học chiêu thức mới khi đạt level nhất định
+     * @param newLevel Level hiện tại của monster
+     */
+    void learnMovesAtLevel(int newLevel);
+
+    /**
+     * @brief Thêm move mới vào bộ 4 chiêu thức (thay move cũ nếu cần)
+     * @param newMove Move cần thêm
+     */
+    void addMove(const Move &newMove);
 };
 
 #endif // MONSTER_HPP

@@ -18,10 +18,24 @@ namespace Gen1Monsters
     // ===== HELPER: Create monster with moves =====
     inline Monster createMonster(const std::string &name, const std::string &type, int id,
                                  int level, int hp, int atk, int def, int spd,
-                                 const Move &m1, const Move &m2, const Move &m3 = Move(),
-                                 const Move &m4 = Move())
+                                 const Move &m1 = Move(), const Move &m2 = Move(),
+                                 const Move &m3 = Move(), const Move &m4 = Move())
     {
-        Monster m(name, type, id, level, hp, atk, def, spd);
+        Monster m(name, type, id, level, hp, atk, def, spd, spd, spd);
+        m.moves[0] = m1;
+        m.moves[1] = m2;
+        m.moves[2] = m3;
+        m.moves[3] = m4;
+        return m;
+    }
+
+    inline Monster createMonster(const std::string &name, const std::string &type, int id,
+                                 int level, int hp, int atk, int def, int spd,
+                                 int spAtk, int spDef,
+                                 const Move &m1 = Move(), const Move &m2 = Move(),
+                                 const Move &m3 = Move(), const Move &m4 = Move())
+    {
+        Monster m(name, type, id, level, hp, atk, def, spd, spAtk, spDef);
         m.moves[0] = m1;
         m.moves[1] = m2;
         m.moves[2] = m3;
