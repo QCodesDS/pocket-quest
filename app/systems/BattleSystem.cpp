@@ -16,6 +16,7 @@ void BattleSystem::initializeWildBattle(Player &player, Monster wildMon)
     // Lọc Pokemon còn sống vào playerParty, fainted vào faintedPlayerMons
     playerParty.clear();
     faintedPlayerMons.clear();
+    battleLog.clear(); // ← CLEAR battle log từ trận trước
 
     Queue<Monster> temp = player.party;
     while (!temp.empty())
@@ -43,7 +44,7 @@ void BattleSystem::initializeWildBattle(Player &player, Monster wildMon)
     // Áp dụng badge boosts lên party trước battle
     applyBadgeBoosts(player.badges);
 
-    // Khởi tạo log trống
+    // Khởi tạo log với message bắt đầu
     std::string startMsg = "Wild " + wildMon.name + " appeared!";
     addLog(startMsg);
 }
@@ -53,6 +54,7 @@ void BattleSystem::initializeTrainerBattle(Player &player, Trainer &trainer)
     // Lọc Pokemon còn sống vào playerParty, fainted vào faintedPlayerMons
     playerParty.clear();
     faintedPlayerMons.clear();
+    battleLog.clear(); // ← CLEAR battle log từ trận trước
 
     Queue<Monster> temp = player.party;
     while (!temp.empty())
@@ -348,7 +350,8 @@ bool BattleSystem::switchMon()
     // Kiểm tra xem có mon khác trong party không
     if (playerParty.size() <= 1)
     {
-        addLog("No other monsters available!");
+        // Error: không thêm vào log, chỉ trả về false
+        // UI sẽ xử lý notification
         return false;
     }
 
@@ -358,7 +361,7 @@ bool BattleSystem::switchMon()
     // Enqueue nó vào back
     playerParty.enqueue(currentMon);
 
-    // Log switch
+    // Log switch thành công
     std::string switchMsg = playerParty.front().name + " was sent out!";
     addLog(switchMsg);
 
@@ -609,14 +612,14 @@ BattleResult BattleSystem::runBattle(Player &player)
 
             if (moveInput.length() != 1)
             {
-                addLog("Invalid move selection!");
+                // Invalid input - UI will reprompt, don't add to log
                 continue;
             }
 
             int moveIdx = moveInput[0] - '1';
             if (moveIdx < 0 || moveIdx > 3)
             {
-                addLog("Invalid move selection!");
+                // Invalid selection - UI will reprompt, don't add to log
                 continue;
             }
 
@@ -644,8 +647,8 @@ BattleResult BattleSystem::runBattle(Player &player)
             // Switch
             if (!switchMon())
             {
-                // Switch failed, don't let enemy attack
-                addLog("Switch failed!");
+                // Switch failed - UI will handle notification
+                // Don't add error to log, just skip enemy attack
                 break;
             }
             // Switch succeeded, now enemy attacks (if still alive)
@@ -661,7 +664,7 @@ BattleResult BattleSystem::runBattle(Player &player)
             // Run
             if (!canRun())
             {
-                addLog("Can't escape from trainer battles!");
+                // Can't run from trainer battles - UI will handle notification
                 break;
             }
 

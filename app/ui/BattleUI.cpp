@@ -3,6 +3,7 @@
 #include "../lib/Algorithms.hpp"
 #include <iostream>
 #include <cstring>
+#include <vector>
 
 namespace BattleUI
 {
@@ -279,6 +280,75 @@ namespace BattleUI
         std::cout << "╠════════════════════════════════════╣\n";
         std::cout << "║  [0] Cancel                        ║\n";
         std::cout << "╚════════════════════════════════════╝\n";
+    }
+
+    int displaySwitchMenu(Queue<Monster> &playerParty)
+    {
+        // Copy party to temp vector for display (without modifying original Queue)
+        std::vector<Monster> partyList;
+        Queue<Monster> tempQueue = playerParty;
+        while (!tempQueue.empty())
+        {
+            partyList.push_back(tempQueue.dequeue());
+        }
+
+        // Display header
+        std::cout << "\n╔════════════════════════════════════════╗\n";
+        std::cout << "║  SWITCH POKÉMON                        ║\n";
+        std::cout << "╠════════════════════════════════════════╣\n";
+
+        for (int i = 0; i < (int)partyList.size(); i++)
+        {
+            std::string line = "[" + std::to_string(i + 1) + "] " + partyList[i].name +
+                               " Lv" + std::to_string(partyList[i].level) +
+                               " HP:" + std::to_string(partyList[i].hp) + "/" +
+                               std::to_string(partyList[i].maxHp);
+            if (i == 0) // First in queue is active
+                line += " (ACTIVE)";
+
+            std::cout << "║  " << line;
+            int padding = 35 - (int)line.length();
+            for (int j = 0; j < padding && j < 35; j++)
+                std::cout << " ";
+            std::cout << "║\n";
+        }
+
+        std::cout << "╠════════════════════════════════════════╣\n";
+        std::cout << "║  [0] Cancel                            ║\n";
+        std::cout << "╚════════════════════════════════════════╝\n";
+
+        // Get user input
+        std::cout << "\nChoose Pokémon to switch (0-" << partyList.size() << "): ";
+        std::string input;
+        std::getline(std::cin, input);
+
+        // Trim whitespace
+        size_t first = input.find_first_not_of(" \t\n\r");
+        if (first != std::string::npos)
+        {
+            size_t last = input.find_last_not_of(" \t\n\r");
+            input = input.substr(first, (last - first + 1));
+        }
+
+        // Parse input
+        if (input.length() != 1)
+            return -1;
+
+        int choice = input[0] - '1';
+
+        // Cancel
+        if (input[0] == '0')
+            return -1;
+
+        // Check valid range
+        if (choice < 0 || choice >= (int)partyList.size())
+            return -1;
+
+        // Can't switch to active Pokémon
+        if (choice == 0)
+            return -1;
+
+        return choice;
     }
 
 } // namespace BattleUI

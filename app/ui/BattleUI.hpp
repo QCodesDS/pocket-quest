@@ -25,7 +25,7 @@ namespace BattleUI
      * @param battle Tham chiếu BattleSystem (để lấy party, log)
      */
     void renderBattleScreen(BattleSystem &battle);
-    std::string formatDualTypeDisp(const std::string& type);
+    std::string formatDualTypeDisp(const std::string &type);
 
     /**
      * @brief Hiển thị danh sách 5 dòng log gần nhất từ Stack.
@@ -42,6 +42,14 @@ namespace BattleUI
      * @param count Số lượng item entries trong mảng
      */
     void displayBagMenu(InventorySystem &inventory, ItemEntry items[], int &count);
+
+    /**
+     * @brief Hiển thị menu chọn pokemon để switch.
+     *        GRADER: Dùng Queue<Monster> từ lib/ để lấy danh sách party.
+     * @param playerParty Tham chiếu Queue<Monster> của player
+     * @return Index của pokemon được chọn (0-based), hoặc -1 nếu cancel
+     */
+    int displaySwitchMenu(Queue<Monster> &playerParty);
 }
 
 #endif // BATTLEUI_HPP
